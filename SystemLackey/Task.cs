@@ -30,7 +30,7 @@ namespace SystemLackey.Tasks
     }
 
     class CmdTask : ITask
-    {
+    { 
         public Int16 Run()
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
