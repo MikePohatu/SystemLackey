@@ -13,7 +13,15 @@ namespace SystemLackey.Tasks
 
     }
 
-    class Ps1Task : ITask
+    public abstract class ScriptTask
+    {
+        public abstract string strScriptFile;
+        public  bool bolWow64 = false;
+        public abstract string strWinDir;
+        public string strCode;
+    }
+
+    class Ps1Task : ScriptTask,ITask
     {
         public Int16 Run()
         {
@@ -21,7 +29,7 @@ namespace SystemLackey.Tasks
         }
     }
 
-    class VbTask : ITask
+    class VbTask : ScriptTask,ITask
     {
         public Int16 Run()
         {
@@ -29,16 +37,28 @@ namespace SystemLackey.Tasks
         }
     }
 
-    class CmdTask : ITask
+    class CmdTask : ScriptTask,ITask
     {
+
         public Int16 Run()
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C copy /b Image1.jpg + Archive.rar Image2.jpg";
+
+            //First get the right cmd.exe if running on 64 bit. 
+            if (bolWow64)
+            {
+                startInfo.FileName = strWinDir + @"\syswow64\cmd.exe";
+            }
+            
+            else
+            {
+                startInfo.FileName = strWinDir + @"\system32\cmd.exe";
+            }
+            startInfo.Arguments = "/C " + strScriptFile;
             process.StartInfo = startInfo;
+            process.WaitForExit(3600000);
             process.Start();
             return 0;
         }
