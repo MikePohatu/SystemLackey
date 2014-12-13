@@ -11,8 +11,13 @@ namespace lackey_shell
     {
         static void Main(string[] args)
         {
-            string strTestCode = "";
-            string 
+            //string strTestCode = "";
+            //string 
+
+            CmdTask task = new CmdTask(90000,"echo test && pause", false);
+
+            task.Run();
+
         }
     }
 }

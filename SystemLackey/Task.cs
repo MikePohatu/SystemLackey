@@ -9,17 +9,16 @@ namespace SystemLackey.Tasks
 {
     interface ITask
     {
-        public int Run();
-
+        int Run();
     }
 
     public abstract class ScriptTask
     {
-        public abstract string strScriptFile;
+        public string strScriptFile;
         public bool bolWow64 = false;
         public bool bolASync = false;
         public string strWinDir;
-        public abstract string strCode;
+        public string strCode;
         public int intTimeout = 900000; //The default timeout for the script
 
         //Constructor parameters:
@@ -45,30 +44,47 @@ namespace SystemLackey.Tasks
         }
     }
 
-    class Ps1Task : ScriptTask,ITask
+    public class Ps1Task : ScriptTask,ITask
     {
+        public Ps1Task (int pTimeOut, string pCode, bool pSysWow) : base (pTimeOut, pCode, pSysWow)
+        { }
+
+        public Ps1Task(bool pASync, string pCode, bool pSysWow) : base (pASync, pCode, pSysWow)
+        { }
+
         public int Run()
         {
             return 0;
         }
     }
 
-    class VbTask : ScriptTask,ITask
+    public class VbTask : ScriptTask,ITask
     {
+        public VbTask (int pTimeOut, string pCode, bool pSysWow) : base (pTimeOut, pCode, pSysWow)
+        { }
+
+        public VbTask (bool pASync, string pCode, bool pSysWow) : base (pASync, pCode, pSysWow)
+        { }
+
         public int Run()
         {
             return 0;
         }
     }
 
-    class CmdTask : ScriptTask,ITask
+    public class CmdTask : ScriptTask,ITask
     {
+        public CmdTask (int pTimeOut, string pCode, bool pSysWow) : base (pTimeOut, pCode, pSysWow)
+        { }
+
+        public CmdTask (bool pASync, string pCode, bool pSysWow) : base (pASync, pCode, pSysWow)
+        { }
         
         public int Run()
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
 
             //First get the right cmd.exe if running on 64 bit. 
             if (bolWow64)
@@ -80,7 +96,7 @@ namespace SystemLackey.Tasks
             {
                 startInfo.FileName = strWinDir + @"\system32\cmd.exe";
             }
-            startInfo.Arguments = "/C " + strScriptFile;
+            startInfo.Arguments = "/C " + strCode;
             process.StartInfo = startInfo;
             
             process.Start();
