@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 using SystemLackey.Tasks;
 
 namespace lackey_shell
@@ -14,8 +14,9 @@ namespace lackey_shell
             //string strTestCode = "";
             //string 
 
-            CmdTask task = new CmdTask(900,"echo test && pause", false);
-
+            CmdTask task = new CmdTask("echo test && pause", false, 5);
+            Console.WriteLine(task.strScriptFile);
+            task.WriteScriptFile();
             task.Run();
 
         }
