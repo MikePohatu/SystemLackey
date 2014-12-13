@@ -14,7 +14,7 @@ namespace lackey_shell
             //string strTestCode = "";
             //string 
 
-            CmdTask task = new CmdTask(90000,"echo test && pause", false);
+            CmdTask task = new CmdTask(900,"echo test && pause", false);
 
             task.Run();
 

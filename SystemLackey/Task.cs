@@ -17,9 +17,9 @@ namespace SystemLackey.Tasks
         public string strScriptFile;
         public bool bolWow64 = false;
         public bool bolASync = false;
-        public string strWinDir;
+        public string strWinDir = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
         public string strCode;
-        public int intTimeout = 900000; //The default timeout for the script
+        public int intTimeout = 900; //The default timeout for the script
 
         //Constructor parameters:
         // pTimeout = script timeout value
@@ -96,11 +96,11 @@ namespace SystemLackey.Tasks
             {
                 startInfo.FileName = strWinDir + @"\system32\cmd.exe";
             }
-            startInfo.Arguments = "/C " + strCode;
+            startInfo.Arguments = "/c " + strCode;
             process.StartInfo = startInfo;
             
             process.Start();
-            process.WaitForExit(intTimeout);
+            process.WaitForExit(intTimeout * 1000);
             int intReturn = process.ExitCode;
             return intReturn;
         }
