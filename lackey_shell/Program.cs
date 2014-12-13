@@ -14,10 +14,10 @@ namespace lackey_shell
             //string strTestCode = "";
             //string 
 
-            CmdTask task = new CmdTask("echo test && pause", false, 5);
-            Console.WriteLine(task.strScriptFile);
-            task.WriteScriptFile();
-            task.Run();
+            Task_WinScript task = new Task_WinScript(0,"echo test && pause", false, 5);
+            Console.WriteLine(task.ScriptFile);
+            Console.WriteLine(task.Run());
+            //Console.Read();
 
         }
     }
