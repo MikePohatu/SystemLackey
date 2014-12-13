@@ -9,21 +9,45 @@ namespace SystemLackey.Tasks
 {
     interface ITask
     {
-        public Int16 Run();
+        public int Run();
 
     }
 
     public abstract class ScriptTask
     {
         public abstract string strScriptFile;
-        public  bool bolWow64 = false;
-        public abstract string strWinDir;
-        public string strCode;
+        public bool bolWow64 = false;
+        public bool bolASync = false;
+        public string strWinDir;
+        public abstract string strCode;
+        public int intTimeout = 900000; //The default timeout for the script
+
+        //Constructor parameters:
+        // pTimeout = script timeout value
+        // pCode = the actual script text
+        // pSysWow = run in 32bit mode on a 64 bit OS
+        public ScriptTask (int pTimeout, string pCode, bool pSysWow)
+        {
+            bolWow64 = pSysWow;
+            intTimeout = pTimeout;
+            strCode = pCode;
+        }
+
+        //Constructor parameters:
+        // pASync = run script asynchronously
+        // pCode = the actual script text
+        // pSysWow = run in 32bit mode on a 64 bit OS
+        public ScriptTask(bool pASync, string pCode, bool pSysWow)
+        {
+            bolWow64 = pSysWow;
+            bolASync = pASync;
+            strCode = pCode;
+        }
     }
 
     class Ps1Task : ScriptTask,ITask
     {
-        public Int16 Run()
+        public int Run()
         {
             return 0;
         }
@@ -31,7 +55,7 @@ namespace SystemLackey.Tasks
 
     class VbTask : ScriptTask,ITask
     {
-        public Int16 Run()
+        public int Run()
         {
             return 0;
         }
@@ -39,8 +63,8 @@ namespace SystemLackey.Tasks
 
     class CmdTask : ScriptTask,ITask
     {
-
-        public Int16 Run()
+        
+        public int Run()
         {
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
@@ -58,9 +82,11 @@ namespace SystemLackey.Tasks
             }
             startInfo.Arguments = "/C " + strScriptFile;
             process.StartInfo = startInfo;
-            process.WaitForExit(3600000);
+            
             process.Start();
-            return 0;
+            process.WaitForExit(intTimeout);
+            int intReturn = process.ExitCode;
+            return intReturn;
         }
     }
 }
