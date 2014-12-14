@@ -41,10 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Task_WinScript.cs" />
-    <Compile Include="MainTasks.cs" />
+    <Compile Include="Task_Main.cs" />
     <Compile Include="Task_WinTaskWorker.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\lackey_IO\lackey_IO.csproj">
+      <Project>{cc1b6343-34ce-48c7-b772-960683553faa}</Project>
+      <Name>lackey_IO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,10 +7,10 @@ namespace SystemLackey.Tasks
 {
     interface ITask
     {
-        int Run();
+        int GetXml();
     }
 
-    class PowerControl : ITask
+    class PowerControl
     {
         public int Run()
         {
@@ -18,7 +18,7 @@ namespace SystemLackey.Tasks
         }
     }
 
-    class CopyFile : ITask
+    class CopyFile
     {
         public int Run()
         {
@@ -26,7 +26,7 @@ namespace SystemLackey.Tasks
         }
     }
 
-    class CopyFolder : ITask
+    class CopyFolder
     {
         public int Run()
         {

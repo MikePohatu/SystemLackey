@@ -11,9 +11,7 @@ namespace SystemLackey.Tasks
     //the output script file, and the run function details
     public class Task_WinTaskWorker
     {
-        
-
-        public string strWorkingPath = System.IO.Path.GetTempPath() + "SystemLackey";
+        public string strWorkingPath = SystemLackey.IO.IOConfiguration.WorkingPath;
 
         //Constructor parameters:
         // pTimeout = script timeout value
