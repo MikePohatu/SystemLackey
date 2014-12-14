@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using SystemLackey.Tasks.WindowsScripting;
 //using System.Text;
 //using System.Threading.Tasks;
 
@@ -8,60 +9,36 @@ namespace SystemLackey.Tasks
     //Class for script tasks e.g. vbscript, powershell, batch.
     //In theory, the only things that will change will be the file extension of
     //the output script file, and the run function details
-    public class Task_WinScript : ITask
+    public class Task_WinTaskWorker
     {
-        private string strArguments;
-        private string strExtn;
-        private string strStartFile;
+        
 
-        public int Type;
-        public int Timeout = 900; //The default timeout for the script
-        public string ScriptFile;
-
-        public bool Wow64 = false;
-        public bool ASync = false;
-
-        public string Code; //the actual code of the script
-        public string strScriptPath = System.IO.Path.GetTempPath() + "SystemLackey";
-
-        public string strTaskID = Guid.NewGuid().ToString();
+        public string strWorkingPath = System.IO.Path.GetTempPath() + "SystemLackey";
 
         //Constructor parameters:
         // pTimeout = script timeout value
         // pCode = the actual script text
         // pSysWow = run in 32bit mode on a 64 bit OS
-        public Task_WinScript(int pType, string pCode, bool pSysWow, int pTimeout)
+        public Task_WinTaskWorker()
         {
-            System.IO.Directory.CreateDirectory(strScriptPath);
-            Timeout = pTimeout;
-            Code = pCode;
-            SetType(pType,pSysWow);
+            System.IO.Directory.CreateDirectory(strWorkingPath);
         }
 
-        //Constructor parameters:
-        // pASync = run script asynchronously
-        // pCode = the actual script text
-        // pSysWow = run in 32bit mode on a 64 bit OS
-        public Task_WinScript(int pType, string pCode, bool pSysWow, bool pASync)
+        //Run a Task_Winscript object
+        public void Run(Task_WinScript pTask)
         {
-            System.IO.Directory.CreateDirectory(strScriptPath);
-            ASync = pASync;
-            Code = pCode;
-            SetType(pType,pSysWow);
-        }
+            string strScriptFile;
+            string strArguments;
+            string strExtn;
+            string strStartFile;
 
-
-        //Script type
-        //0=cmd
-        //1=vbs
-        //2=ps1
-        public void SetType(int pType,bool pSysWow)
-        {
-            switch (pType)
+            //Figure out the correct scripting engine to use based on the type and SysWow64 setting i.e.
+            //run code as 32bit on 64bit OS
+            switch (pTask.Type)
             {
                 //batch script.
                 case 0:
-                    if (pSysWow)
+                    if (pTask.Wow64)
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.SystemX86) + @"\cmd.exe";
                     }
@@ -71,15 +48,15 @@ namespace SystemLackey.Tasks
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\cmd.exe";
                     }
                     strExtn = ".cmd";
-                    
-                    ScriptFile = strScriptPath + @"\" + strTaskID + strExtn;
-                    strArguments = "/c " + ScriptFile;
+
+                    strScriptFile = strWorkingPath + @"\" + pTask.TaskID + strExtn;
+                    strArguments = "/c " + strScriptFile;
                     break;
 
                 //vbscript
                 case 1:
                     strExtn = ".vbs";
-                    if (pSysWow)
+                    if (pTask.Wow64)
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.SystemX86) + @"\cscript.exe";
                     }
@@ -88,14 +65,14 @@ namespace SystemLackey.Tasks
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\cscript.exe";
                     }
-                    ScriptFile = strScriptPath + @"\" + strTaskID + strExtn;
-                    strArguments = "/nologo " + ScriptFile;
+                    strScriptFile = strWorkingPath + @"\" + pTask.TaskID + strExtn;
+                    strArguments = "/nologo " + strScriptFile;
                     break;
 
                 //powershell
                 case 2:
                     strExtn = ".ps1";
-                    if (pSysWow)
+                    if (pTask.Wow64)
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.SystemX86) + @"\WindowsPowerShell\v1.0\powershell.exe";
                     }
@@ -104,44 +81,28 @@ namespace SystemLackey.Tasks
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\WindowsPowerShell\v1.0\powershell.exe";
                     }
-                    ScriptFile = strScriptPath + @"\" + strTaskID + strExtn;
-                    strArguments = "-executionpolicy bypass " + ScriptFile;
+                    strScriptFile = strWorkingPath + @"\" + pTask.TaskID + strExtn;
+                    strArguments = "-executionpolicy bypass " + strScriptFile;
                     break;
                 
                 //invalid type. Throw exception
                 default:
-                    System.ArgumentException argEx = new System.ArgumentException("Invalid script type " + pType, "SetType");
-                    break;
+                    System.ArgumentException argEx = new System.ArgumentException("Invalid script type " + pTask.Type, "SetType");
+                    return;
             }
 
+            //Now write the script file to the working directory
+            WriteWinScriptFile(strScriptFile,pTask.Code);
             
-        }
-
-
-        //Write the script file 
-        public bool WriteScriptFile()
-        {
-            bool bolSuccess = true;
-            try
-            {
-                System.IO.File.WriteAllText(ScriptFile, Code);
-            }
-            catch
-            {
-                bolSuccess = false;
-            }
-
-            return bolSuccess;
-        }
-
-
-        //Run the script
-        public int Run()
-        {
-            this.WriteScriptFile();
+            //Now run the script
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            
+            //Set if the script windows is hidden
+            if (pTask.Hidden)
+            {
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            }
 
             startInfo.FileName = strStartFile;
             startInfo.Arguments = strArguments;
@@ -152,16 +113,33 @@ namespace SystemLackey.Tasks
             try
             {
                 process.Start();
-                process.WaitForExit(Timeout * 1000);
+                process.WaitForExit(pTask.Timeout * 1000);
                 int intReturn = process.ExitCode;
-                return intReturn;
+                //return intReturn;
             }
 
             catch
             {
                 //timeout reached
-                return 99999;
+                //return 99999;
             }
+        }
+
+
+        //Write a script file 
+        public bool WriteWinScriptFile(string pPath, string pCode)
+        {
+            bool bolSuccess = true;
+            try
+            {
+                System.IO.File.WriteAllText(pPath, pCode);
+            }
+            catch
+            {
+                bolSuccess = false;
+            }
+
+            return bolSuccess;
         }
     }
 }

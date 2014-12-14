@@ -7,7 +7,7 @@
     <ProjectGuid>{63E79B14-49F3-4B44-B847-7436AFB92DDD}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>lackey_shell</RootNamespace>
+    <RootNamespace>SystemLackey.Shell</RootNamespace>
     <AssemblyName>lackey_shell</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>lackey_shell.LackeyShell</StartupObject>
+    <StartupObject>SystemLackey.Shell.LackeyShell</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
