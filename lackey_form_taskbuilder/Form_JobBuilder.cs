@@ -24,13 +24,6 @@ namespace lackey_form_taskbuilder
             task = new Task_WinScript();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        
-
         private void buttonSave_Click(object sender, EventArgs e)
         {
 
@@ -96,5 +89,15 @@ namespace lackey_form_taskbuilder
         }
 
         //=============================================================
+
+        private void formTaskBuilder_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkSysWow64_CheckedChanged(object sender, EventArgs e)
+        {
+            task.Wow64 = checkSysWow64.Checked;
+        }
     }
 }

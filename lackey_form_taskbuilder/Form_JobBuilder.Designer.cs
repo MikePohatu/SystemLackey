@@ -35,7 +35,7 @@
             this.checkASync = new System.Windows.Forms.CheckBox();
             this.numericTimeout = new System.Windows.Forms.NumericUpDown();
             this.labelTimeout = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkSysWow64 = new System.Windows.Forms.CheckBox();
             this.buttonExport = new System.Windows.Forms.Button();
             this.buttonImport = new System.Windows.Forms.Button();
             this.buttonRun = new System.Windows.Forms.Button();
@@ -133,16 +133,17 @@
             this.labelTimeout.TabIndex = 6;
             this.labelTimeout.Text = "Timeout";
             // 
-            // checkBox1
+            // checkSysWow64
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(707, 161);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(90, 17);
-            this.checkBox1.TabIndex = 7;
-            this.checkBox1.Text = "32bit on 64bit";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkSysWow64.AutoSize = true;
+            this.checkSysWow64.Location = new System.Drawing.Point(707, 161);
+            this.checkSysWow64.Margin = new System.Windows.Forms.Padding(2);
+            this.checkSysWow64.Name = "checkSysWow64";
+            this.checkSysWow64.Size = new System.Drawing.Size(90, 17);
+            this.checkSysWow64.TabIndex = 7;
+            this.checkSysWow64.Text = "32bit on 64bit";
+            this.checkSysWow64.UseVisualStyleBackColor = true;
+            this.checkSysWow64.CheckedChanged += new System.EventHandler(this.checkSysWow64_CheckedChanged);
             // 
             // buttonExport
             // 
@@ -196,7 +197,7 @@
             this.Controls.Add(this.buttonRun);
             this.Controls.Add(this.buttonImport);
             this.Controls.Add(this.buttonExport);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkSysWow64);
             this.Controls.Add(this.labelTimeout);
             this.Controls.Add(this.numericTimeout);
             this.Controls.Add(this.checkASync);
@@ -207,7 +208,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "formTaskBuilder";
             this.Text = "System Lackey : Task Builder";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.formTaskBuilder_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericTimeout)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -223,7 +224,7 @@
         private System.Windows.Forms.CheckBox checkASync;
         private System.Windows.Forms.NumericUpDown numericTimeout;
         private System.Windows.Forms.Label labelTimeout;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkSysWow64;
         private System.Windows.Forms.Button buttonExport;
         private System.Windows.Forms.Button buttonImport;
         private System.Windows.Forms.Button buttonRun;
