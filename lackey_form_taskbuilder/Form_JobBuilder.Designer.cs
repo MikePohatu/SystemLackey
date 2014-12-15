@@ -67,6 +67,7 @@
             this.radioVbs.TabStop = true;
             this.radioVbs.Text = "VBScript";
             this.radioVbs.UseVisualStyleBackColor = true;
+            this.radioVbs.CheckedChanged += new System.EventHandler(this.radioVbs_CheckedChanged);
             // 
             // radioPs1
             // 
@@ -79,6 +80,7 @@
             this.radioPs1.TabStop = true;
             this.radioPs1.Text = "Powershell";
             this.radioPs1.UseVisualStyleBackColor = true;
+            this.radioPs1.CheckedChanged += new System.EventHandler(this.radioPs1_CheckedChanged);
             // 
             // textCode
             // 
@@ -113,6 +115,7 @@
             this.numericTimeout.Size = new System.Drawing.Size(87, 20);
             this.numericTimeout.TabIndex = 5;
             this.numericTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericTimeout.UseWaitCursor = true;
             this.numericTimeout.Value = new decimal(new int[] {
             900,
             0,

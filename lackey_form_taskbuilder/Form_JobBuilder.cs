@@ -26,13 +26,10 @@ namespace lackey_form_taskbuilder
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
 
-        private void radioCmd_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
@@ -58,14 +55,46 @@ namespace lackey_form_taskbuilder
             }
         }
 
-        private void numericTimeout_ValueChanged(object sender, EventArgs e)
-        {
-            //task.Timeout = e;
-        }
-
         private void buttonImport_Click(object sender, EventArgs e)
         {
 
         }
+
+        //set the timeout
+        private void numericTimeout_ValueChanged(object sender, EventArgs e)
+        {
+            task.Timeout = (int)numericTimeout.Value;
+        }
+
+
+        //=============================================================
+        // Radio buttons for script type
+        //=============================================================
+
+        private void radioCmd_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioCmd.Checked)
+            {
+                task.Type = 0;
+            }
+        }
+
+        private void radioPs1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioPs1.Checked)
+            {
+                task.Type = 2;
+            }
+        }
+
+        private void radioVbs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioVbs.Checked)
+            {
+                task.Type = 1;
+            }
+        }
+
+        //=============================================================
     }
 }
