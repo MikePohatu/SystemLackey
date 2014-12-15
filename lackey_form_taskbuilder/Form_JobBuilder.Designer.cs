@@ -47,7 +47,7 @@
             // 
             this.radioCmd.AutoSize = true;
             this.radioCmd.Location = new System.Drawing.Point(707, 12);
-            this.radioCmd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioCmd.Margin = new System.Windows.Forms.Padding(2);
             this.radioCmd.Name = "radioCmd";
             this.radioCmd.Size = new System.Drawing.Size(53, 17);
             this.radioCmd.TabIndex = 0;
@@ -60,7 +60,7 @@
             // 
             this.radioVbs.AutoSize = true;
             this.radioVbs.Location = new System.Drawing.Point(707, 32);
-            this.radioVbs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioVbs.Margin = new System.Windows.Forms.Padding(2);
             this.radioVbs.Name = "radioVbs";
             this.radioVbs.Size = new System.Drawing.Size(66, 17);
             this.radioVbs.TabIndex = 1;
@@ -72,7 +72,7 @@
             // 
             this.radioPs1.AutoSize = true;
             this.radioPs1.Location = new System.Drawing.Point(707, 52);
-            this.radioPs1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioPs1.Margin = new System.Windows.Forms.Padding(2);
             this.radioPs1.Name = "radioPs1";
             this.radioPs1.Size = new System.Drawing.Size(76, 17);
             this.radioPs1.TabIndex = 2;
@@ -83,7 +83,7 @@
             // textCode
             // 
             this.textCode.Location = new System.Drawing.Point(8, 12);
-            this.textCode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textCode.Margin = new System.Windows.Forms.Padding(2);
             this.textCode.Multiline = true;
             this.textCode.Name = "textCode";
             this.textCode.Size = new System.Drawing.Size(682, 395);
@@ -93,7 +93,7 @@
             // 
             this.checkASync.AutoSize = true;
             this.checkASync.Location = new System.Drawing.Point(707, 140);
-            this.checkASync.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkASync.Margin = new System.Windows.Forms.Padding(2);
             this.checkASync.Name = "checkASync";
             this.checkASync.Size = new System.Drawing.Size(95, 17);
             this.checkASync.TabIndex = 4;
@@ -103,7 +103,7 @@
             // numericTimeout
             // 
             this.numericTimeout.Location = new System.Drawing.Point(707, 96);
-            this.numericTimeout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericTimeout.Margin = new System.Windows.Forms.Padding(2);
             this.numericTimeout.Maximum = new decimal(new int[] {
             86400,
             0,
@@ -134,7 +134,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Location = new System.Drawing.Point(707, 161);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkBox1.Margin = new System.Windows.Forms.Padding(2);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(90, 17);
             this.checkBox1.TabIndex = 7;
@@ -144,29 +144,29 @@
             // buttonExport
             // 
             this.buttonExport.Location = new System.Drawing.Point(707, 257);
-            this.buttonExport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonExport.Margin = new System.Windows.Forms.Padding(2);
             this.buttonExport.Name = "buttonExport";
             this.buttonExport.Size = new System.Drawing.Size(73, 19);
             this.buttonExport.TabIndex = 8;
             this.buttonExport.Text = "Export";
             this.buttonExport.UseVisualStyleBackColor = true;
-            this.buttonExport.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
             // 
             // buttonImport
             // 
             this.buttonImport.Location = new System.Drawing.Point(707, 230);
-            this.buttonImport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonImport.Margin = new System.Windows.Forms.Padding(2);
             this.buttonImport.Name = "buttonImport";
             this.buttonImport.Size = new System.Drawing.Size(73, 19);
             this.buttonImport.TabIndex = 9;
             this.buttonImport.Text = "Import";
             this.buttonImport.UseVisualStyleBackColor = true;
-            this.buttonImport.Click += new System.EventHandler(this.buttonOpen_Click);
+            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
             // 
             // buttonRun
             // 
             this.buttonRun.Location = new System.Drawing.Point(707, 386);
-            this.buttonRun.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonRun.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.Size = new System.Drawing.Size(73, 19);
             this.buttonRun.TabIndex = 10;
@@ -176,13 +176,13 @@
             // buttonSave
             // 
             this.buttonSave.Location = new System.Drawing.Point(707, 334);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(73, 19);
             this.buttonSave.TabIndex = 11;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click_1);
+            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // formTaskBuilder
             // 
@@ -201,7 +201,7 @@
             this.Controls.Add(this.radioPs1);
             this.Controls.Add(this.radioVbs);
             this.Controls.Add(this.radioCmd);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "formTaskBuilder";
             this.Text = "System Lackey : Task Builder";
             this.Load += new System.EventHandler(this.Form1_Load);

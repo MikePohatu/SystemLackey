@@ -34,12 +34,12 @@ namespace lackey_form_taskbuilder
 
         }
 
-        private void buttonOpen_Click(object sender, EventArgs e)
+        private void buttonSave_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void buttonSave_Click(object sender, EventArgs e)
+        private void buttonExport_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveBox = new SaveFileDialog();
 
@@ -54,16 +54,16 @@ namespace lackey_form_taskbuilder
                 SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
                 xmlHandler.Write(stream, task.GetXml());
                 stream.Close();
-            
+
             }
         }
 
         private void numericTimeout_ValueChanged(object sender, EventArgs e)
         {
-
+            //task.Timeout = e;
         }
 
-        private void buttonSave_Click_1(object sender, EventArgs e)
+        private void buttonImport_Click(object sender, EventArgs e)
         {
 
         }
