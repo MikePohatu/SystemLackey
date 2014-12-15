@@ -10,14 +10,18 @@ using System.Windows.Forms;
 
 using SystemLackey.IO;
 using SystemLackey.Tasks;
+using SystemLackey.Tasks.WindowsScripting;
 
 namespace lackey_form_taskbuilder
 {
     public partial class formTaskBuilder : Form
     {
+        public Task_WinScript task;
+ 
         public formTaskBuilder()
         {
             InitializeComponent();
+            task = new Task_WinScript();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -55,6 +59,11 @@ namespace lackey_form_taskbuilder
         }
 
         private void numericTimeout_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonSave_Click_1(object sender, EventArgs e)
         {
 
         }
