@@ -16,7 +16,7 @@ namespace lackey_form_taskbuilder
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new formJobBuilder());
+            Application.Run(new formTaskBuilder());
         }
     }
 }

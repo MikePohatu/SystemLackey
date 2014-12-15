@@ -13,9 +13,9 @@ using SystemLackey.Tasks;
 
 namespace lackey_form_taskbuilder
 {
-    public partial class formJobBuilder : Form
+    public partial class formTaskBuilder : Form
     {
-        public formJobBuilder()
+        public formTaskBuilder()
         {
             InitializeComponent();
         }
@@ -41,7 +41,8 @@ namespace lackey_form_taskbuilder
 
             saveBox.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
             saveBox.FilterIndex = 1;
-            saveBox.RestoreDirectory = true;
+            //saveBox.FileName = 
+            //saveBox.RestoreDirectory = true;
 
             if (saveBox.ShowDialog() == DialogResult.OK)
             {
@@ -50,7 +51,16 @@ namespace lackey_form_taskbuilder
                     // Code to write the stream goes here.
                  //   myStream.Close();
                 //}
+
+                SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
+                handler.Write(, task.GetXml());
+            
             }
+        }
+
+        private void numericTimeout_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

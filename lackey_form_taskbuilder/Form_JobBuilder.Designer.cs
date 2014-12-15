@@ -1,6 +1,6 @@
 ﻿namespace lackey_form_taskbuilder
 {
-    partial class formJobBuilder
+    partial class formTaskBuilder
     {
         /// <summary>
         /// Required designer variable.
@@ -36,9 +36,10 @@
             this.numericTimeout = new System.Windows.Forms.NumericUpDown();
             this.labelTimeout = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonOpen = new System.Windows.Forms.Button();
+            this.buttonExport = new System.Windows.Forms.Button();
+            this.buttonImport = new System.Windows.Forms.Button();
             this.buttonRun = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericTimeout)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,10 +79,10 @@
             // 
             // textCode
             // 
-            this.textCode.Location = new System.Drawing.Point(226, 18);
+            this.textCode.Location = new System.Drawing.Point(12, 18);
             this.textCode.Multiline = true;
             this.textCode.Name = "textCode";
-            this.textCode.Size = new System.Drawing.Size(807, 606);
+            this.textCode.Size = new System.Drawing.Size(1021, 606);
             this.textCode.TabIndex = 3;
             // 
             // checkASync
@@ -97,9 +98,21 @@
             // numericTimeout
             // 
             this.numericTimeout.Location = new System.Drawing.Point(1060, 147);
+            this.numericTimeout.Maximum = new decimal(new int[] {
+            86400,
+            0,
+            0,
+            0});
             this.numericTimeout.Name = "numericTimeout";
             this.numericTimeout.Size = new System.Drawing.Size(131, 26);
             this.numericTimeout.TabIndex = 5;
+            this.numericTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericTimeout.Value = new decimal(new int[] {
+            900,
+            0,
+            0,
+            0});
+            this.numericTimeout.ValueChanged += new System.EventHandler(this.numericTimeout_ValueChanged);
             // 
             // labelTimeout
             // 
@@ -120,25 +133,25 @@
             this.checkBox1.Text = "32bit on 64bit";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // buttonSave
+            // buttonExport
             // 
-            this.buttonSave.Location = new System.Drawing.Point(1060, 396);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(110, 30);
-            this.buttonSave.TabIndex = 8;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            this.buttonSave.Click += new System.EventHandler(this.buttonSave_Click);
+            this.buttonExport.Location = new System.Drawing.Point(1060, 396);
+            this.buttonExport.Name = "buttonExport";
+            this.buttonExport.Size = new System.Drawing.Size(110, 30);
+            this.buttonExport.TabIndex = 8;
+            this.buttonExport.Text = "Export";
+            this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonSave_Click);
             // 
-            // buttonOpen
+            // buttonImport
             // 
-            this.buttonOpen.Location = new System.Drawing.Point(1060, 354);
-            this.buttonOpen.Name = "buttonOpen";
-            this.buttonOpen.Size = new System.Drawing.Size(110, 30);
-            this.buttonOpen.TabIndex = 9;
-            this.buttonOpen.Text = "Open";
-            this.buttonOpen.UseVisualStyleBackColor = true;
-            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
+            this.buttonImport.Location = new System.Drawing.Point(1060, 354);
+            this.buttonImport.Name = "buttonImport";
+            this.buttonImport.Size = new System.Drawing.Size(110, 30);
+            this.buttonImport.TabIndex = 9;
+            this.buttonImport.Text = "Import";
+            this.buttonImport.UseVisualStyleBackColor = true;
+            this.buttonImport.Click += new System.EventHandler(this.buttonOpen_Click);
             // 
             // buttonRun
             // 
@@ -149,14 +162,24 @@
             this.buttonRun.Text = "Run";
             this.buttonRun.UseVisualStyleBackColor = true;
             // 
-            // formJobBuilder
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(1060, 514);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(110, 30);
+            this.buttonSave.TabIndex = 11;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            // 
+            // formTaskBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1204, 636);
-            this.Controls.Add(this.buttonRun);
-            this.Controls.Add(this.buttonOpen);
             this.Controls.Add(this.buttonSave);
+            this.Controls.Add(this.buttonRun);
+            this.Controls.Add(this.buttonImport);
+            this.Controls.Add(this.buttonExport);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.labelTimeout);
             this.Controls.Add(this.numericTimeout);
@@ -165,8 +188,8 @@
             this.Controls.Add(this.radioPs1);
             this.Controls.Add(this.radioVbs);
             this.Controls.Add(this.radioCmd);
-            this.Name = "formJobBuilder";
-            this.Text = "System Lackey : Job Builder";
+            this.Name = "formTaskBuilder";
+            this.Text = "System Lackey : Task Builder";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericTimeout)).EndInit();
             this.ResumeLayout(false);
@@ -184,9 +207,10 @@
         private System.Windows.Forms.NumericUpDown numericTimeout;
         private System.Windows.Forms.Label labelTimeout;
         private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.Button buttonSave;
-        private System.Windows.Forms.Button buttonOpen;
+        private System.Windows.Forms.Button buttonExport;
+        private System.Windows.Forms.Button buttonImport;
         private System.Windows.Forms.Button buttonRun;
+        private System.Windows.Forms.Button buttonSave;
     }
 }
 
