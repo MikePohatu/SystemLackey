@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_shell", "lackey_shel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_IO", "lackey_IO\lackey_IO.csproj", "{CC1B6343-34CE-48C7-B772-960683553FAA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_form_taskbuilder", "lackey_form_taskbuilder\lackey_form_taskbuilder.csproj", "{4648AA6B-178B-49FA-8CCB-EC46B91031A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CC1B6343-34CE-48C7-B772-960683553FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC1B6343-34CE-48C7-B772-960683553FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC1B6343-34CE-48C7-B772-960683553FAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4648AA6B-178B-49FA-8CCB-EC46B91031A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4648AA6B-178B-49FA-8CCB-EC46B91031A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4648AA6B-178B-49FA-8CCB-EC46B91031A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4648AA6B-178B-49FA-8CCB-EC46B91031A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
