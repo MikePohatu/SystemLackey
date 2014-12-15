@@ -46,14 +46,10 @@ namespace lackey_form_taskbuilder
 
             if (saveBox.ShowDialog() == DialogResult.OK)
             {
-                //if ((myStream = saveFileDialog1.OpenFile()) != null)
-                //{
-                    // Code to write the stream goes here.
-                 //   myStream.Close();
-                //}
-
+                System.IO.FileStream stream = (System.IO.FileStream)saveBox.OpenFile();
                 SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
-                handler.Write(, task.GetXml());
+                xmlHandler.Write(stream, task.GetXml());
+                stream.Close();
             
             }
         }
