@@ -10,32 +10,26 @@ using System.Windows.Forms;
 
 using SystemLackey.IO;
 using SystemLackey.Tasks;
+using SystemLackey.Tasks.WindowsScripting;
 
 namespace lackey_form_taskbuilder
 {
     public partial class formTaskBuilder : Form
     {
+        public Task_WinScript task;
+ 
         public formTaskBuilder()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioCmd_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonOpen_Click(object sender, EventArgs e)
-        {
-
+            task = new Task_WinScript();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonExport_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveBox = new SaveFileDialog();
 
@@ -50,13 +44,60 @@ namespace lackey_form_taskbuilder
                 SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
                 xmlHandler.Write(stream, task.GetXml());
                 stream.Close();
-            
+
             }
         }
 
-        private void numericTimeout_ValueChanged(object sender, EventArgs e)
+        private void buttonImport_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //set the timeout
+        private void numericTimeout_ValueChanged(object sender, EventArgs e)
+        {
+            task.Timeout = (int)numericTimeout.Value;
+        }
+
+
+        //=============================================================
+        // Radio buttons for script type
+        //=============================================================
+
+        private void radioCmd_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioCmd.Checked)
+            {
+                task.Type = 0;
+            }
+        }
+
+        private void radioPs1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioPs1.Checked)
+            {
+                task.Type = 2;
+            }
+        }
+
+        private void radioVbs_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioVbs.Checked)
+            {
+                task.Type = 1;
+            }
+        }
+
+        //=============================================================
+
+        private void formTaskBuilder_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkSysWow64_CheckedChanged(object sender, EventArgs e)
+        {
+            task.Wow64 = checkSysWow64.Checked;
         }
     }
 }
