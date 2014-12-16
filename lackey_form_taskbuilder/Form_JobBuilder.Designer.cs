@@ -47,9 +47,10 @@
             // radioCmd
             // 
             this.radioCmd.AutoSize = true;
-            this.radioCmd.Location = new System.Drawing.Point(1060, 18);
+            this.radioCmd.Location = new System.Drawing.Point(707, 12);
+            this.radioCmd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioCmd.Name = "radioCmd";
-            this.radioCmd.Size = new System.Drawing.Size(76, 24);
+            this.radioCmd.Size = new System.Drawing.Size(53, 17);
             this.radioCmd.TabIndex = 0;
             this.radioCmd.TabStop = true;
             this.radioCmd.Text = "Batch";
@@ -59,9 +60,10 @@
             // radioVbs
             // 
             this.radioVbs.AutoSize = true;
-            this.radioVbs.Location = new System.Drawing.Point(1060, 49);
+            this.radioVbs.Location = new System.Drawing.Point(707, 32);
+            this.radioVbs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioVbs.Name = "radioVbs";
-            this.radioVbs.Size = new System.Drawing.Size(97, 24);
+            this.radioVbs.Size = new System.Drawing.Size(66, 17);
             this.radioVbs.TabIndex = 1;
             this.radioVbs.TabStop = true;
             this.radioVbs.Text = "VBScript";
@@ -71,9 +73,10 @@
             // radioPs1
             // 
             this.radioPs1.AutoSize = true;
-            this.radioPs1.Location = new System.Drawing.Point(1060, 80);
+            this.radioPs1.Location = new System.Drawing.Point(707, 52);
+            this.radioPs1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.radioPs1.Name = "radioPs1";
-            this.radioPs1.Size = new System.Drawing.Size(110, 24);
+            this.radioPs1.Size = new System.Drawing.Size(76, 17);
             this.radioPs1.TabIndex = 2;
             this.radioPs1.TabStop = true;
             this.radioPs1.Text = "Powershell";
@@ -84,32 +87,35 @@
             // 
             this.textCode.AcceptsReturn = true;
             this.textCode.AcceptsTab = true;
-            this.textCode.Location = new System.Drawing.Point(12, 18);
+            this.textCode.Location = new System.Drawing.Point(8, 12);
+            this.textCode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textCode.Multiline = true;
             this.textCode.Name = "textCode";
-            this.textCode.Size = new System.Drawing.Size(1021, 606);
+            this.textCode.Size = new System.Drawing.Size(682, 395);
             this.textCode.TabIndex = 3;
             // 
             // checkASync
             // 
             this.checkASync.AutoSize = true;
-            this.checkASync.Location = new System.Drawing.Point(1059, 249);
+            this.checkASync.Location = new System.Drawing.Point(706, 162);
+            this.checkASync.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkASync.Name = "checkASync";
-            this.checkASync.Size = new System.Drawing.Size(139, 24);
+            this.checkASync.Size = new System.Drawing.Size(95, 17);
             this.checkASync.TabIndex = 4;
             this.checkASync.Text = "ASynchronous";
             this.checkASync.UseVisualStyleBackColor = true;
             // 
             // numericTimeout
             // 
-            this.numericTimeout.Location = new System.Drawing.Point(1060, 148);
+            this.numericTimeout.Location = new System.Drawing.Point(707, 96);
+            this.numericTimeout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.numericTimeout.Maximum = new decimal(new int[] {
             86400,
             0,
             0,
             0});
             this.numericTimeout.Name = "numericTimeout";
-            this.numericTimeout.Size = new System.Drawing.Size(130, 26);
+            this.numericTimeout.Size = new System.Drawing.Size(87, 20);
             this.numericTimeout.TabIndex = 5;
             this.numericTimeout.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericTimeout.UseWaitCursor = true;
@@ -123,18 +129,20 @@
             // labelTimeout
             // 
             this.labelTimeout.AutoSize = true;
-            this.labelTimeout.Location = new System.Drawing.Point(1056, 125);
+            this.labelTimeout.Location = new System.Drawing.Point(704, 81);
+            this.labelTimeout.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.labelTimeout.Name = "labelTimeout";
-            this.labelTimeout.Size = new System.Drawing.Size(66, 20);
+            this.labelTimeout.Size = new System.Drawing.Size(94, 13);
             this.labelTimeout.TabIndex = 6;
-            this.labelTimeout.Text = "Timeout";
+            this.labelTimeout.Text = "Timeout (seconds)";
             // 
             // checkSysWow64
             // 
             this.checkSysWow64.AutoSize = true;
-            this.checkSysWow64.Location = new System.Drawing.Point(1059, 219);
+            this.checkSysWow64.Location = new System.Drawing.Point(706, 142);
+            this.checkSysWow64.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkSysWow64.Name = "checkSysWow64";
-            this.checkSysWow64.Size = new System.Drawing.Size(131, 24);
+            this.checkSysWow64.Size = new System.Drawing.Size(90, 17);
             this.checkSysWow64.TabIndex = 7;
             this.checkSysWow64.Text = "32bit on 64bit";
             this.checkSysWow64.UseVisualStyleBackColor = true;
@@ -142,9 +150,10 @@
             // 
             // buttonExport
             // 
-            this.buttonExport.Location = new System.Drawing.Point(1060, 395);
+            this.buttonExport.Location = new System.Drawing.Point(714, 258);
+            this.buttonExport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonExport.Name = "buttonExport";
-            this.buttonExport.Size = new System.Drawing.Size(110, 29);
+            this.buttonExport.Size = new System.Drawing.Size(80, 25);
             this.buttonExport.TabIndex = 8;
             this.buttonExport.Text = "Export";
             this.buttonExport.UseVisualStyleBackColor = true;
@@ -152,9 +161,10 @@
             // 
             // buttonImport
             // 
-            this.buttonImport.Location = new System.Drawing.Point(1060, 354);
+            this.buttonImport.Location = new System.Drawing.Point(714, 231);
+            this.buttonImport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonImport.Name = "buttonImport";
-            this.buttonImport.Size = new System.Drawing.Size(110, 29);
+            this.buttonImport.Size = new System.Drawing.Size(80, 25);
             this.buttonImport.TabIndex = 9;
             this.buttonImport.Text = "Import";
             this.buttonImport.UseVisualStyleBackColor = true;
@@ -162,9 +172,10 @@
             // 
             // buttonRun
             // 
-            this.buttonRun.Location = new System.Drawing.Point(1060, 594);
+            this.buttonRun.Location = new System.Drawing.Point(714, 287);
+            this.buttonRun.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonRun.Name = "buttonRun";
-            this.buttonRun.Size = new System.Drawing.Size(110, 29);
+            this.buttonRun.Size = new System.Drawing.Size(80, 25);
             this.buttonRun.TabIndex = 10;
             this.buttonRun.Text = "Run";
             this.buttonRun.UseVisualStyleBackColor = true;
@@ -172,9 +183,10 @@
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(1060, 514);
+            this.buttonSave.Location = new System.Drawing.Point(714, 382);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(110, 29);
+            this.buttonSave.Size = new System.Drawing.Size(80, 25);
             this.buttonSave.TabIndex = 11;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -185,18 +197,19 @@
             this.checkHidden.AutoSize = true;
             this.checkHidden.Checked = true;
             this.checkHidden.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkHidden.Location = new System.Drawing.Point(1060, 279);
+            this.checkHidden.Location = new System.Drawing.Point(707, 181);
+            this.checkHidden.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.checkHidden.Name = "checkHidden";
-            this.checkHidden.Size = new System.Drawing.Size(86, 24);
+            this.checkHidden.Size = new System.Drawing.Size(60, 17);
             this.checkHidden.TabIndex = 12;
             this.checkHidden.Text = "Hidden";
             this.checkHidden.UseVisualStyleBackColor = true;
             // 
             // formTaskBuilder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1204, 635);
+            this.ClientSize = new System.Drawing.Size(803, 413);
             this.Controls.Add(this.checkHidden);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonRun);
@@ -210,6 +223,7 @@
             this.Controls.Add(this.radioPs1);
             this.Controls.Add(this.radioVbs);
             this.Controls.Add(this.radioCmd);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "formTaskBuilder";
             this.Text = "System Lackey : Task Builder";
             this.Load += new System.EventHandler(this.formTaskBuilder_Load);

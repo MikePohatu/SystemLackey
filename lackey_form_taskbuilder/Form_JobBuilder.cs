@@ -214,8 +214,12 @@ namespace lackey_form_taskbuilder
 
         private void buttonRun_Click(object sender, EventArgs e)
         {
-            UpdateTask();
-            task.Run();
+            if (MessageBox.Show("Are you sure you want to run this task?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                UpdateTask();
+                task.Run();
+            }
+            
         }
     }
 }
