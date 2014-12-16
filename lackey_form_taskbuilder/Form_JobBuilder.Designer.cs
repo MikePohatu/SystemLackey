@@ -41,7 +41,6 @@
             this.buttonRun = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.checkHidden = new System.Windows.Forms.CheckBox();
-            this.buttonTEST = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericTimeout)).BeginInit();
             this.SuspendLayout();
             // 
@@ -193,22 +192,11 @@
             this.checkHidden.Text = "Hidden";
             this.checkHidden.UseVisualStyleBackColor = true;
             // 
-            // buttonTEST
-            // 
-            this.buttonTEST.Location = new System.Drawing.Point(1059, 446);
-            this.buttonTEST.Name = "buttonTEST";
-            this.buttonTEST.Size = new System.Drawing.Size(75, 23);
-            this.buttonTEST.TabIndex = 13;
-            this.buttonTEST.Text = "TEST";
-            this.buttonTEST.UseVisualStyleBackColor = true;
-            this.buttonTEST.Click += new System.EventHandler(this.buttonTest_Click);
-            // 
             // formTaskBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1204, 635);
-            this.Controls.Add(this.buttonTEST);
             this.Controls.Add(this.checkHidden);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonRun);
@@ -246,7 +234,6 @@
         private System.Windows.Forms.Button buttonRun;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.CheckBox checkHidden;
-        private System.Windows.Forms.Button buttonTEST;
     }
 }
 
