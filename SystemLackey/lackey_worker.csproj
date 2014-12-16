@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="Task_WinScript.cs" />
     <Compile Include="Task_Main.cs" />
-    <Compile Include="Task_WinTaskWorker.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

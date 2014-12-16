@@ -14,13 +14,20 @@ namespace SystemLackey.IO
 
         public void Write(Stream pStream, XElement pElement)
         {
-            XDocument xDoc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"), pElement);
-            //xDoc.Save(pStream);
+            XDocument xDoc = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),pElement);
+            xDoc.Save(pStream);
         }
 
         public XElement Read(string pPath)
         {
+            //LoadOptions options = new LoadOptions;
+            //LoadOptions.PreserveWhitespace = true;
             return XElement.Load(pPath);
+        }
+
+        public XElement Read(Stream pStream)
+        {
+            return XElement.Load(pStream);
         }
     }
 }
