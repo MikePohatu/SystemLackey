@@ -88,7 +88,7 @@ namespace SystemLackey.Tasks.WindowsScripting
         public void ImportXml(XElement pElement)
         {
             Name = pElement.Element("Name").Value;
-            TaskID = pElement.Element("TaskID").Value;
+            //TaskID = pElement.Element("TaskID").Value;
             ASync = XmlConvert.ToBoolean(pElement.Element("ASync").Value);
             Timeout = XmlConvert.ToInt32(pElement.Element("Timeout").Value);
             Code = pElement.Element("Code").Value;

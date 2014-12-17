@@ -54,10 +54,19 @@
     <Compile Include="Form_JobBuilder.Designer.cs">
       <DependentUpon>Form_JobBuilder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_WinTaskBuilder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_WinTaskBuilder.Designer.cs">
+      <DependentUpon>Form_WinTaskBuilder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_JobBuilder.resx">
       <DependentUpon>Form_JobBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_WinTaskBuilder.resx">
+      <DependentUpon>Form_WinTaskBuilder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
