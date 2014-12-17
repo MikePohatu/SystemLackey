@@ -136,12 +136,13 @@ namespace lackey_form_taskbuilder
                 codeString = codeString + lines[counter] + System.Environment.NewLine;
             }
 
-
+            task.Name = textName.Text;
             task.Code = codeString;
             task.Hidden = checkHidden.Checked;
             task.Wow64 = checkSysWow64.Checked;
             task.ASync = checkASync.Checked;
             task.Timeout = (int)numericTimeout.Value;
+            task.Comments = richComments.Text;
 
 
             if (radioCmd.Checked)
@@ -160,6 +161,7 @@ namespace lackey_form_taskbuilder
             }
         }
 
+        //Update the form with the values of the current task. 
         private void UpdateForm()
         {
             int count = 0;
@@ -192,6 +194,7 @@ namespace lackey_form_taskbuilder
             numericTimeout.Value = task.Timeout;
             labelTaskIDValue.Text = task.TaskID;
             textName.Text = task.Name;
+            richComments.Text = task.Comments;
 
             switch (task.Type)
             {
@@ -227,6 +230,21 @@ namespace lackey_form_taskbuilder
         }
 
         private void labelTaskID_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textCode_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelTimeout_Click(object sender, EventArgs e)
         {
 
         }

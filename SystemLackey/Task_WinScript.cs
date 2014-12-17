@@ -16,6 +16,7 @@ namespace SystemLackey.Tasks.WindowsScripting
 
         public string Code = "";        //the actual code of the script
         public string TaskID;
+        public string Comments = "";
 
         //Default constructor
         public Task_WinScript()
@@ -81,7 +82,8 @@ namespace SystemLackey.Tasks.WindowsScripting
                 new XElement("Code",Code),
                 new XElement("Type",Type),
                 new XElement("Wow64",Wow64),
-                new XElement("Hidden", Hidden));
+                new XElement("Hidden", Hidden),
+                new XElement("Comments", Comments));
             return details;
         }
 
@@ -95,6 +97,7 @@ namespace SystemLackey.Tasks.WindowsScripting
             Type =  XmlConvert.ToInt32(pElement.Element("Type").Value);
             Wow64 = XmlConvert.ToBoolean(pElement.Element("Wow64").Value);
             Hidden = XmlConvert.ToBoolean(pElement.Element("Hidden").Value);
+            Comments = pElement.Element("Comments").Value;
         }
 
         //Run a Task_Winscript object
