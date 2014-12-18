@@ -24,7 +24,7 @@ namespace SystemLackey.Worker
             set { this.name = value; }
         }
 
-        public string ID
+        public string JobID
         {
             get { return this.jobid; }
             set { this.jobid = value; }

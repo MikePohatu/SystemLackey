@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0D648EFF-1D0F-454C-9930-9E94E66D7C4A}</ProjectGuid>
+    <ProjectGuid>{89787298-15F7-4750-89F8-2281076653D9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SystemLackey</RootNamespace>
-    <AssemblyName>lackey_worker</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>lackey_filters</RootNamespace>
+    <AssemblyName>lackey_filters</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,22 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IJobItem.cs" />
-    <Compile Include="JobList.cs" />
-    <Compile Include="Task_WinScript.cs" />
-    <Compile Include="Task_Main.cs" />
-    <Compile Include="Job.cs" />
+    <Compile Include="IFilter.cs" />
+    <Compile Include="RegFilter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\lackey_filters\lackey_filters.csproj">
-      <Project>{89787298-15f7-4750-89f8-2281076653d9}</Project>
-      <Name>lackey_filters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\lackey_IO\lackey_IO.csproj">
-      <Project>{cc1b6343-34ce-48c7-b772-960683553faa}</Project>
-      <Name>lackey_IO</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
