@@ -10,8 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 
 using SystemLackey.IO;
-using SystemLackey.Tasks;
-using SystemLackey.Tasks.WindowsScripting;
+using SystemLackey.Worker;
 
 namespace lackey_form_taskbuilder
 {
@@ -192,7 +191,7 @@ namespace lackey_form_taskbuilder
             checkSysWow64.Checked = task.Wow64;
             checkASync.Checked = task.ASync;
             numericTimeout.Value = task.Timeout;
-            labelTaskIDValue.Text = task.TaskID;
+            labelTaskIDValue.Text = task.ID;
             textName.Text = task.Name;
             richComments.Text = task.Comments;
 

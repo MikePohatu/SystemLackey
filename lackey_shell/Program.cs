@@ -1,6 +1,5 @@
 ﻿using System;
-using SystemLackey.Tasks;
-using SystemLackey.Tasks.WindowsScripting;
+using SystemLackey.Worker;
 
 namespace SystemLackey.Shell
 {
