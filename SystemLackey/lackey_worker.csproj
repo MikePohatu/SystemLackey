@@ -7,7 +7,7 @@
     <ProjectGuid>{0D648EFF-1D0F-454C-9930-9E94E66D7C4A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SystemLackey</RootNamespace>
+    <RootNamespace>SystemLackey.Worker</RootNamespace>
     <AssemblyName>lackey_worker</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -40,8 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IJobItem.cs" />
-    <Compile Include="JobList.cs" />
+    <Compile Include="ITask.cs" />
+    <Compile Include="Step.cs" />
     <Compile Include="Task_WinScript.cs" />
     <Compile Include="Task_Main.cs" />
     <Compile Include="Job.cs" />

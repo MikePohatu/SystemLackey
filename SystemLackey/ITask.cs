@@ -2,7 +2,9 @@
 
 namespace SystemLackey.Worker
 {
-    class JobList
+    interface ITask
     {
+        int GetXml();
     }
+
 }

@@ -2,7 +2,7 @@
 
 namespace SystemLackey.Worker
 {
-    public class Job : IJobItem
+    public class Job
     {
         private string name = "";        //Name of the task
 
@@ -40,6 +40,8 @@ namespace SystemLackey.Worker
         // /Properties
         //========================
         
+
+
     }
 
 }

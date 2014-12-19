@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Worker
 {
-    interface ITask
-    {
-        int GetXml();
-    }
 
     class PowerControl
     {

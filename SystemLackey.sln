@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_shell", "lackey_shel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_IO", "lackey_IO\lackey_IO.csproj", "{CC1B6343-34CE-48C7-B772-960683553FAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_form_taskbuilder", "lackey_form_taskbuilder\lackey_form_taskbuilder.csproj", "{4648AA6B-178B-49FA-8CCB-EC46B91031A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_form_jobbuilder", "lackey_form_taskbuilder\lackey_form_jobbuilder.csproj", "{4648AA6B-178B-49FA-8CCB-EC46B91031A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_filters", "lackey_filters\lackey_filters.csproj", "{89787298-15F7-4750-89F8-2281076653D9}"
 EndProject
