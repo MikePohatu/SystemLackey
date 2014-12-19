@@ -1,22 +1,10 @@
 ﻿using System;
-using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
-    interface ITask
+    interface IJobItem
     {
-        //methods
-        XElement GetXml();
-        void Run();
-
-        //Properties
         string Name
-        {
-            get;
-            set;
-        }
-
-        string ID
         {
             get;
             set;
@@ -27,6 +15,11 @@ namespace SystemLackey.Worker
             get;
             set;
         }
-    }
 
+        string ID
+        {
+            get;
+            set;
+        }
+    }
 }

@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections;
+using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
-    public class Job
+    public class Job : ITask //: IEnumerable
     {
         private string name = "";        //Name of the task
 
         private string jobid;
         private string comments = "";
+        private Step root;
 
         public Job()
         {
@@ -24,7 +27,7 @@ namespace SystemLackey.Worker
             set { this.name = value; }
         }
 
-        public string JobID
+        public string ID
         {
             get { return this.jobid; }
             set { this.jobid = value; }
@@ -36,12 +39,33 @@ namespace SystemLackey.Worker
             set { this.comments = value; }
         }
 
+        public Step Root
+        {
+            get { return this.root; }
+            set { this.root = value; }
+        }
+
         //========================
         // /Properties
         //========================
-        
 
+        //IEnumerator GetEnumerator()
+        //{
+        //}
 
+        //get the xml representation of the task
+        public XElement GetXml()
+        {
+            XElement details = new XElement("Job",
+                new XElement("name", name),
+                new XElement("jobid", jobid),
+                new XElement("comments",comments));
+            return details;
+        }
+
+        // Run the job
+        public void Run()
+        { }
     }
 
 }
