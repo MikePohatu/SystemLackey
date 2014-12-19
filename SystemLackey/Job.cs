@@ -11,7 +11,6 @@ namespace SystemLackey.Worker
         private string jobid;
         private string comments = "";
         private Step root;
-        private Step last;
 
         public Job()
         {
@@ -64,15 +63,11 @@ namespace SystemLackey.Worker
             return details;
         }
 
-
-
-        //Insert a new step. If the job is not empty, put it at the end
-        public void Insert(Step pStep)
+        public void insert(Step pStep)
         {
             if (root == null)
             {
                 root = pStep;
-                last = pStep;
             }
         }
 
