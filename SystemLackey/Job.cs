@@ -63,13 +63,6 @@ namespace SystemLackey.Worker
             return details;
         }
 
-        public void insert(Step pStep)
-        {
-            if (root == null)
-            {
-                root = pStep;
-            }
-        }
 
         // Run the job
         public void Run()

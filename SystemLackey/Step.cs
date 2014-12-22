@@ -12,6 +12,8 @@ namespace SystemLackey.Worker
         private Step next;
         private Step prev;
         private ITask task;
+        private Job parent;
+
         //========================
         // Properties
         //========================
@@ -33,6 +35,12 @@ namespace SystemLackey.Worker
             get { return this.task; }
             set { this.task = value; }
         }
+
+        public Job Parent
+        {
+            get { return this.parent; }
+            set { this.parent = value; }
+        }
         //========================
         // /Properties
         //========================
@@ -41,11 +49,38 @@ namespace SystemLackey.Worker
         //========================
         // Constructors
         //========================
-        public Step(ITask pTask)
+        public Step(Job pParent,ITask pTask)
         {
+            this.parent = pParent;
             this.task = pTask;
         }
 
+        public Step(Job pParent)
+        {
+            this.parent = pParent;
+        }
+
+        public Step(Step pPrev,Job pParent, ITask pTask,Step pNext)
+        {
+            this.parent = pParent;
+            this.task = pTask;
+            this.next = pNext;
+            this.prev = pPrev;
+        }
+
+        public Step(Job pParent, ITask pTask, Step pNext)
+        {
+            this.parent = pParent;
+            this.task = pTask;
+            this.next = pNext;
+        }
+
+        public Step(Step pPrev, Job pParent, ITask pTask)
+        {
+            this.parent = pParent;
+            this.task = pTask;
+            this.prev = pPrev;
+        }
         //Insert a step after this step.
         //if there is an existing step after this, set it as the step after
         //the new step
