@@ -11,15 +11,15 @@ namespace SystemLackey.Shell
             Task_WinScript task2 = new Task_WinScript("task2", 0, "@echo off && echo \"DICK!!!\" && pause", false, 10, false);
             Task_WinScript task3 = new Task_WinScript("task3", 0, "@echo off && echo \"blaaaaah\" && pause", false, 10, false);
 
-            Job mainJob = new Job();
-            mainJob.Name = "Test job";
-            mainJob.Comments = "This is a job to test the structure of the job";
+            Job mainjob = new Job();
+            mainjob.Name = "Test job";
+            mainjob.Comments = "This is a job to test the structure of the job";
 
-            mainJob.Root = new Step(task1);
+            mainjob.Root = new Step(task1);
             Step tempStep = new Step(task2);
 
-            mainJob.Root.Next = tempStep;
-            tempStep.Prev = mainJob.Root;
+            mainjob.Root.Next = tempStep;
+            tempStep.Prev = mainjob.Root;
 
             Job subJob = new Job();
             subJob.Name = "Test sub job";
@@ -30,7 +30,11 @@ namespace SystemLackey.Shell
             tempStep.Next = new Step(subJob);
             tempStep.Next.Prev = tempStep;
 
+            Job newjob = new Job();
 
+            newjob.ImportXml(mainjob.GetXml());
+
+            Console.WriteLine(newjob.GetXml());
 
 
 
@@ -49,10 +53,6 @@ namespace SystemLackey.Shell
 
             //handler.Write(SystemLackey.IO.IOConfiguration.WorkingPath + @"\" + task.TaskID + ".xml",task2.GetXml());
            // Console.WriteLine(task.GetXml());
-            Job newjob = new Job();
-            Console.WriteLine(mainJob.GetXml());
-            newjob.ImportXml(mainJob.GetXml());
-
             
 
             //Console.WriteLine(task3.GetXml());

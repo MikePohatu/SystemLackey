@@ -10,7 +10,7 @@ namespace SystemLackey.Worker
 
         private string jobid;
         private string comments = "";
-        private Step root = new Step();
+        private Step root;
 
         public Job()
         {
@@ -57,7 +57,7 @@ namespace SystemLackey.Worker
         public XElement GetXml()
         {
             Step current = root;
-            XElement details = new XElement("Job",
+            XElement details = new XElement("Task",
                 new XElement("name", name),
                 new XElement("id", jobid),
                 new XElement("comments",comments));
@@ -81,19 +81,30 @@ namespace SystemLackey.Worker
         public void ImportXml(XElement pElement)
         {
             Task_Factory factory = new Task_Factory();
-            Step i = root;
+            Step i = new Step();
+            root = i;
+            bool first = true;
+
             name = pElement.Element("name").Value;
             //taskid = pElement.Element("taskid").Value;
             jobid = pElement.Element("id").Value;
             comments = pElement.Element("comments").Value;
-            foreach (XElement step in pElement.Descendants("Step"))
+            
+            foreach (XElement step in pElement.Elements("Step"))
             {
-                i.Next = new Step();
-                i.Next.Prev = i;
-                i.Next.Task = factory.Create(step.Element("Task").Attribute("Type").Value);
-                i.Next.Task.ImportXml(step.Element("Task"));
-                i = i.Next;
-
+                if (!first)
+                {
+                    i.Next = new Step();
+                    i.Next.Prev = i;
+                    i.Next.Task = factory.Create(step.Element("Task"));
+                    i = i.Next;
+                }
+                else
+                {
+                    i.Task = factory.Create(step.Element("Task"));
+                    first = false;
+                }
+                
             }
         }
 
