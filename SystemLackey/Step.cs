@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
@@ -121,6 +122,14 @@ namespace SystemLackey.Worker
                 pStep.Prev = tempStep;
                 tempStep.Next = pStep;
             } 
+        }
+
+        public XElement GetXML()
+        {
+            XElement details = new XElement("Step",
+                new XElement("taskid", task.ID),
+                this.Task.GetXml());
+            return details;
         }
 
     }

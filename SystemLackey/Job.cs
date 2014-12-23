@@ -56,10 +56,24 @@ namespace SystemLackey.Worker
         //get the xml representation of the task
         public XElement GetXml()
         {
+            Step current = root;
             XElement details = new XElement("Job",
                 new XElement("name", name),
                 new XElement("jobid", jobid),
                 new XElement("comments",comments));
+
+            //enumerate through the list and get the xml from each node (step)
+            while (true)
+            {
+                details.Add(current.GetXML());
+                current = current.Next;
+                if (current == null)
+                { break; }
+            }
+            
+
+
+
             return details;
         }
 

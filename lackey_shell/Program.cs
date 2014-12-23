@@ -7,7 +7,7 @@ namespace SystemLackey.Shell
     {
         static void Main(string[] args)
         {
-            Task_WinScript task = new Task_WinScript("task",0, "echo \"test\" && pause", false, 5,false);
+            Task_WinScript task1 = new Task_WinScript("task1",0, "echo \"test\" && pause", false, 5,false);
             Task_WinScript task2 = new Task_WinScript("task2", 0, "@echo off && echo \"DICK!!!\" && pause", false, 10, false);
             Task_WinScript task3 = new Task_WinScript("task3", 0, "@echo off && echo \"blaaaaah\" && pause", false, 10, false);
 
@@ -15,7 +15,7 @@ namespace SystemLackey.Shell
             mainJob.Name = "Test job";
             mainJob.Comments = "This is a job to test the structure of the job";
 
-            mainJob.Root = new Step(mainJob, task);
+            mainJob.Root = new Step(mainJob, task1);
             Step tempStep = new Step(mainJob, task2);
 
             mainJob.Root.Next = tempStep;
@@ -48,7 +48,8 @@ namespace SystemLackey.Shell
             //Console.WriteLine(task.ScriptFile);
 
             //handler.Write(SystemLackey.IO.IOConfiguration.WorkingPath + @"\" + task.TaskID + ".xml",task2.GetXml());
-            Console.WriteLine(task.GetXml());
+           // Console.WriteLine(task.GetXml());
+            Console.WriteLine(mainJob.GetXml());
             //Console.WriteLine(task3.GetXml());
             //Console.WriteLine(task3.Code);
             Console.Read();
