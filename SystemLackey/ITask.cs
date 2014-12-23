@@ -7,6 +7,7 @@ namespace SystemLackey.Worker
     {
         //methods
         XElement GetXml();
+        void ImportXml(XElement pElement);
 
         //Run should return a final state
         //0=Succes

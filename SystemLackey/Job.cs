@@ -10,7 +10,7 @@ namespace SystemLackey.Worker
 
         private string jobid;
         private string comments = "";
-        private Step root;
+        private Step root = new Step();
 
         public Job()
         {
@@ -59,9 +59,9 @@ namespace SystemLackey.Worker
             Step current = root;
             XElement details = new XElement("Job",
                 new XElement("name", name),
-                new XElement("jobid", jobid),
+                new XElement("id", jobid),
                 new XElement("comments",comments));
-
+            details.SetAttributeValue("Type", "Job");
             //enumerate through the list and get the xml from each node (step)
             while (true)
             {
@@ -77,6 +77,25 @@ namespace SystemLackey.Worker
             return details;
         }
 
+        //
+        public void ImportXml(XElement pElement)
+        {
+            Task_Factory factory = new Task_Factory();
+            Step i = root;
+            name = pElement.Element("name").Value;
+            //taskid = pElement.Element("taskid").Value;
+            jobid = pElement.Element("id").Value;
+            comments = pElement.Element("comments").Value;
+            foreach (XElement step in pElement.Descendants("Step"))
+            {
+                i.Next = new Step();
+                i.Next.Prev = i;
+                i.Next.Task = factory.Create(step.Element("Task").Attribute("Type").Value);
+                i.Next.Task.ImportXml(step.Element("Task"));
+                i = i.Next;
+
+            }
+        }
 
         // Run the job
         public int Run()

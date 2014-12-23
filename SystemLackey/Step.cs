@@ -13,7 +13,7 @@ namespace SystemLackey.Worker
         private Step next;
         private Step prev;
         private ITask task;
-        private Job parent;
+        //private Job parent;
         //private Evaluation eval;
         //private 
 
@@ -39,11 +39,11 @@ namespace SystemLackey.Worker
             set { this.task = value; }
         }
 
-        public Job Parent
-        {
-            get { return this.parent; }
-            set { this.parent = value; }
-        }
+        //public Job Parent
+        //{
+        //   get { return this.parent; }
+        //  set { this.parent = value; }
+        //}
         //========================
         // /Properties
         //========================
@@ -52,35 +52,38 @@ namespace SystemLackey.Worker
         //========================
         // Constructors
         //========================
-        public Step(Job pParent,ITask pTask)
+        public Step(ITask pTask)
         {
-            this.parent = pParent;
+            //this.parent = pParent;
             this.task = pTask;
         }
 
-        public Step(Job pParent)
-        {
-            this.parent = pParent;
-        }
+        public Step()
+        { }
 
-        public Step(Step pPrev,Job pParent, ITask pTask,Step pNext)
+        //public Step(Job pParent)
+        //{
+        //    this.parent = pParent;
+        //}
+
+        public Step(Step pPrev, ITask pTask,Step pNext)
         {
-            this.parent = pParent;
+            //this.parent = pParent;
             this.task = pTask;
             this.next = pNext;
             this.prev = pPrev;
         }
 
-        public Step(Job pParent, ITask pTask, Step pNext)
+        public Step(ITask pTask, Step pNext)
         {
-            this.parent = pParent;
+            //this.parent = pParent;
             this.task = pTask;
             this.next = pNext;
         }
 
-        public Step(Step pPrev, Job pParent, ITask pTask)
+        public Step(Step pPrev, ITask pTask)
         {
-            this.parent = pParent;
+            //this.parent = pParent;
             this.task = pTask;
             this.prev = pPrev;
         }

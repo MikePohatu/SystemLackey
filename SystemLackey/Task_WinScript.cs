@@ -148,6 +148,8 @@ namespace SystemLackey.Worker
                 new XElement("wow64",wow64),
                 new XElement("hidden", hidden),
                 new XElement("comments", comments));
+
+            details.SetAttributeValue("Type", "WinScript");
             return details;
         }
 

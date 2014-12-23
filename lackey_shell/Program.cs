@@ -15,8 +15,8 @@ namespace SystemLackey.Shell
             mainJob.Name = "Test job";
             mainJob.Comments = "This is a job to test the structure of the job";
 
-            mainJob.Root = new Step(mainJob, task1);
-            Step tempStep = new Step(mainJob, task2);
+            mainJob.Root = new Step(task1);
+            Step tempStep = new Step(task2);
 
             mainJob.Root.Next = tempStep;
             tempStep.Prev = mainJob.Root;
@@ -25,9 +25,9 @@ namespace SystemLackey.Shell
             subJob.Name = "Test sub job";
             subJob.Comments = "This is a sub job to test it all hangs together";
 
-            subJob.Root = new Step(subJob,task3);
+            subJob.Root = new Step(task3);
 
-            tempStep.Next = new Step(mainJob, subJob);
+            tempStep.Next = new Step(subJob);
             tempStep.Next.Prev = tempStep;
 
 
@@ -49,7 +49,12 @@ namespace SystemLackey.Shell
 
             //handler.Write(SystemLackey.IO.IOConfiguration.WorkingPath + @"\" + task.TaskID + ".xml",task2.GetXml());
            // Console.WriteLine(task.GetXml());
+            Job newjob = new Job();
             Console.WriteLine(mainJob.GetXml());
+            newjob.ImportXml(mainJob.GetXml());
+
+            
+
             //Console.WriteLine(task3.GetXml());
             //Console.WriteLine(task3.Code);
             Console.Read();
