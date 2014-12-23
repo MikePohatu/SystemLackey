@@ -7,12 +7,14 @@ namespace SystemLackey.Worker
 {
     //The step class contains details of each step in a job, including the previous and next steps. 
     //This will allow for easy re-ordering of the job. note that a task may be referenced 
-    class Step
+    public class Step
     {
         private Step next;
         private Step prev;
         private ITask task;
         private Job parent;
+        //private Evaluation eval;
+        //private 
 
         //========================
         // Properties

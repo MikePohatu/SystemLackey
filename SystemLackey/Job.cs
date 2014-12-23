@@ -65,8 +65,11 @@ namespace SystemLackey.Worker
 
 
         // Run the job
-        public void Run()
-        { }
+        public int Run()
+        {
+            int state = 0;
+            return state;
+        }
     }
 
 }

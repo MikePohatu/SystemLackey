@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
-    public class Task_WinScript
+    public class Task_WinScript : ITask
     {
         private string name = "";        //Name of the task
         private int type = 0;            //0=cmd, 1=vbs, 2=ps1
@@ -165,8 +165,9 @@ namespace SystemLackey.Worker
         }
 
         //Run a Task_Winscript object
-        public void Run()
+        public int Run()
         {
+            int state = 0;
             string strScriptFile;
             string strArguments;
             string strExtn;
@@ -232,7 +233,7 @@ namespace SystemLackey.Worker
                 //invalid type. Throw exception
                 default:
                     System.ArgumentException argEx = new System.ArgumentException("Invalid script type " + this.type, "SetType");
-                    return;
+                    return 5;
             }
 
             //Now write the script file to the working directory
@@ -253,7 +254,7 @@ namespace SystemLackey.Worker
 
             process.StartInfo = startInfo;
 
-            //try to run the process script. return the scripts return code or 99999 if it times out.
+            //try to run the process script.
             try
             {
                 process.Start();
@@ -265,9 +266,14 @@ namespace SystemLackey.Worker
             catch
             {
                 //timeout reached
-                //return 99999;
+                return 4;
             }
+
+            return state;
         }
+
+
+
 
 
         //Write a script file 

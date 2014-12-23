@@ -3,11 +3,19 @@ using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
-    interface ITask
+    public interface ITask
     {
         //methods
         XElement GetXml();
-        void Run();
+
+        //Run should return a final state
+        //0=Succes
+        //1=Information
+        //2=Warning
+        //3=Error
+        //4=Timeout
+        //5=Exception
+        int Run();
 
         //Properties
         string Name
