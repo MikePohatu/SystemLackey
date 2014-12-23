@@ -36,13 +36,13 @@ namespace SystemLackey.Shell
 
             Console.WriteLine(newjob.GetXml());
 
-
+            newjob.Run();
 
             //Task_WinTaskWorker worker = new Task_WinTaskWorker();
             
-            //SystemLackey.IO.XmlHandler handler = new SystemLackey.IO.XmlHandler();
+            SystemLackey.IO.XmlHandler handler = new SystemLackey.IO.XmlHandler();
 
-            //handler.Write(SystemLackey.IO.IOConfiguration.WorkingPath + @"\test.xml",task.GetXml());
+            handler.Write(SystemLackey.IO.IOConfiguration.WorkingPath + @"\test.xml",newjob.GetXml());
             
             //Task_WinScript task3 = new Task_WinScript();
             //task3.OpenXml(handler.Read(SystemLackey.IO.IOConfiguration.WorkingPath + @"\test.xml"));

@@ -112,6 +112,41 @@ namespace SystemLackey.Worker
         public int Run()
         {
             int state = 0;
+            int ret;
+            Step s = root;
+
+            while (true)
+            {
+                if (s != null)
+                {
+                    if (s.Task != null)
+                    {
+                        //run the task for the step, keeping the return value
+                        ret = s.Task.Run();
+
+                        //catch warnings. check whether to contine
+                        if ((ret == 3) && !s.ContinueOnWarning)
+                        {
+                            state = ret;
+                            break;
+                        }
+
+                        //catch errors. check whether to contine
+                        else if ((ret == 4) && !s.ContinueOnError)
+                        {
+                            state = ret;
+                            break;
+                        }
+                    }
+
+                    s = s.Next;
+                }
+    
+                //no more steps. break from the loop
+                else
+                { break; }
+            }
+
             return state;
         }
     }

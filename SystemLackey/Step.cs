@@ -15,6 +15,8 @@ namespace SystemLackey.Worker
         private ITask task;
         //private Job parent;
         //private Evaluation eval;
+        private bool onError = true;
+        private bool onWarn = true;
         //private 
 
         //========================
@@ -39,6 +41,17 @@ namespace SystemLackey.Worker
             set { this.task = value; }
         }
 
+        public bool ContinueOnError
+        {
+            get { return this.onError; }
+            set { this.onError = value;}
+        }
+
+        public bool ContinueOnWarning
+        {
+            get { return this.onWarn; }
+            set { this.onWarn = value; }
+        }
         //public Job Parent
         //{
         //   get { return this.parent; }
@@ -131,6 +144,7 @@ namespace SystemLackey.Worker
         {
             XElement details = new XElement("Step",
                 new XElement("taskid", task.ID),
+                new XElement("ContinueOnError",onError),
                 this.Task.GetXml());
             return details;
         }
