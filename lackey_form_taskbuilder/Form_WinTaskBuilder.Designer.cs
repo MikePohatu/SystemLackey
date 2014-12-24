@@ -60,7 +60,7 @@
             this.radioCmd.AutoSize = true;
             this.radioCmd.Checked = true;
             this.radioCmd.Location = new System.Drawing.Point(277, 7);
-            this.radioCmd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioCmd.Margin = new System.Windows.Forms.Padding(2);
             this.radioCmd.Name = "radioCmd";
             this.radioCmd.Size = new System.Drawing.Size(53, 17);
             this.radioCmd.TabIndex = 0;
@@ -73,7 +73,7 @@
             // 
             this.radioVbs.AutoSize = true;
             this.radioVbs.Location = new System.Drawing.Point(277, 27);
-            this.radioVbs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioVbs.Margin = new System.Windows.Forms.Padding(2);
             this.radioVbs.Name = "radioVbs";
             this.radioVbs.Size = new System.Drawing.Size(66, 17);
             this.radioVbs.TabIndex = 1;
@@ -85,7 +85,7 @@
             // 
             this.radioPs1.AutoSize = true;
             this.radioPs1.Location = new System.Drawing.Point(277, 47);
-            this.radioPs1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioPs1.Margin = new System.Windows.Forms.Padding(2);
             this.radioPs1.Name = "radioPs1";
             this.radioPs1.Size = new System.Drawing.Size(76, 17);
             this.radioPs1.TabIndex = 2;
@@ -97,7 +97,7 @@
             // 
             this.checkASync.AutoSize = true;
             this.checkASync.Location = new System.Drawing.Point(277, 102);
-            this.checkASync.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkASync.Margin = new System.Windows.Forms.Padding(2);
             this.checkASync.Name = "checkASync";
             this.checkASync.Size = new System.Drawing.Size(95, 17);
             this.checkASync.TabIndex = 4;
@@ -107,7 +107,7 @@
             // numericTimeout
             // 
             this.numericTimeout.Location = new System.Drawing.Point(484, 6);
-            this.numericTimeout.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.numericTimeout.Margin = new System.Windows.Forms.Padding(2);
             this.numericTimeout.Maximum = new decimal(new int[] {
             86400,
             0,
@@ -140,7 +140,7 @@
             // 
             this.checkSysWow64.AutoSize = true;
             this.checkSysWow64.Location = new System.Drawing.Point(277, 82);
-            this.checkSysWow64.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkSysWow64.Margin = new System.Windows.Forms.Padding(2);
             this.checkSysWow64.Name = "checkSysWow64";
             this.checkSysWow64.Size = new System.Drawing.Size(90, 17);
             this.checkSysWow64.TabIndex = 7;
@@ -151,7 +151,7 @@
             // buttonExport
             // 
             this.buttonExport.Location = new System.Drawing.Point(278, 174);
-            this.buttonExport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonExport.Margin = new System.Windows.Forms.Padding(2);
             this.buttonExport.Name = "buttonExport";
             this.buttonExport.Size = new System.Drawing.Size(80, 25);
             this.buttonExport.TabIndex = 8;
@@ -162,7 +162,7 @@
             // buttonImport
             // 
             this.buttonImport.Location = new System.Drawing.Point(278, 145);
-            this.buttonImport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonImport.Margin = new System.Windows.Forms.Padding(2);
             this.buttonImport.Name = "buttonImport";
             this.buttonImport.Size = new System.Drawing.Size(80, 25);
             this.buttonImport.TabIndex = 9;
@@ -173,7 +173,7 @@
             // buttonRun
             // 
             this.buttonRun.Location = new System.Drawing.Point(462, 174);
-            this.buttonRun.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonRun.Margin = new System.Windows.Forms.Padding(2);
             this.buttonRun.Name = "buttonRun";
             this.buttonRun.Size = new System.Drawing.Size(80, 25);
             this.buttonRun.TabIndex = 10;
@@ -187,7 +187,7 @@
             this.checkHidden.Checked = true;
             this.checkHidden.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkHidden.Location = new System.Drawing.Point(278, 121);
-            this.checkHidden.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.checkHidden.Margin = new System.Windows.Forms.Padding(2);
             this.checkHidden.Name = "checkHidden";
             this.checkHidden.Size = new System.Drawing.Size(60, 17);
             this.checkHidden.TabIndex = 12;
@@ -236,7 +236,7 @@
             this.textCode.AcceptsTab = true;
             this.textCode.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textCode.Location = new System.Drawing.Point(2, 2);
-            this.textCode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textCode.Margin = new System.Windows.Forms.Padding(2);
             this.textCode.Multiline = true;
             this.textCode.Name = "textCode";
             this.textCode.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -244,7 +244,6 @@
             this.textCode.TabIndex = 4;
             this.textCode.Text = "Enter script code here";
             this.textCode.WordWrap = false;
-            this.textCode.TextChanged += new System.EventHandler(this.textCode_TextChanged_1);
             // 
             // tabWinScript
             // 
@@ -252,7 +251,7 @@
             this.tabWinScript.Controls.Add(this.tabScriptDetails);
             this.tabWinScript.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabWinScript.Location = new System.Drawing.Point(0, 0);
-            this.tabWinScript.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabWinScript.Margin = new System.Windows.Forms.Padding(2);
             this.tabWinScript.Name = "tabWinScript";
             this.tabWinScript.SelectedIndex = 0;
             this.tabWinScript.Size = new System.Drawing.Size(810, 464);
@@ -263,9 +262,9 @@
             this.tabScriptCode.AutoScroll = true;
             this.tabScriptCode.Controls.Add(this.textCode);
             this.tabScriptCode.Location = new System.Drawing.Point(4, 22);
-            this.tabScriptCode.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabScriptCode.Margin = new System.Windows.Forms.Padding(2);
             this.tabScriptCode.Name = "tabScriptCode";
-            this.tabScriptCode.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabScriptCode.Padding = new System.Windows.Forms.Padding(2);
             this.tabScriptCode.Size = new System.Drawing.Size(802, 438);
             this.tabScriptCode.TabIndex = 0;
             this.tabScriptCode.Text = "Script";
@@ -292,9 +291,9 @@
             this.tabScriptDetails.Controls.Add(this.radioCmd);
             this.tabScriptDetails.Controls.Add(this.numericTimeout);
             this.tabScriptDetails.Location = new System.Drawing.Point(4, 22);
-            this.tabScriptDetails.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabScriptDetails.Margin = new System.Windows.Forms.Padding(2);
             this.tabScriptDetails.Name = "tabScriptDetails";
-            this.tabScriptDetails.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabScriptDetails.Padding = new System.Windows.Forms.Padding(2);
             this.tabScriptDetails.Size = new System.Drawing.Size(802, 438);
             this.tabScriptDetails.TabIndex = 1;
             this.tabScriptDetails.Text = "Details";
@@ -312,7 +311,7 @@
             // richComments
             // 
             this.richComments.Location = new System.Drawing.Point(11, 70);
-            this.richComments.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.richComments.Margin = new System.Windows.Forms.Padding(2);
             this.richComments.Name = "richComments";
             this.richComments.Size = new System.Drawing.Size(255, 130);
             this.richComments.TabIndex = 13;
@@ -324,7 +323,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(810, 464);
             this.Controls.Add(this.tabWinScript);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MinimumSize = new System.Drawing.Size(20, 379);
             this.Name = "formWinTaskBuilder";
             this.Text = "System Lackey : Task Builder";

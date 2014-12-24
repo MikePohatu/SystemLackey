@@ -233,11 +233,6 @@ namespace lackey_form_taskbuilder
 
         }
 
-        private void textCode_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void textName_TextChanged(object sender, EventArgs e)
         {
 
