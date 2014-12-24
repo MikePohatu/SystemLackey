@@ -4,15 +4,15 @@ using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
-    public class Job : ITask //: IEnumerable
+    public class Task_Job : ITask //: IEnumerable
     {
         private string name = "";        //Name of the task
 
         private string jobid;
         private string comments = "";
-        private Step root;
+        private Step root = null;
 
-        public Job()
+        public Task_Job()
         {
             jobid = Guid.NewGuid().ToString();
         }
@@ -76,8 +76,8 @@ namespace SystemLackey.Worker
 
             return details;
         }
-
-        //
+        
+        // import job details from xml
         public void ImportXml(XElement pElement)
         {
             Task_Factory factory = new Task_Factory();
@@ -117,8 +117,10 @@ namespace SystemLackey.Worker
 
             while (true)
             {
+                //check for null step. A null step indicates the end of the job. 
                 if (s != null)
                 {
+                    //check for step with a null task. In theory it shouldn't happen, but oh well. 
                     if (s.Task != null)
                     {
                         //run the task for the step, keeping the return value

@@ -15,7 +15,7 @@ namespace SystemLackey.Worker
                     ret = new Task_WinScript();
                     break;
                 case "Job":
-                    ret = new Job();
+                    ret = new Task_Job();
                     break;
                 //invalid type. Throw exception
                 default:

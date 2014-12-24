@@ -11,7 +11,7 @@ namespace SystemLackey.Shell
             Task_WinScript task2 = new Task_WinScript("task2", 0, "@echo off && echo \"DICK!!!\" && pause", false, 10, false);
             Task_WinScript task3 = new Task_WinScript("task3", 0, "@echo off && echo \"blaaaaah\" && pause", false, 10, false);
 
-            Job mainjob = new Job();
+            Task_Job mainjob = new Task_Job();
             mainjob.Name = "Test job";
             mainjob.Comments = "This is a job to test the structure of the job";
 
@@ -21,7 +21,7 @@ namespace SystemLackey.Shell
             mainjob.Root.Next = tempStep;
             tempStep.Prev = mainjob.Root;
 
-            Job subJob = new Job();
+            Task_Job subJob = new Task_Job();
             subJob.Name = "Test sub job";
             subJob.Comments = "This is a sub job to test it all hangs together";
 
@@ -30,7 +30,7 @@ namespace SystemLackey.Shell
             tempStep.Next = new Step(subJob);
             tempStep.Next.Prev = tempStep;
 
-            Job newjob = new Job();
+            Task_Job newjob = new Task_Job();
 
             newjob.ImportXml(mainjob.GetXml());
 
