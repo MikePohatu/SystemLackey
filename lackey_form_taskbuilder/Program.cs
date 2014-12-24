@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace lackey_form_taskbuilder
+namespace SystemLackey.JobBuilder
 {
     static class Program
     {

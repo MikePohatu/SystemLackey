@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormFactory.cs" />
     <Compile Include="Form_JobDetails.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,6 +1,6 @@
-﻿namespace lackey_form_taskbuilder
+﻿namespace SystemLackey.JobBuilder
 {
-    partial class formWinTaskBuilder
+    partial class Form_WinTaskBuilder
     {
         /// <summary>
         /// Required designer variable.

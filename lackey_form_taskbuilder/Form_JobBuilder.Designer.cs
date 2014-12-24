@@ -1,4 +1,4 @@
-﻿namespace lackey_form_taskbuilder
+﻿namespace SystemLackey.JobBuilder
 {
     partial class Form_JobBuilder
     {
@@ -404,6 +404,7 @@
             this.treeJobList.Name = "treeJobList";
             this.treeJobList.Size = new System.Drawing.Size(219, 383);
             this.treeJobList.TabIndex = 1;
+            this.treeJobList.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.Event_treeJobList_NodeMouseClick);
             // 
             // menuStripTasks
             // 
@@ -430,7 +431,7 @@
             // jobToolStripMenuItem
             // 
             this.jobToolStripMenuItem.Name = "jobToolStripMenuItem";
-            this.jobToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.jobToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.jobToolStripMenuItem.Text = "Job";
             this.jobToolStripMenuItem.Click += new System.EventHandler(this.jobToolStripMenuItem_Click);
             // 
@@ -447,7 +448,7 @@
             this.newToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.windowsScriptToolStripMenuItem});
             this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-            this.newToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
             this.newToolStripMenuItem1.Text = "New";
             // 
             // windowsScriptToolStripMenuItem

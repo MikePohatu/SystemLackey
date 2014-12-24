@@ -8,11 +8,12 @@ using System.Text;
 using System.Windows.Forms;
 using SystemLackey.Worker;
 
-namespace lackey_form_taskbuilder
+namespace SystemLackey.JobBuilder
 {
     public partial class Form_JobBuilder : Form
     {
-        private JobNode root;
+        private TreeNode rootNode;
+        private Form_Factory factory = new Form_Factory();
         private Form panel2;
         private int childFormNumber = 0;
 
@@ -109,7 +110,7 @@ namespace lackey_form_taskbuilder
         private void windowsScriptToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Application.Run(new formWinTaskBuilder());
-            panel2 = new formWinTaskBuilder();
+            panel2 = new Form_WinTaskBuilder();
             ResetPanel2();            
         }
 
@@ -117,7 +118,7 @@ namespace lackey_form_taskbuilder
         // New -> Job
         private void jobToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.root != null)
+            if (this.rootNode != null)
             {
                 string message = "This will create a new root job, discarding any unsaved  changes" + Environment.NewLine + "Continue?";
                 if (MessageBox.Show(message, "Confirmation", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -135,23 +136,30 @@ namespace lackey_form_taskbuilder
         {
             treeJobList.BeginUpdate();
 
-            //Create the new job and root step. 
-            //Step newroot = new Step();
-            Task_Job newjob = new Task_Job();
-            root = new JobNode(newjob);
+            //Create the new job and root node. 
+            Task_Job t = new Task_Job();
+            t.Name = "New job";
+
+            //create the new node and set it up. 
+            rootNode = new TreeNode();
+            rootNode.Tag = t;
+            rootNode.Name = t.ID;
+            rootNode.Text = t.Name;
 
             treeJobList.Nodes.Clear();
-            treeJobList.Nodes.Add(root);
+
+            treeJobList.Nodes.Add(rootNode);
 
             //Close panel2 and Spin up the new form
             if (panel2 != null)
             { panel2.Close(); }
 
-            panel2 = new Form_JobDetails(newjob);
+            panel2 = new Form_JobDetails(t);
             ResetPanel2();
-
             treeJobList.EndUpdate();
         }
+
+        //private void UpdateNode()
 
         private void ResetPanel2()
         {
@@ -165,44 +173,14 @@ namespace lackey_form_taskbuilder
             // Display the new form.
             panel2.Show();
         }
-    }
 
-
-    //Class to hold a reference to a job step in a treeview node
-    public class StepNode : TreeNode
-    {
-        private Step link;
-
-        //constructor
-        public StepNode(Step pStep)
+        private void Event_treeJobList_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            link = pStep;
-            this.Text = link.Task.Name;
-        }
-
-        public Step Link
-        {
-            get { return this.link; }
-            set { this.link = value; }
-        }
-    }
-
-    //Class to hold a reference to a job step in a treeview node
-    public class JobNode : TreeNode
-    {
-        private Task_Job link;
-
-        //constructor
-        public JobNode(Task_Job p)
-        {
-            link = p;
-            this.Text = link.Name;
-        }
-
-        public Task_Job Link
-        {
-            get { return this.link; }
-            set { this.link = value; }
+            Object o = treeJobList.SelectedNode.Tag;
+            panel2.Close();
+            MessageBox.Show(o.ToString(), o.ToString());
+            panel2 = factory.Create(o);
+            ResetPanel2();
         }
     }
 }

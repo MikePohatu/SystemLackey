@@ -1,4 +1,4 @@
-﻿namespace lackey_form_taskbuilder
+﻿namespace SystemLackey.JobBuilder
 {
     partial class Form_JobDetails
     {
@@ -63,7 +63,6 @@
             this.labelName.Size = new System.Drawing.Size(38, 13);
             this.labelName.TabIndex = 2;
             this.labelName.Text = "Name:";
-            this.labelName.Click += new System.EventHandler(this.labelName_Click);
             // 
             // textName
             // 
@@ -71,7 +70,6 @@
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(340, 20);
             this.textName.TabIndex = 3;
-            this.textName.TextChanged += new System.EventHandler(this.textName_TextChanged);
             // 
             // labelComments
             // 

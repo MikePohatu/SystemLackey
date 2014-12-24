@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SystemLackey.Worker;
 
-namespace lackey_form_taskbuilder
+namespace SystemLackey.JobBuilder
 {
     public partial class Form_JobDetails : Form
     {
@@ -20,14 +20,10 @@ namespace lackey_form_taskbuilder
             InitializeComponent();
             job = pJob;
             UpdateForm();
-            
-        }
-
-        private void labelName_Click(object sender, EventArgs e)
-        {
 
         }
 
+        //save the job
         private void buttonSave_Click(object sender, EventArgs e)
         {
             job.Comments = textComments.Text;
@@ -35,16 +31,12 @@ namespace lackey_form_taskbuilder
             job.ID = labelJobGuid.Text;
         }
 
-        private void textName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void UpdateForm()
         {
             textComments.Text = job.Comments;
             textName.Text = job.Name;
             labelJobGuid.Text = job.ID;
+            //this.MdiParent.
         }
     }
 }

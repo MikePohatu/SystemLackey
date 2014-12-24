@@ -12,16 +12,23 @@ using System.IO;
 using SystemLackey.IO;
 using SystemLackey.Worker;
 
-namespace lackey_form_taskbuilder
+namespace SystemLackey.JobBuilder
 {
-    public partial class formWinTaskBuilder : Form
+    public partial class Form_WinTaskBuilder : Form
     {
         public Task_WinScript task;
  
-        public formWinTaskBuilder()
+        public Form_WinTaskBuilder()
         {
             InitializeComponent();
             task = new Task_WinScript();
+            UpdateForm();
+        }
+
+        public Form_WinTaskBuilder(Task_WinScript t)
+        {
+            InitializeComponent();
+            task = t;
             UpdateForm();
         }
 
