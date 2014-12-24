@@ -176,11 +176,20 @@ namespace SystemLackey.JobBuilder
 
         private void Event_treeJobList_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            Object o = treeJobList.SelectedNode.Tag;
-            panel2.Close();
-            MessageBox.Show(o.ToString(), o.ToString());
-            panel2 = factory.Create(o);
-            ResetPanel2();
+            if (e != null)
+            {
+                if ( e.Node != null )
+                {
+                    treeJobList.SelectedNode = e.Node;
+                    Object o = treeJobList.SelectedNode.Tag;
+                    panel2.Close();
+                    MessageBox.Show(o.ToString(), o.ToString());
+                    panel2 = factory.Create(o);
+                    ResetPanel2();
+                }
+                
+            }
+            
         }
     }
 }
