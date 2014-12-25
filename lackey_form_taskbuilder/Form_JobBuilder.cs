@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SystemLackey.Worker;
 
-namespace SystemLackey.JobBuilder
+namespace SystemLackey.UI.Forms
 {
     public partial class Form_JobBuilder : Form
     {

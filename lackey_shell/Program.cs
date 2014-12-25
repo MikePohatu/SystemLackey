@@ -1,7 +1,7 @@
 ﻿using System;
 using SystemLackey.Worker;
 
-namespace SystemLackey.Shell
+namespace SystemLackey.UI.Forms
 {
     class LackeyShell
     {

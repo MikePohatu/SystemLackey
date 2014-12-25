@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using SystemLackey.Worker;
 
-namespace SystemLackey.JobBuilder
+namespace SystemLackey.UI.Forms
 {
     class Panel2Factory
     {

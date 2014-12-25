@@ -12,7 +12,7 @@ using System.IO;
 using SystemLackey.IO;
 using SystemLackey.Worker;
 
-namespace SystemLackey.JobBuilder
+namespace SystemLackey.UI.Forms
 {
     public partial class Form_WinTaskBuilder : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace SystemLackey.JobBuilder
+﻿namespace SystemLackey.UI.Forms
 {
     partial class Form_WinTaskBuilder
     {
