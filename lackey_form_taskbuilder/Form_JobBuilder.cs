@@ -13,7 +13,7 @@ namespace SystemLackey.JobBuilder
     public partial class Form_JobBuilder : Form
     {
         private TreeNode rootNode;
-        private Form_Factory factory = new Form_Factory();
+        private Panel2Factory factory = new Panel2Factory();
         private Form panel2;
         private int childFormNumber = 0;
 
@@ -154,12 +154,15 @@ namespace SystemLackey.JobBuilder
             if (panel2 != null)
             { panel2.Close(); }
 
-            panel2 = new Form_JobDetails(t);
+            panel2 = factory.Create(t, rootNode);
             ResetPanel2();
+
+            treeJobList.SelectedNode = rootNode;
+
             treeJobList.EndUpdate();
         }
 
-        //private void UpdateNode()
+
 
         private void ResetPanel2()
         {
@@ -180,16 +183,53 @@ namespace SystemLackey.JobBuilder
             {
                 if ( e.Node != null )
                 {
-                    treeJobList.SelectedNode = e.Node;
-                    Object o = treeJobList.SelectedNode.Tag;
-                    panel2.Close();
-                    MessageBox.Show(o.ToString(), o.ToString());
-                    panel2 = factory.Create(o);
-                    ResetPanel2();
-                }
-                
+                    if (e.Node != treeJobList.SelectedNode)
+                    {
+                        treeJobList.SelectedNode = e.Node;
+                        Object o = treeJobList.SelectedNode.Tag;
+                        panel2.Close();
+                        //MessageBox.Show(o.ToString(), o.ToString());
+                        panel2 = factory.Create(o,treeJobList.SelectedNode);
+                        ResetPanel2();
+                    }
+                }               
             }
-            
+        }
+
+        private void windowsScriptToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //Application.Run(new formWinTaskBuilder());
+            panel2 = new Form_WinTaskBuilder();
+            ResetPanel2();  
+        }
+
+
+        private void menuItemAddTaskWinScript_Click(object sender, EventArgs e)
+        {
+            treeJobList.BeginUpdate();
+
+            //Create the new job and root node. 
+            Task_WinScript t = new Task_WinScript();
+            t.Name = "Windows script";
+
+            //create the new node and set it up. 
+            TreeNode node = new TreeNode();
+            node.Tag = t;
+            node.Name = t.ID;
+            node.Text = t.Name;
+
+            rootNode.Nodes.Add(node);
+
+            //Close panel2 and Spin up the new form
+            if (panel2 != null)
+            { panel2.Close(); }
+
+            panel2 = factory.Create(t, node);
+            ResetPanel2();
+
+            treeJobList.SelectedNode = node;
+
+            treeJobList.EndUpdate();
         }
     }
 }

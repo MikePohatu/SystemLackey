@@ -140,7 +140,6 @@ namespace SystemLackey.Worker
                             break;
                         }
                     }
-
                     s = s.Next;
                 }
     

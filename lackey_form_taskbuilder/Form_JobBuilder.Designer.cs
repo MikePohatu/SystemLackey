@@ -71,9 +71,11 @@
             this.menuStripTasks = new System.Windows.Forms.MenuStrip();
             this.newToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.jobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tasksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.windowsScriptToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.taskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.subJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemAddTaskWinScript = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItemAddTaskPower = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
@@ -411,7 +413,7 @@
             this.menuStripTasks.GripMargin = new System.Windows.Forms.Padding(0);
             this.menuStripTasks.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem2,
-            this.tasksToolStripMenuItem});
+            this.menuItemAdd});
             this.menuStripTasks.Location = new System.Drawing.Point(0, 0);
             this.menuStripTasks.Name = "menuStripTasks";
             this.menuStripTasks.Padding = new System.Windows.Forms.Padding(0);
@@ -431,32 +433,46 @@
             // jobToolStripMenuItem
             // 
             this.jobToolStripMenuItem.Name = "jobToolStripMenuItem";
-            this.jobToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
+            this.jobToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.jobToolStripMenuItem.Text = "Job";
             this.jobToolStripMenuItem.Click += new System.EventHandler(this.jobToolStripMenuItem_Click);
             // 
-            // tasksToolStripMenuItem
+            // menuItemAdd
             // 
-            this.tasksToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem1});
-            this.tasksToolStripMenuItem.Name = "tasksToolStripMenuItem";
-            this.tasksToolStripMenuItem.Size = new System.Drawing.Size(48, 24);
-            this.tasksToolStripMenuItem.Text = "Tasks";
+            this.menuItemAdd.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.subJobToolStripMenuItem,
+            this.taskToolStripMenuItem});
+            this.menuItemAdd.Name = "menuItemAdd";
+            this.menuItemAdd.Size = new System.Drawing.Size(41, 24);
+            this.menuItemAdd.Text = "Add";
             // 
-            // newToolStripMenuItem1
+            // taskToolStripMenuItem
             // 
-            this.newToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.windowsScriptToolStripMenuItem});
-            this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-            this.newToolStripMenuItem1.Size = new System.Drawing.Size(98, 22);
-            this.newToolStripMenuItem1.Text = "New";
+            this.taskToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItemAddTaskPower,
+            this.menuItemAddTaskWinScript});
+            this.taskToolStripMenuItem.Name = "taskToolStripMenuItem";
+            this.taskToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.taskToolStripMenuItem.Text = "Task";
             // 
-            // windowsScriptToolStripMenuItem
+            // subJobToolStripMenuItem
             // 
-            this.windowsScriptToolStripMenuItem.Name = "windowsScriptToolStripMenuItem";
-            this.windowsScriptToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
-            this.windowsScriptToolStripMenuItem.Text = "Windows Script";
-            this.windowsScriptToolStripMenuItem.Click += new System.EventHandler(this.windowsScriptToolStripMenuItem_Click);
+            this.subJobToolStripMenuItem.Name = "subJobToolStripMenuItem";
+            this.subJobToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.subJobToolStripMenuItem.Text = "Sub job";
+            // 
+            // menuItemAddTaskWinScript
+            // 
+            this.menuItemAddTaskWinScript.Name = "menuItemAddTaskWinScript";
+            this.menuItemAddTaskWinScript.Size = new System.Drawing.Size(156, 22);
+            this.menuItemAddTaskWinScript.Text = "Windows Script";
+            this.menuItemAddTaskWinScript.Click += new System.EventHandler(this.menuItemAddTaskWinScript_Click);
+            // 
+            // menuItemAddTaskPower
+            // 
+            this.menuItemAddTaskPower.Name = "menuItemAddTaskPower";
+            this.menuItemAddTaskPower.Size = new System.Drawing.Size(156, 22);
+            this.menuItemAddTaskPower.Text = "Power Control";
             // 
             // Form_JobBuilder
             // 
@@ -525,12 +541,14 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.SplitContainer splitMain;
         private System.Windows.Forms.MenuStrip menuStripTasks;
-        private System.Windows.Forms.ToolStripMenuItem tasksToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem windowsScriptToolStripMenuItem;
         private System.Windows.Forms.TreeView treeJobList;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem jobToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemAdd;
+        private System.Windows.Forms.ToolStripMenuItem taskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemAddTaskWinScript;
+        private System.Windows.Forms.ToolStripMenuItem subJobToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuItemAddTaskPower;
     }
 }
 

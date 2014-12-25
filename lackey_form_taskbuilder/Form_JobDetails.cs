@@ -12,15 +12,15 @@ namespace SystemLackey.JobBuilder
 {
     public partial class Form_JobDetails : Form
     {
-        private Task_Job job = new Task_Job();  
+        private Task_Job job = new Task_Job(); 
+        private TreeNode node;
         
-        public Form_JobDetails(Task_Job pJob)
-        {
-            
+        public Form_JobDetails(Task_Job pJob, TreeNode pNode)
+        {         
             InitializeComponent();
             job = pJob;
+            node = pNode;
             UpdateForm();
-
         }
 
         //save the job
@@ -29,14 +29,22 @@ namespace SystemLackey.JobBuilder
             job.Comments = textComments.Text;
             job.Name = textName.Text;
             job.ID = labelJobGuid.Text;
+            UpdateNode();
         }
 
-        private void UpdateForm()
+        public void UpdateForm()
         {
             textComments.Text = job.Comments;
             textName.Text = job.Name;
             labelJobGuid.Text = job.ID;
+            UpdateNode();
+            
             //this.MdiParent.
+        }
+
+        private void UpdateNode()
+        {
+            if (node != null) { node.Text = job.Name; }
         }
     }
 }

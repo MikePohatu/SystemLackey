@@ -16,8 +16,9 @@ namespace SystemLackey.JobBuilder
 {
     public partial class Form_WinTaskBuilder : Form
     {
-        public Task_WinScript task;
- 
+        private Task_WinScript task;
+        private TreeNode node;
+
         public Form_WinTaskBuilder()
         {
             InitializeComponent();
@@ -25,21 +26,31 @@ namespace SystemLackey.JobBuilder
             UpdateForm();
         }
 
-        public Form_WinTaskBuilder(Task_WinScript t)
+        public Form_WinTaskBuilder(Task_WinScript t,TreeNode n)
         {
             InitializeComponent();
             task = t;
+            node = n;
             UpdateForm();
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Are you sure you want to save this task?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                SaveTask();
+                UpdateNode();
+            }               
+        }
 
+        private void UpdateNode()
+        {
+            if (node != null) { node.Text = task.Name; }
         }
 
         private void buttonExport_Click(object sender, EventArgs e)
         {
-            UpdateTask();
+            SaveTask();
             SaveFileDialog saveBox = new SaveFileDialog();
 
             saveBox.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
@@ -85,53 +96,12 @@ namespace SystemLackey.JobBuilder
             task.Timeout = (int)numericTimeout.Value;
         }
 
-
-        //=============================================================
-        // Radio buttons for script type
-        //=============================================================
-
-        private void radioCmd_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioCmd.Checked)
-            {
-                task.Type = 0;
-            }
-        }
-
-        private void radioPs1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioPs1.Checked)
-            {
-                task.Type = 2;
-            }
-        }
-
-        private void radioVbs_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioVbs.Checked)
-            {
-                task.Type = 1;
-            }
-        }
-
-        //=============================================================
-
         private void formTaskBuilder_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void checkSysWow64_CheckedChanged(object sender, EventArgs e)
-        {
-            task.Wow64 = checkSysWow64.Checked;
-        }
-
-        private void textCode_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void UpdateTask()
+        private void SaveTask()
         {
             string codeString = "";
             string[] lines = textCode.Lines;
@@ -148,7 +118,7 @@ namespace SystemLackey.JobBuilder
             task.Wow64 = checkSysWow64.Checked;
             task.ASync = checkASync.Checked;
             task.Timeout = (int)numericTimeout.Value;
-            task.Comments = richComments.Text;
+            task.Comments = richtextComments.Text;
 
 
             if (radioCmd.Checked)
@@ -200,7 +170,9 @@ namespace SystemLackey.JobBuilder
             numericTimeout.Value = task.Timeout;
             labelTaskIDValue.Text = task.ID;
             textName.Text = task.Name;
-            richComments.Text = task.Comments;
+            richtextComments.Text = task.Comments;
+
+            node.Text = task.Name;
 
             switch (task.Type)
             {
@@ -220,34 +192,22 @@ namespace SystemLackey.JobBuilder
             }
         }
 
-        private void buttonTest_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void buttonRun_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to run this task?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                UpdateTask();
+                SaveTask();
                 task.Run();
             }
-            
         }
 
-        private void labelTaskID_Click(object sender, EventArgs e)
+        private void checkTestAllowed_CheckedChanged(object sender, EventArgs e)
         {
+            if (checkTestAllowed.Checked)
+            { buttonRun.Enabled = true; }
 
-        }
-
-        private void textName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void labelTimeout_Click(object sender, EventArgs e)
-        {
-
+            else
+            { buttonRun.Enabled = false; }
         }
     }
 }
