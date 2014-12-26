@@ -81,7 +81,7 @@ namespace SystemLackey.Worker
         public void ImportXml(XElement pElement)
         {
             Task_Factory factory = new Task_Factory();
-            Step i = new Step();
+            Step i = new Step(this);
             root = i;
             bool first = true;
 
@@ -94,7 +94,7 @@ namespace SystemLackey.Worker
             {
                 if (!first)
                 {
-                    i.Next = new Step();
+                    i.Next = new Step(this);
                     i.Next.Prev = i;
                     i.Next.Task = factory.Create(step.Element("Task"));
                     i = i.Next;

@@ -53,9 +53,9 @@
       <Project>{89787298-15f7-4750-89f8-2281076653d9}</Project>
       <Name>lackey_filters</Name>
     </ProjectReference>
-    <ProjectReference Include="..\lackey_IO\lackey_IO.csproj">
+    <ProjectReference Include="..\lackey_IO\lackey_io.csproj">
       <Project>{cc1b6343-34ce-48c7-b772-960683553faa}</Project>
-      <Name>lackey_IO</Name>
+      <Name>lackey_io</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

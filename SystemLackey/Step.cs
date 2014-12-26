@@ -13,7 +13,7 @@ namespace SystemLackey.Worker
         private Step next;
         private Step prev;
         private ITask task;
-        //private Job parent;
+        private Task_Job parent;
         //private Evaluation eval;
         private bool onError = true;
         private bool onWarn = true;
@@ -52,11 +52,11 @@ namespace SystemLackey.Worker
             get { return this.onWarn; }
             set { this.onWarn = value; }
         }
-        //public Job Parent
-        //{
-        //   get { return this.parent; }
-        //  set { this.parent = value; }
-        //}
+        public Task_Job Parent
+        {
+           get { return this.parent; }
+           set { this.parent = value; }
+        }
         //========================
         // /Properties
         //========================
@@ -65,79 +65,15 @@ namespace SystemLackey.Worker
         //========================
         // Constructors
         //========================
-        public Step(ITask pTask)
+        public Step(Task_Job pParent,ITask pTask)
         {
             //this.parent = pParent;
             this.task = pTask;
         }
 
-        public Step()
-        { }
-
-        //public Step(Job pParent)
-        //{
-        //    this.parent = pParent;
-        //}
-
-        public Step(Step pPrev, ITask pTask,Step pNext)
+        public Step(Task_Job pParent)
         {
-            //this.parent = pParent;
-            this.task = pTask;
-            this.next = pNext;
-            this.prev = pPrev;
-        }
-
-        public Step(ITask pTask, Step pNext)
-        {
-            //this.parent = pParent;
-            this.task = pTask;
-            this.next = pNext;
-        }
-
-        public Step(Step pPrev, ITask pTask)
-        {
-            //this.parent = pParent;
-            this.task = pTask;
-            this.prev = pPrev;
-        }
-        //Insert a step after this step.
-        //if there is an existing step after this, set it as the step after
-        //the new step
-        public void InsertAfter(Step pStep)
-        {
-            if (this.next == null)
-            {
-                this.next = pStep;
-            }
-            else
-            {
-                //insert is between two steps, so we will have to 
-                //save to a temp variable
-                Step tempStep = this.next;
-                this.next = pStep;
-                pStep.Next = tempStep;
-                tempStep.Prev = pStep;
-            }
-        }
-
-        //Insert a step before this step.
-        //if there is an existing step before this, set it as the step before
-        //the new step
-        public void InsertBefore(Step pStep)
-        {
-            if (this.prev == null)
-            {
-                this.prev = pStep;
-            }
-            else 
-            {
-                //insert is between two steps, so we will have to 
-                //save to a temp variable
-                Step tempStep = this.prev;
-                this.prev = pStep;
-                pStep.Prev = tempStep;
-                tempStep.Next = pStep;
-            } 
+            this.parent = pParent;
         }
 
         public XElement GetXML()

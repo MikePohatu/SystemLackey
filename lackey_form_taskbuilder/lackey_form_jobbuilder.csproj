@@ -103,9 +103,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\lackey_IO\lackey_IO.csproj">
+    <ProjectReference Include="..\lackey_IO\lackey_io.csproj">
       <Project>{cc1b6343-34ce-48c7-b772-960683553faa}</Project>
-      <Name>lackey_IO</Name>
+      <Name>lackey_io</Name>
     </ProjectReference>
     <ProjectReference Include="..\SystemLackey\lackey_worker.csproj">
       <Project>{0d648eff-1d0f-454c-9930-9e94e66d7c4a}</Project>
