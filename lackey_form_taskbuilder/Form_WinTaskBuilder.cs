@@ -16,17 +16,17 @@ namespace SystemLackey.UI.Forms
 {
     public partial class Form_WinTaskBuilder : Form
     {
-        private Task_WinScript task;
+        private WindowsScript task;
         private TreeNode node;
 
         public Form_WinTaskBuilder()
         {
             InitializeComponent();
-            task = new Task_WinScript();
+            task = new WindowsScript();
             UpdateForm();
         }
 
-        public Form_WinTaskBuilder(Task_WinScript t,TreeNode n)
+        public Form_WinTaskBuilder(WindowsScript t,TreeNode n)
         {
             InitializeComponent();
             task = t;

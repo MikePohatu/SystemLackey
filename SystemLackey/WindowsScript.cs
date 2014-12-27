@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
-    public class Task_WinScript : ITask
+    public class WindowsScript : ITask
     {
         private string name = "";        //Name of the task
         private int type = 0;            //0=cmd, 1=vbs, 2=ps1
@@ -19,7 +19,7 @@ namespace SystemLackey.Worker
         private string comments = "";
 
         //Default constructor
-        public Task_WinScript()
+        public WindowsScript()
         {           
             taskid = Guid.NewGuid().ToString();
         }
@@ -28,7 +28,7 @@ namespace SystemLackey.Worker
         // pTimeout = script timeout value
         // pCode = the actual script text
         // pSysWow = run in 32bit mode on a 64 bit OS
-        public Task_WinScript(string pName, int pType, string pCode, bool pSysWow, int pTimeout,bool pHidden)
+        public WindowsScript(string pName, int pType, string pCode, bool pSysWow, int pTimeout,bool pHidden)
         {
             name = pName;
             timeout = pTimeout;
@@ -44,7 +44,7 @@ namespace SystemLackey.Worker
         // pASync = run script asynchronously
         // pCode = the actual script text
         // pSysWow = run in 32bit mode on a 64 bit OS
-        public Task_WinScript(string pName, int pType, string pCode, bool pSysWow, bool pASync, bool pHidden)
+        public WindowsScript(string pName, int pType, string pCode, bool pSysWow, bool pASync, bool pHidden)
         {
             name = pName;
             async = pASync;
@@ -60,7 +60,7 @@ namespace SystemLackey.Worker
         // pASync = run script asynchronously
         // pCode = the actual script text
         // pSysWow = run in 32bit mode on a 64 bit OS
-        public Task_WinScript(string pName, int pType, string pCode, bool pSysWow, bool pASync, int pTimeout, bool pHidden)
+        public WindowsScript(string pName, int pType, string pCode, bool pSysWow, bool pASync, int pTimeout, bool pHidden)
         {
             name = pName;
             timeout = pTimeout;

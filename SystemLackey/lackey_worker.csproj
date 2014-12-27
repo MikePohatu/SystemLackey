@@ -40,12 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Task_Factory.cs" />
+    <Compile Include="TaskFactory.cs" />
     <Compile Include="ITask.cs" />
     <Compile Include="Step.cs" />
-    <Compile Include="Task_WinScript.cs" />
-    <Compile Include="Task_Main.cs" />
-    <Compile Include="Task_Job.cs" />
+    <Compile Include="WindowsScript.cs" />
+    <Compile Include="Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

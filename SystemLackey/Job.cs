@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
-    public class Task_Job : ITask //: IEnumerable
+    public class Job : ITask //: IEnumerable
     {
         private string name = "";        //Name of the task
 
@@ -12,7 +12,7 @@ namespace SystemLackey.Worker
         private string comments = "";
         private Step root = null;
 
-        public Task_Job()
+        public Job()
         {
             jobid = Guid.NewGuid().ToString();
         }
@@ -79,7 +79,7 @@ namespace SystemLackey.Worker
         // import job details from xml
         public void ImportXml(XElement pElement)
         {
-            Task_Factory factory = new Task_Factory();
+            TaskFactory factory = new TaskFactory();
             Step currentStep = root;
             Step newStep;
             root = null;

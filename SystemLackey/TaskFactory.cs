@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
-    class Task_Factory
+    class TaskFactory
     {
         public ITask Create(string pType)
         {
@@ -12,10 +12,10 @@ namespace SystemLackey.Worker
             {
                 //batch script.
                 case "WinScript":
-                    ret = new Task_WinScript();
+                    ret = new WindowsScript();
                     break;
                 case "Job":
-                    ret = new Task_Job();
+                    ret = new Job();
                     break;
                 //invalid type. Throw exception
                 default:

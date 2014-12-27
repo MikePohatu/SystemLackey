@@ -8,11 +8,11 @@ namespace SystemLackey.UI.Shell
     {
         static void Main(string[] args)
         {
-            Task_WinScript task1 = new Task_WinScript("task1",0, "echo \"task1\" && pause", false, 5,false);
-            Task_WinScript task2 = new Task_WinScript("task2", 0, "@echo off && echo \"task2\" && pause", false, 10, false);
-            Task_WinScript task3 = new Task_WinScript("task3", 0, "@echo off && echo \"task3\" && pause", false, 10, false);
+            WindowsScript task1 = new WindowsScript("task1",0, "echo \"task1\" && pause", false, 5,false);
+            WindowsScript task2 = new WindowsScript("task2", 0, "@echo off && echo \"task2\" && pause", false, 10, false);
+            WindowsScript task3 = new WindowsScript("task3", 0, "@echo off && echo \"task3\" && pause", false, 10, false);
 
-            Task_Job mainjob = new Task_Job();
+            Job mainjob = new Job();
             mainjob.Name = "Test job";
             mainjob.Comments = "This is a job to test the structure of the job";
 
@@ -22,7 +22,7 @@ namespace SystemLackey.UI.Shell
             mainjob.Root.Next = tempStep;
             tempStep.Prev = mainjob.Root;
 
-            Task_Job subJob = new Task_Job();
+            Job subJob = new Job();
             subJob.Name = "Test sub job";
             subJob.Comments = "This is a sub job to test it all hangs together";
 
@@ -34,7 +34,7 @@ namespace SystemLackey.UI.Shell
             Console.WriteLine(mainjob.GetXml());
             //Console.WriteLine(subJob.GetXml());
 
-            Task_Job newjob = new Task_Job();
+            Job newjob = new Job();
 
             newjob.ImportXml(mainjob.GetXml());
 

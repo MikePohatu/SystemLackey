@@ -10,15 +10,15 @@ namespace SystemLackey.UI.Forms
         {
             //MessageBox.Show(o.ToString(), o.ToString());
             //job form
-            if (o is Task_Job)
+            if (o is Job)
             { 
-                return new Form_JobDetails((Task_Job)o,n);
+                return new Form_JobDetails((Job)o,n);
             }
             
             //WinScript form
-            else if (o is Task_WinScript)
+            else if (o is WindowsScript)
             {
-                return new Form_WinTaskBuilder((Task_WinScript)o, n);
+                return new Form_WinTaskBuilder((WindowsScript)o, n);
             }
 
             else { return null; }

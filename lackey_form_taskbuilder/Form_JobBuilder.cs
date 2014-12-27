@@ -137,7 +137,7 @@ namespace SystemLackey.UI.Forms
             treeJobList.BeginUpdate();
 
             //Create the new job and root node. 
-            Task_Job t = new Task_Job();
+            Job t = new Job();
             t.Name = "New job";
 
             //create the new node and set it up. 
@@ -209,7 +209,7 @@ namespace SystemLackey.UI.Forms
             treeJobList.BeginUpdate();
 
             //Create the new job and root node. 
-            Task_WinScript t = new Task_WinScript();
+            WindowsScript t = new WindowsScript();
             t.Name = "Windows script";
 
             //create the new node and set it up. 

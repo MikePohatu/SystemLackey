@@ -13,7 +13,7 @@ namespace SystemLackey.Worker
         private Step next;
         private Step prev;
         private ITask task;
-        private Task_Job parent;
+        private Job parent;
         //private Evaluation eval;
         private bool onError = true;
         private bool onWarn = true;
@@ -52,7 +52,7 @@ namespace SystemLackey.Worker
             get { return this.onWarn; }
             set { this.onWarn = value; }
         }
-        public Task_Job Parent
+        public Job Parent
         {
            get { return this.parent; }
            set { this.parent = value; }
@@ -65,7 +65,7 @@ namespace SystemLackey.Worker
         //========================
         // Constructors
         //========================
-        public Step(Task_Job pParent,ITask pTask)
+        public Step(Job pParent,ITask pTask)
         {
             parent = pParent;
             task = pTask;

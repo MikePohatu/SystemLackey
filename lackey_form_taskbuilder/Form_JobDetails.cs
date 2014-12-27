@@ -12,10 +12,10 @@ namespace SystemLackey.UI.Forms
 {
     public partial class Form_JobDetails : Form
     {
-        private Task_Job job = new Task_Job(); 
+        private Job job = new Job(); 
         private TreeNode node;
         
-        public Form_JobDetails(Task_Job pJob, TreeNode pNode)
+        public Form_JobDetails(Job pJob, TreeNode pNode)
         {         
             InitializeComponent();
             job = pJob;
