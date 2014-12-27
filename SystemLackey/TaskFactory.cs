@@ -17,6 +17,9 @@ namespace SystemLackey.Worker
                 case "Job":
                     ret = new Job();
                     break;
+                case "Power":
+                    ret = new PowerControl();
+                    break;
                 //invalid type. Throw exception
                 default:
                     Console.WriteLine("Unknown type:" + pType);

@@ -231,5 +231,32 @@ namespace SystemLackey.UI.Forms
 
             treeJobList.EndUpdate();
         }
+
+        private void menuItemAddTaskPower_Click(object sender, EventArgs e)
+        {
+            treeJobList.BeginUpdate();
+
+            //Create the new job and root node. 
+            PowerControl t = new PowerControl();
+
+            //create the new node and set it up. 
+            TreeNode node = new TreeNode();
+            node.Tag = t;
+            node.Name = t.ID;
+            node.Text = t.Name;
+
+            rootNode.Nodes.Add(node);
+
+            //Close panel2 and Spin up the new form
+            if (panel2 != null)
+            { panel2.Close(); }
+
+            panel2 = factory.Create(t, node);
+            ResetPanel2();
+
+            treeJobList.SelectedNode = node;
+
+            treeJobList.EndUpdate();
+        }
     }
 }

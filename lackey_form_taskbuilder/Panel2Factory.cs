@@ -21,6 +21,11 @@ namespace SystemLackey.UI.Forms
                 return new FormWinTaskBuilder((WindowsScript)o, n);
             }
 
+            //Power control form
+            else if (o is PowerControl)
+            {
+                return new FormPowerControl((PowerControl)o, n);
+            }
             else { return null; }
         }
     }

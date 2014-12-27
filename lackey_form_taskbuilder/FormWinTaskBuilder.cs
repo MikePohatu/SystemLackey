@@ -36,16 +36,11 @@ namespace SystemLackey.UI.Forms
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to save this task?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if ( Common.ConfirmTaskSave() )
             {
                 SaveTask();
-                UpdateNode();
+                Common.UpdateNode(node,task.Name);
             }               
-        }
-
-        private void UpdateNode()
-        {
-            if (node != null) { node.Text = task.Name; }
         }
 
         private void buttonExport_Click(object sender, EventArgs e)
@@ -172,7 +167,7 @@ namespace SystemLackey.UI.Forms
             textName.Text = task.Name;
             richtextComments.Text = task.Comments;
 
-            node.Text = task.Name;
+            Common.UpdateNode(node, task.Name);
 
             switch (task.Type)
             {
