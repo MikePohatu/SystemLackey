@@ -30,10 +30,9 @@ namespace SystemLackey.Worker
 
         public ITask Create(XElement pElement)
         {
-            ITask t = this.Create( pElement.Attribute("Type").Value );
+            ITask t = this.Create(pElement.Attribute("Type").Value);
             t.ImportXml(pElement);
             return t;
-
         }
     }
 }

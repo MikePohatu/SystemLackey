@@ -56,24 +56,23 @@ namespace SystemLackey.Worker
         //get the xml representation of the task
         public XElement GetXml()
         {
-            Step current = root;
+            Step currentStep = root;
+
             XElement details = new XElement("Task",
                 new XElement("name", name),
                 new XElement("id", jobid),
                 new XElement("comments",comments));
-            details.SetAttributeValue("Type", "Job");
+            details.SetAttributeValue("Type","Job");
             //enumerate through the list and get the xml from each node (step)
             while (true)
             {
-                details.Add(current.GetXML());
-                current = current.Next;
-                if (current == null)
+                if (currentStep == null)
                 { break; }
+
+                details.Add(currentStep.GetXML());
+                currentStep = currentStep.Next;
+                
             }
-            
-
-
-
             return details;
         }
         
@@ -81,9 +80,9 @@ namespace SystemLackey.Worker
         public void ImportXml(XElement pElement)
         {
             Task_Factory factory = new Task_Factory();
-            Step i = new Step(this);
-            root = i;
-            bool first = true;
+            Step currentStep = root;
+            Step newStep;
+            root = null;
 
             name = pElement.Element("name").Value;
             //taskid = pElement.Element("taskid").Value;
@@ -92,19 +91,19 @@ namespace SystemLackey.Worker
             
             foreach (XElement step in pElement.Elements("Step"))
             {
-                if (!first)
+                newStep = new Step(this, factory.Create(step.Element("Task")));
+                
+                if (root == null)
                 {
-                    i.Next = new Step(this);
-                    i.Next.Prev = i;
-                    i.Next.Task = factory.Create(step.Element("Task"));
-                    i = i.Next;
+                    root = newStep;
+                    currentStep = root;
                 }
                 else
                 {
-                    i.Task = factory.Create(step.Element("Task"));
-                    first = false;
+                    currentStep.Next = newStep;
+                    newStep.Prev = currentStep;
+                    currentStep = newStep;
                 }
-                
             }
         }
 

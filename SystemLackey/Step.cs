@@ -67,21 +67,27 @@ namespace SystemLackey.Worker
         //========================
         public Step(Task_Job pParent,ITask pTask)
         {
-            //this.parent = pParent;
-            this.task = pTask;
+            parent = pParent;
+            task = pTask;
         }
 
-        public Step(Task_Job pParent)
-        {
-            this.parent = pParent;
-        }
+        //public Step(Task_Job pParent)
+        //{
+        //    parent = pParent;
+        //}
 
         public XElement GetXML()
         {
             XElement details = new XElement("Step",
-                new XElement("taskid", task.ID),
                 new XElement("ContinueOnError",onError),
-                this.Task.GetXml());
+                new XElement("ContinueOnWarning",onWarn));
+            
+            if (task != null)
+            {
+                details.Add(new XElement("taskid", task.ID));
+                details.Add(task.GetXml());
+            }
+                
             return details;
         }
 

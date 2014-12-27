@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>SystemLackey.Shell.LackeyShell</StartupObject>
+    <StartupObject>SystemLackey.UI.Shell.LackeyShell</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,6 +55,10 @@
     <ProjectReference Include="..\lackey_IO\lackey_io.csproj">
       <Project>{cc1b6343-34ce-48c7-b772-960683553faa}</Project>
       <Name>lackey_io</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lackey_ui\lackey_ui.csproj">
+      <Project>{f9e69a36-848a-48bc-bcdb-fdb140fb24e8}</Project>
+      <Name>lackey_ui</Name>
     </ProjectReference>
     <ProjectReference Include="..\SystemLackey\lackey_worker.csproj">
       <Project>{0d648eff-1d0f-454c-9930-9e94e66d7c4a}</Project>
