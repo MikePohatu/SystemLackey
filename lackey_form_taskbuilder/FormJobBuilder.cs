@@ -10,14 +10,14 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class Form_JobBuilder : Form
+    public partial class FormJobBuilder : Form
     {
         private TreeNode rootNode;
         private Panel2Factory factory = new Panel2Factory();
         private Form panel2;
         private int childFormNumber = 0;
 
-        public Form_JobBuilder()
+        public FormJobBuilder()
         {
             InitializeComponent();
         }
@@ -110,7 +110,7 @@ namespace SystemLackey.UI.Forms
         private void windowsScriptToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Application.Run(new formWinTaskBuilder());
-            panel2 = new Form_WinTaskBuilder();
+            panel2 = new FormWinTaskBuilder();
             ResetPanel2();            
         }
 
@@ -199,7 +199,7 @@ namespace SystemLackey.UI.Forms
         private void windowsScriptToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //Application.Run(new formWinTaskBuilder());
-            panel2 = new Form_WinTaskBuilder();
+            panel2 = new FormWinTaskBuilder();
             ResetPanel2();  
         }
 

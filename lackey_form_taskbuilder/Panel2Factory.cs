@@ -12,13 +12,13 @@ namespace SystemLackey.UI.Forms
             //job form
             if (o is Job)
             { 
-                return new Form_JobDetails((Job)o,n);
+                return new FormJobDetails((Job)o,n);
             }
             
             //WinScript form
             else if (o is WindowsScript)
             {
-                return new Form_WinTaskBuilder((WindowsScript)o, n);
+                return new FormWinTaskBuilder((WindowsScript)o, n);
             }
 
             else { return null; }

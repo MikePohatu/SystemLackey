@@ -10,12 +10,12 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class Form_JobDetails : Form
+    public partial class FormJobDetails : Form
     {
         private Job job = new Job(); 
         private TreeNode node;
         
-        public Form_JobDetails(Job pJob, TreeNode pNode)
+        public FormJobDetails(Job pJob, TreeNode pNode)
         {         
             InitializeComponent();
             job = pJob;

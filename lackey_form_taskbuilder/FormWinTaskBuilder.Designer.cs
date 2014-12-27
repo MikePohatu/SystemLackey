@@ -1,6 +1,6 @@
 ﻿namespace SystemLackey.UI.Forms
 {
-    partial class Form_WinTaskBuilder
+    partial class FormWinTaskBuilder
     {
         /// <summary>
         /// Required designer variable.

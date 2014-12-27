@@ -14,19 +14,19 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class Form_WinTaskBuilder : Form
+    public partial class FormWinTaskBuilder : Form
     {
         private WindowsScript task;
         private TreeNode node;
 
-        public Form_WinTaskBuilder()
+        public FormWinTaskBuilder()
         {
             InitializeComponent();
             task = new WindowsScript();
             UpdateForm();
         }
 
-        public Form_WinTaskBuilder(WindowsScript t,TreeNode n)
+        public FormWinTaskBuilder(WindowsScript t,TreeNode n)
         {
             InitializeComponent();
             task = t;

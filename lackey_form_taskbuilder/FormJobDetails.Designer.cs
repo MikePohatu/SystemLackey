@@ -1,6 +1,6 @@
 ﻿namespace SystemLackey.UI.Forms
 {
-    partial class Form_JobDetails
+    partial class FormJobDetails
     {
         /// <summary>
         /// Required designer variable.
