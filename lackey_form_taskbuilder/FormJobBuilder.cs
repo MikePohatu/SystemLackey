@@ -21,6 +21,14 @@ namespace SystemLackey.UI.Forms
         private int childFormNumber = 0;
         private Logger logger = new Logger();
 
+        // Properties
+        public TreeNode Root
+        {
+            get { return this.rootNode; }
+            set { this.rootNode = value; }
+        }
+        // /Properties
+
         public FormJobBuilder()
         {
             InitializeComponent();
@@ -295,6 +303,7 @@ namespace SystemLackey.UI.Forms
         private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             jbConsole console = new jbConsole(logger);
+            console.Parent = this;
             console.Show();
         }
     }

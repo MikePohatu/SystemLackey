@@ -54,33 +54,35 @@ namespace SystemLackey.Logging
 
         public void Write(string pText,int pLevel)
         {
-            if (pLevel <= this.level)
+            if (pLevel >= this.level)
             {
+                DateTime now = DateTime.Now;
+                string time = now.ToString("u") + ": ";
                 string prefix;
                 switch (pLevel)
                 {
                     case 0:
-                        prefix = "[DEBUG]";
+                        prefix = "[DEBUG] ";
                         break;
                     case 1:
-                        prefix = "[INFO]";
+                        prefix = "[INFO] ";
                         break;
                     case 2:
-                        prefix = "[WARN]";
+                        prefix = "[WARN] ";
                         break;
                     case 3:
-                        prefix = "[ERROR]";
+                        prefix = "[ERROR] ";
                         break;
                     case 4:
-                        prefix = "[DANGER WILL ROBINSON!!!]";
+                        prefix = "[DANGER WILL ROBINSON!!!] ";
                         break;
                     default:
-                        prefix = "[Invalid logging level]";
+                        prefix = "[Invalid logging level] ";
                         System.ArgumentException argEx = new System.ArgumentException("Invalid logging level " + level, "Logger.Write");
                         break;
                 }
                      
-                LoggerEventArgs lea = new LoggerEventArgs(prefix + pText + Environment.NewLine, pLevel);
+                LoggerEventArgs lea = new LoggerEventArgs( time + prefix + pText + Environment.NewLine, pLevel);
                 NewEvent(this, lea);
                 //System.Console.WriteLine("HEARD IT");
             }
