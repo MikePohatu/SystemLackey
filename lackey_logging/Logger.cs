@@ -43,9 +43,11 @@ namespace SystemLackey.Logging
         //=======================
 
 
-
-        public event LoggerEventHandler NewEvent;
-
+        public event LoggerEventHandler EventDebug;
+        public event LoggerEventHandler EventInfo;
+        public event LoggerEventHandler EventWarning;
+        public event LoggerEventHandler EventError;
+        public event LoggerEventHandler EventDanger;
 
         public void Subscribe(Object o)
         {
@@ -63,28 +65,29 @@ namespace SystemLackey.Logging
                 {
                     case 0:
                         prefix = "[DEBUG] ";
+                        EventDebug(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                         break;
                     case 1:
                         prefix = "[INFO] ";
+                        EventInfo(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                         break;
                     case 2:
                         prefix = "[WARN] ";
+                        EventWarning(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                         break;
                     case 3:
                         prefix = "[ERROR] ";
+                        EventError(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                         break;
                     case 4:
                         prefix = "[DANGER WILL ROBINSON!!!] ";
+                        EventDanger(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                         break;
                     default:
                         prefix = "[Invalid logging level] ";
                         System.ArgumentException argEx = new System.ArgumentException("Invalid logging level " + level, "Logger.Write");
                         break;
                 }
-                     
-                LoggerEventArgs lea = new LoggerEventArgs( time + prefix + pText + Environment.NewLine, pLevel);
-                NewEvent(this, lea);
-                //System.Console.WriteLine("HEARD IT");
             }
             
         }

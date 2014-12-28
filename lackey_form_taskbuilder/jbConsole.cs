@@ -20,7 +20,7 @@ namespace SystemLackey.UI.Forms
         public jbConsole(Logger pLogger)
         {
             _logger = pLogger;
-            _logger.NewEvent += new LoggerEventHandler(Update);
+            _logger.EventInfo += new LoggerEventHandler(Update);
             InitializeComponent();
         }
 
