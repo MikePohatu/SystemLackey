@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SystemLackey.Worker;
 using SystemLackey.UI;
 using SystemLackey.UI.Shell;
+using SystemLackey.Logging;
 
 namespace SystemLackey.UI.Forms
 {
@@ -18,6 +19,7 @@ namespace SystemLackey.UI.Forms
         private Panel2Factory factory = new Panel2Factory();
         private Form panel2;
         private int childFormNumber = 0;
+        private Logger logger = new Logger();
 
         public FormJobBuilder()
         {
@@ -245,6 +247,7 @@ namespace SystemLackey.UI.Forms
         //===========================
         private void menuItemAddTaskWinScript_Click(object sender, EventArgs e)
         {
+            logger.Write("New Windows script task requested", 1);
             WindowsScript t = new WindowsScript();
             t.Name = "Windows script";
             this.InsertTask(t, treeJobList.SelectedNode);
@@ -269,16 +272,25 @@ namespace SystemLackey.UI.Forms
 
         private void printJobXMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //SystemLackey.Logging.Console console = new SystemLackey.Logging.Console();
+
             if (rootNode != null)
             {
                 Job rootJob = (Job)rootNode.Tag;
-                Console.WriteLine(rootJob.GetXml());
-                Console.Read();
+                string text = (string)rootJob.GetXml();
+                //console.Write(text);
+                //Console.Read();
             }
             else {
-                LackeyShell shell = new LackeyShell();
-                shell.Write("Empty");
+
+                //console.Write("Empty");
             }
+        }
+
+        private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            jbConsole console = new jbConsole(logger);
+            console.Show();
         }
     }
 }

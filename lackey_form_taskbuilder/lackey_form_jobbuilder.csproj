@@ -7,7 +7,7 @@
     <ProjectGuid>{4648AA6B-178B-49FA-8CCB-EC46B91031A3}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>lackey_form_taskbuilder</RootNamespace>
+    <RootNamespace>SystemLackey.UI.Forms</RootNamespace>
     <AssemblyName>lackey_form_taskbuilder</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -49,6 +49,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common.cs" />
+    <Compile Include="jbConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="jbConsole.Designer.cs">
+      <DependentUpon>jbConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPowerControl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -76,6 +82,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="jbConsole.resx">
+      <DependentUpon>jbConsole.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormJobBuilder.resx">
       <DependentUpon>FormJobBuilder.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,6 +125,10 @@
     <ProjectReference Include="..\lackey_IO\lackey_io.csproj">
       <Project>{cc1b6343-34ce-48c7-b772-960683553faa}</Project>
       <Name>lackey_io</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\lackey_logging\lackey_logging.csproj">
+      <Project>{6016bb22-3012-4fbf-bf47-bac8de1fa697}</Project>
+      <Name>lackey_logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\lackey_shell\lackey_shell.csproj">
       <Project>{63e79b14-49f3-4b44-b847-7436afb92ddd}</Project>
