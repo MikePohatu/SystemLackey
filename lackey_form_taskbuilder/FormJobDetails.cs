@@ -26,10 +26,14 @@ namespace SystemLackey.UI.Forms
         //save the job
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            job.Comments = textComments.Text;
-            job.Name = textName.Text;
-            job.ID = labelJobGuid.Text;
-            UpdateNode();
+            if (Common.ConfirmJobSave())
+            {
+                job.Comments = textComments.Text;
+                job.Name = textName.Text;
+                job.ID = labelJobGuid.Text;
+                UpdateNode();
+            }
+            
         }
 
         public void UpdateForm()
@@ -38,8 +42,6 @@ namespace SystemLackey.UI.Forms
             textName.Text = job.Name;
             labelJobGuid.Text = job.ID;
             UpdateNode();
-            
-            //this.MdiParent.
         }
 
         private void UpdateNode()
