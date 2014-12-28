@@ -4,7 +4,7 @@ using SystemLackey.UI;
 
 namespace SystemLackey.UI.Shell
 {
-    class LackeyShell
+    public class LackeyShell
     {
         static void Main(string[] args)
         {
@@ -51,6 +51,12 @@ namespace SystemLackey.UI.Shell
 
             Console.Read();
 
+        }
+
+        public void Write(string pMessage)
+        {
+            Console.WriteLine(pMessage);
+            Console.Read();
         }
     }
 }

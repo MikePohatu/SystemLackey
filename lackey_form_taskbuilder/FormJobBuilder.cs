@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SystemLackey.Worker;
+using SystemLackey.UI;
+using SystemLackey.UI.Shell;
 
 namespace SystemLackey.UI.Forms
 {
@@ -107,12 +109,6 @@ namespace SystemLackey.UI.Forms
             }
         }
 
-        private void windowsScriptToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Application.Run(new formWinTaskBuilder());
-            panel2 = new FormWinTaskBuilder();
-            ResetPanel2();            
-        }
 
         //From menu:
         // New -> Job
@@ -154,15 +150,13 @@ namespace SystemLackey.UI.Forms
             if (panel2 != null)
             { panel2.Close(); }
 
-            panel2 = factory.Create(t, rootNode);
+            panel2 = factory.Create(rootNode);
             ResetPanel2();
 
             treeJobList.SelectedNode = rootNode;
 
             treeJobList.EndUpdate();
         }
-
-
 
         private void ResetPanel2()
         {
@@ -186,77 +180,105 @@ namespace SystemLackey.UI.Forms
                     if (e.Node != treeJobList.SelectedNode)
                     {
                         treeJobList.SelectedNode = e.Node;
-                        Object o = treeJobList.SelectedNode.Tag;
                         panel2.Close();
                         //MessageBox.Show(o.ToString(), o.ToString());
-                        panel2 = factory.Create(o,treeJobList.SelectedNode);
+                        panel2 = factory.Create(e.Node);
                         ResetPanel2();
                     }
                 }               
             }
         }
 
-        private void windowsScriptToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            //Application.Run(new formWinTaskBuilder());
-            panel2 = new FormWinTaskBuilder();
-            ResetPanel2();  
-        }
-
-
-        private void menuItemAddTaskWinScript_Click(object sender, EventArgs e)
+        //Insert a node into the tree, and create the appropriate step in the job. 
+        private void InsertTask(ITask pTask,TreeNode pPrev)
         {
             treeJobList.BeginUpdate();
+            Step s;
+            TreeNode parentNode;
 
-            //Create the new job and root node. 
-            WindowsScript t = new WindowsScript();
-            t.Name = "Windows script";
+            if (pPrev != rootNode)
+            {
+                Step prevStep = (Step)pPrev.Tag;
+
+                if (prevStep.Task is Job)
+                { 
+                    parentNode = pPrev;
+                    s = JobEditor.Insert(pTask, prevStep);
+                }
+                else
+                {
+                    parentNode = pPrev.Parent;
+                    s = JobEditor.Insert(pTask, prevStep);
+                }
+                           
+            }
+
+            else
+            {
+                parentNode = rootNode;
+                s = JobEditor.Insert(pTask, (Job)pPrev.Tag); 
+            }
+
 
             //create the new node and set it up. 
             TreeNode node = new TreeNode();
-            node.Tag = t;
-            node.Name = t.ID;
-            node.Text = t.Name;
+            node.Tag = s;
+            node.Name = s.Task.ID;
+            node.Text = s.Task.Name;
 
-            rootNode.Nodes.Add(node);
+            parentNode.Nodes.Insert(pPrev.Index + 1,node);
 
             //Close panel2 and Spin up the new form
             if (panel2 != null)
             { panel2.Close(); }
 
-            panel2 = factory.Create(t, node);
+            panel2 = factory.Create(node);
             ResetPanel2();
 
             treeJobList.SelectedNode = node;
-
             treeJobList.EndUpdate();
+        }
+
+
+        //===========================
+        //Add -> Task methods
+        //===========================
+        private void menuItemAddTaskWinScript_Click(object sender, EventArgs e)
+        {
+            WindowsScript t = new WindowsScript();
+            t.Name = "Windows script";
+            this.InsertTask(t, treeJobList.SelectedNode);
         }
 
         private void menuItemAddTaskPower_Click(object sender, EventArgs e)
         {
-            treeJobList.BeginUpdate();
-
-            //Create the new job and root node. 
             PowerControl t = new PowerControl();
+            this.InsertTask(t, treeJobList.SelectedNode);
+        }
 
-            //create the new node and set it up. 
-            TreeNode node = new TreeNode();
-            node.Tag = t;
-            node.Name = t.ID;
-            node.Text = t.Name;
+        private void subJobToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Create the new job. 
+            Job t = new Job();
+            t.Name = "New sub job";
+            this.InsertTask(t, treeJobList.SelectedNode);
+        }
 
-            rootNode.Nodes.Add(node);
+        //===========================
 
-            //Close panel2 and Spin up the new form
-            if (panel2 != null)
-            { panel2.Close(); }
 
-            panel2 = factory.Create(t, node);
-            ResetPanel2();
-
-            treeJobList.SelectedNode = node;
-
-            treeJobList.EndUpdate();
+        private void printJobXMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (rootNode != null)
+            {
+                Job rootJob = (Job)rootNode.Tag;
+                Console.WriteLine(rootJob.GetXml());
+                Console.Read();
+            }
+            else {
+                LackeyShell shell = new LackeyShell();
+                shell.Write("Empty");
+            }
         }
     }
 }

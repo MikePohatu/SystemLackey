@@ -6,8 +6,9 @@ namespace SystemLackey.UI.Forms
 {
     class Panel2Factory
     {
-        public Form Create(Object o, TreeNode n)
+        public Form Create(TreeNode n)
         {
+            Object o = n.Tag;
             //MessageBox.Show(o.ToString(), o.ToString());
             //job form
             if (o is Job)
@@ -15,18 +16,31 @@ namespace SystemLackey.UI.Forms
                 return new FormJobDetails((Job)o,n);
             }
             
-            //WinScript form
-            else if (o is WindowsScript)
+            else
             {
-                return new FormWinTaskBuilder((WindowsScript)o, n);
-            }
+                Step s = (Step)o;
+                ITask task = s.Task;
+                //WinScript form
+                if (s.Task is WindowsScript)
+                {
+                    return new FormWinTaskBuilder((WindowsScript)task, n);
+                }
 
-            //Power control form
-            else if (o is PowerControl)
-            {
-                return new FormPowerControl((PowerControl)o, n);
+                //Power control form
+                else if (s.Task is PowerControl)
+                {
+                    return new FormPowerControl((PowerControl)task, n);
+                }
+
+                //Subjob form
+                else if (s.Task is Job)
+                {
+                    return new FormJobDetails((Job)task, n);
+                }
+
+                //Unknown type
+                else { return null; }
             }
-            else { return null; }
         }
     }
 }
