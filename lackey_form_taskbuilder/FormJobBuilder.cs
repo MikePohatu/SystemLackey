@@ -246,16 +246,19 @@ namespace SystemLackey.UI.Forms
         //Add -> Task methods
         //===========================
         private void menuItemAddTaskWinScript_Click(object sender, EventArgs e)
-        {
-            logger.Write("New Windows script task requested", 1);
+        {          
             WindowsScript t = new WindowsScript();
             t.Name = "Windows script";
+            logger.Write("Task created: " + t.ID, 1);
+            logger.Write("Task created: " + t.Name, 1);
             this.InsertTask(t, treeJobList.SelectedNode);
         }
 
         private void menuItemAddTaskPower_Click(object sender, EventArgs e)
         {
             PowerControl t = new PowerControl();
+            logger.Write("Task created: " + t.ID, 1);
+            logger.Write("Task created: " + t.Name, 1);
             this.InsertTask(t, treeJobList.SelectedNode);
         }
 
@@ -264,6 +267,8 @@ namespace SystemLackey.UI.Forms
             //Create the new job. 
             Job t = new Job();
             t.Name = "New sub job";
+            logger.Write("Sub job created: " + t.ID, 1);
+            logger.Write("Sub job created: " + t.Name, 1);
             this.InsertTask(t, treeJobList.SelectedNode);
         }
 
