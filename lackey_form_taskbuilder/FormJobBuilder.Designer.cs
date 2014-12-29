@@ -56,8 +56,8 @@
             this.toolBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.printJobXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +77,7 @@
             this.taskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAddTaskPower = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAddTaskWinScript = new System.Windows.Forms.ToolStripMenuItem();
-            this.consoleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
@@ -315,23 +315,23 @@
             this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.consoleToolStripMenuItem,
             this.optionsToolStripMenuItem,
-            this.printJobXMLToolStripMenuItem});
+            this.runJobToolStripMenuItem});
             this.toolsMenu.Name = "toolsMenu";
             this.toolsMenu.Size = new System.Drawing.Size(48, 20);
             this.toolsMenu.Text = "&Tools";
+            // 
+            // consoleToolStripMenuItem
+            // 
+            this.consoleToolStripMenuItem.Name = "consoleToolStripMenuItem";
+            this.consoleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.consoleToolStripMenuItem.Text = "Console";
+            this.consoleToolStripMenuItem.Click += new System.EventHandler(this.consoleToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optionsToolStripMenuItem.Text = "&Options";
-            // 
-            // printJobXMLToolStripMenuItem
-            // 
-            this.printJobXMLToolStripMenuItem.Name = "printJobXMLToolStripMenuItem";
-            this.printJobXMLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.printJobXMLToolStripMenuItem.Text = "Print Job XML";
-            this.printJobXMLToolStripMenuItem.Click += new System.EventHandler(this.printJobXMLToolStripMenuItem_Click);
             // 
             // helpMenu
             // 
@@ -487,12 +487,12 @@
             this.menuItemAddTaskWinScript.Text = "Windows Script";
             this.menuItemAddTaskWinScript.Click += new System.EventHandler(this.menuItemAddTaskWinScript_Click);
             // 
-            // consoleToolStripMenuItem
+            // runJobToolStripMenuItem
             // 
-            this.consoleToolStripMenuItem.Name = "consoleToolStripMenuItem";
-            this.consoleToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.consoleToolStripMenuItem.Text = "Console";
-            this.consoleToolStripMenuItem.Click += new System.EventHandler(this.consoleToolStripMenuItem_Click);
+            this.runJobToolStripMenuItem.Name = "runJobToolStripMenuItem";
+            this.runJobToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.runJobToolStripMenuItem.Text = "Run job";
+            this.runJobToolStripMenuItem.Click += new System.EventHandler(this.runJobToolStripMenuItem_Click);
             // 
             // FormJobBuilder
             // 
@@ -569,8 +569,8 @@
         private System.Windows.Forms.ToolStripMenuItem menuItemAddTaskWinScript;
         private System.Windows.Forms.ToolStripMenuItem subJobToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuItemAddTaskPower;
-        private System.Windows.Forms.ToolStripMenuItem printJobXMLToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consoleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runJobToolStripMenuItem;
     }
 }
 

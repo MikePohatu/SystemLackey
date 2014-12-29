@@ -48,12 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JBConsoleOptions.cs" />
     <Compile Include="Common.cs" />
-    <Compile Include="jbConsole.cs">
+    <Compile Include="FormJBConsoleOptions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="jbConsole.Designer.cs">
-      <DependentUpon>jbConsole.cs</DependentUpon>
+    <Compile Include="FormJBConsoleOptions.Designer.cs">
+      <DependentUpon>FormJBConsoleOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormJBConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormJBConsole.Designer.cs">
+      <DependentUpon>FormJBConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPowerControl.cs">
       <SubType>Form</SubType>
@@ -82,8 +89,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="jbConsole.resx">
-      <DependentUpon>jbConsole.cs</DependentUpon>
+    <EmbeddedResource Include="FormJBConsoleOptions.resx">
+      <DependentUpon>FormJBConsoleOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormJBConsole.resx">
+      <DependentUpon>FormJBConsole.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormJobBuilder.resx">
       <DependentUpon>FormJobBuilder.cs</DependentUpon>

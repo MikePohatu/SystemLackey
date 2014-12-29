@@ -16,18 +16,10 @@ namespace SystemLackey.Logging
 
         private bool toConsole = true;
         private bool toEventLog = false;
-        private int level = 2;
 
         //========================
         // Properties
         //========================
-
-        public int Level
-        {
-            get { return this.level; }
-            set { this.level = value; }
-
-        }
 
         public bool ToConsole
         {
@@ -56,40 +48,43 @@ namespace SystemLackey.Logging
 
         public void Write(string pText,int pLevel)
         {
-            if (pLevel >= this.level)
+            DateTime now = DateTime.Now;
+            string time = now.ToString("u") + ": ";
+            string prefix;
+            switch (pLevel)
             {
-                DateTime now = DateTime.Now;
-                string time = now.ToString("u") + ": ";
-                string prefix;
-                switch (pLevel)
-                {
-                    case 0:
-                        prefix = "[DEBUG] ";
+                case 0:
+                    if (EventDebug != null)
+                    {
+                        prefix = " [DEBUG] ";
                         EventDebug(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
-                        break;
-                    case 1:
-                        prefix = "[INFO] ";
+                    }
+                    
+                    break;
+                case 1:
+                    if (EventInfo != null)
+                    {
+                        prefix = " [INFO] ";
                         EventInfo(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
-                        break;
-                    case 2:
-                        prefix = "[WARN] ";
-                        EventWarning(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
-                        break;
-                    case 3:
-                        prefix = "[ERROR] ";
-                        EventError(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
-                        break;
-                    case 4:
-                        prefix = "[DANGER WILL ROBINSON!!!] ";
-                        EventDanger(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
-                        break;
-                    default:
-                        prefix = "[Invalid logging level] ";
-                        System.ArgumentException argEx = new System.ArgumentException("Invalid logging level " + level, "Logger.Write");
-                        break;
-                }
-            }
-            
+                    } 
+                    break;
+                case 2:
+                    prefix = " [WARN] ";
+                    EventWarning(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
+                    break;
+                case 3:
+                    prefix = " [ERROR] ";
+                    EventError(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
+                    break;
+                case 4:
+                    prefix = " [DANGER WILL ROBINSON!!!] ";
+                    EventDanger(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
+                    break;
+                default:
+                    prefix = " [Invalid logging level] ";
+                    System.ArgumentException argEx = new System.ArgumentException("Invalid logging level " + pLevel, "Logger.Write");
+                    break;
+            }            
         }
     }
 }

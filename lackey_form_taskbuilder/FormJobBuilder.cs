@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+
 using SystemLackey.Worker;
 using SystemLackey.UI;
 using SystemLackey.UI.Shell;
@@ -213,7 +214,7 @@ namespace SystemLackey.UI.Forms
                 if (prevStep.Task is Job)
                 { 
                     parentNode = pPrev;
-                    s = JobEditor.Insert(pTask, prevStep);
+                    s = JobEditor.Insert(pTask, (Job)prevStep.Task);
                 }
                 else
                 {
@@ -282,29 +283,24 @@ namespace SystemLackey.UI.Forms
 
         //===========================
 
-
-        private void printJobXMLToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //SystemLackey.Logging.Console console = new SystemLackey.Logging.Console();
-
-            if (rootNode != null)
-            {
-                Job rootJob = (Job)rootNode.Tag;
-                string text = (string)rootJob.GetXml();
-                //console.Write(text);
-                //Console.Read();
-            }
-            else {
-
-                //console.Write("Empty");
-            }
-        }
-
         private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            jbConsole console = new jbConsole(logger);
-            console.Parent = this;
+            FormJBConsole console = new FormJBConsole(logger);
+            console.ParentJobBuilder = this;
             console.Show();
+        }
+
+        private void runJobToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Common.ConfirmJobRun())
+            {
+                if ((rootNode != null) && (rootNode.Tag != null))
+                {
+                    Object rootTag = rootNode.Tag;
+                    Job rootJob = (Job)rootTag;
+                    rootJob.Run();
+                }
+            }       
         }
     }
 }
