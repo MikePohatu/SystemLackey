@@ -201,52 +201,61 @@ namespace SystemLackey.UI.Forms
         }
 
         //Insert a node into the tree, and create the appropriate step in the job. 
-        private void InsertTask(ITask pTask,TreeNode pPrev)
+        private void InsertTask(ITask pTask,TreeNode pPrevNode)
         {
             treeJobList.BeginUpdate();
             Step s;
             TreeNode parentNode;
+            int index;
 
-            if (pPrev != rootNode)
+            if (pPrevNode != rootNode)
             {
-                Step prevStep = (Step)pPrev.Tag;
+                Step prevStep = (Step)pPrevNode.Tag;
 
+                //if selected node is a job, make the index 0 i.e. top of the sub tree
                 if (prevStep.Task is Job)
-                { 
-                    parentNode = pPrev;
+                {
+                    index = 0;
+                    parentNode = pPrevNode;
                     s = JobEditor.Insert(pTask, (Job)prevStep.Task);
                 }
+                //otherwise make the new node below the previous one
                 else
                 {
-                    parentNode = pPrev.Parent;
+                    index = pPrevNode.Index + 1;
+                    parentNode = pPrevNode.Parent;
                     s = JobEditor.Insert(pTask, prevStep);
-                }
-                           
+                }                         
             }
 
             else
             {
                 parentNode = rootNode;
-                s = JobEditor.Insert(pTask, (Job)pPrev.Tag); 
+                index = 0;
+                s = JobEditor.Insert(pTask, (Job)pPrevNode.Tag); 
             }
 
 
             //create the new node and set it up. 
             TreeNode node = new TreeNode();
+
+            parentNode.Nodes.Insert(index, node);
+
             node.Tag = s;
             node.Name = s.Task.ID;
             node.Text = s.Task.Name;
 
-            parentNode.Nodes.Insert(pPrev.Index + 1,node);
-
+            logger.Write("TreeNode created: " + node.Text + " - " + node.Index.ToString(),0);
+            
             //Close panel2 and Spin up the new form
             if (panel2 != null)
             { panel2.Close(); }
 
             panel2 = factory.Create(node);
             ResetPanel2();
-
             treeJobList.SelectedNode = node;
+            
+            //Finished
             treeJobList.EndUpdate();
         }
 
@@ -258,16 +267,14 @@ namespace SystemLackey.UI.Forms
         {          
             WindowsScript t = new WindowsScript();
             t.Name = "Windows script";
-            logger.Write("Task created: " + t.ID, 1);
-            logger.Write("Task created: " + t.Name, 1);
+            logger.Write("Task created: " + t.Name + " - " + t.ID, 1);
             this.InsertTask(t, treeJobList.SelectedNode);
         }
 
         private void menuItemAddTaskPower_Click(object sender, EventArgs e)
         {
             PowerControl t = new PowerControl();
-            logger.Write("Task created: " + t.ID, 1);
-            logger.Write("Task created: " + t.Name, 1);
+            logger.Write("Task created: " + t.Name + " - " + t.ID, 1);
             this.InsertTask(t, treeJobList.SelectedNode);
         }
 
@@ -276,8 +283,7 @@ namespace SystemLackey.UI.Forms
             //Create the new job. 
             Job t = new Job();
             t.Name = "New sub job";
-            logger.Write("Sub job created: " + t.ID, 1);
-            logger.Write("Sub job created: " + t.Name, 1);
+            logger.Write("Task created: " + t.Name + " - " + t.ID, 1);
             this.InsertTask(t, treeJobList.SelectedNode);
         }
 
