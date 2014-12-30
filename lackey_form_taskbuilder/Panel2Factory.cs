@@ -23,7 +23,7 @@ namespace SystemLackey.UI.Forms
                 //WinScript form
                 if (s.Task is WindowsScript)
                 {
-                    return new FormWinTaskBuilder((WindowsScript)task, n);
+                    return new FormWindowsScriptTaskControl((WindowsScript)task, n);
                 }
 
                 //Power control form

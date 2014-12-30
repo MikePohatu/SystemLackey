@@ -81,11 +81,11 @@
     <Compile Include="FormJobBuilder.Designer.cs">
       <DependentUpon>FormJobBuilder.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormWinTaskBuilder.cs">
+    <Compile Include="FormWindowsScriptTaskControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormWinTaskBuilder.Designer.cs">
-      <DependentUpon>FormWinTaskBuilder.cs</DependentUpon>
+    <Compile Include="FormWindowsScriptTaskControl.Designer.cs">
+      <DependentUpon>FormWindowsScriptTaskControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,8 +104,8 @@
     <EmbeddedResource Include="FormJobDetails.resx">
       <DependentUpon>FormJobDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormWinTaskBuilder.resx">
-      <DependentUpon>FormWinTaskBuilder.cs</DependentUpon>
+    <EmbeddedResource Include="FormWindowsScriptTaskControl.resx">
+      <DependentUpon>FormWindowsScriptTaskControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
