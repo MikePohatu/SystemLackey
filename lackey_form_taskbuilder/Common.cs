@@ -3,6 +3,8 @@ using System;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
+using SystemLackey.Logging;
+
 namespace SystemLackey.UI.Forms
 {
     class Common

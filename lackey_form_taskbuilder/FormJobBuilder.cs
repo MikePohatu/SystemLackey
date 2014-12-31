@@ -320,6 +320,7 @@ namespace SystemLackey.UI.Forms
         {
             if (Common.ConfirmNewJob())
             {
+
                 XElement rootJobXml = Common.OpenXML();
 
                 if (rootJobXml != null)
@@ -355,9 +356,18 @@ namespace SystemLackey.UI.Forms
                     this.UseWaitCursor = false;
                     //now update the view
                     //UpdateForm();
-                }
+                }             
+            }
+        }
 
-                
+        private void PopulateTree()
+        {
+            Job rootJob = (Job)rootNode.Tag;
+            foreach (Step s in rootJob)
+            {
+                //if (s == null) { Debug.WriteLine("Null value"); }
+                //Debug.WriteLine("Step: " + s.Task.Name + " " + s.Task.ID);
+                //this.textOutput.Text += "Step: " + s.Task.Name + " " + s.Task.ID + Environment.NewLine;
             }
         }
     }

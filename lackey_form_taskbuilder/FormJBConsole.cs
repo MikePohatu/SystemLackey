@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Diagnostics;
 using SystemLackey.Worker;
 using SystemLackey.Logging;
 
@@ -147,6 +147,19 @@ namespace SystemLackey.UI.Forms
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.textOutput.Text = "";
+        }
+
+        private void testForeachToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Job j = (Job)parent.Root.Tag;
+            this.textOutput.Text += "Job: " + j.Name + Environment.NewLine;
+
+            foreach (Step s in j)
+            {
+                if (s == null) { Debug.WriteLine("Null value"); }
+                Debug.WriteLine("Step: " + s.Task.Name + " " + s.Task.ID);
+                this.textOutput.Text += "Step: " + s.Task.Name + " " + s.Task.ID +  Environment.NewLine;
+            }
         }
     }
 }

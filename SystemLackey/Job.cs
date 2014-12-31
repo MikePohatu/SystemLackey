@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace SystemLackey.Worker
 {
-    public class Job : ITask //: IEnumerable
+    public class Job : ITask, IEnumerable
     {
         private string name = "";        //Name of the task
 
@@ -105,6 +106,12 @@ namespace SystemLackey.Worker
                     currentStep = newStep;
                 }
             }
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            JobEnumerator jobEnum = new JobEnumerator(this);
+            return jobEnum;   
         }
 
         // Run the job
