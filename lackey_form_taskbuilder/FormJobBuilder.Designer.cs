@@ -543,6 +543,7 @@
             this.buttonImport.TabIndex = 0;
             this.buttonImport.Text = "Import";
             this.buttonImport.UseVisualStyleBackColor = true;
+            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
             // 
             // buttonExport
             // 
@@ -553,6 +554,7 @@
             this.buttonExport.TabIndex = 1;
             this.buttonExport.Text = "Export";
             this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
             // 
             // buttonOpen
             // 

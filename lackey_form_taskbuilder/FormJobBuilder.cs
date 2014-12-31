@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 using SystemLackey.Worker;
 using SystemLackey.UI;
@@ -127,8 +128,7 @@ namespace SystemLackey.UI.Forms
         {
             if (this.rootNode != null)
             {
-                string message = "This will create a new root job, discarding any unsaved  changes" + Environment.NewLine + "Continue?";
-                if (MessageBox.Show(message, "Confirmation", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (Common.ConfirmNewJob())
                 {
                     StartNewJob();
                 }
@@ -306,6 +306,58 @@ namespace SystemLackey.UI.Forms
                     Job rootJob = (Job)rootTag;
                     rootJob.Run();
                 }
+            }
+        }
+
+        //Export the job
+        private void buttonExport_Click(object sender, EventArgs e)
+        {
+            Job rootJob = (Job)rootNode.Tag;
+            Common.SaveXML(rootJob.GetXml());
+        }
+
+        private void buttonImport_Click(object sender, EventArgs e)
+        {
+            if (Common.ConfirmNewJob())
+            {
+                XElement rootJobXml = Common.OpenXML();
+
+                if (rootJobXml != null)
+                {
+                    Job rootJob = new Job();
+
+                    this.UseWaitCursor = true;
+                    treeJobList.BeginUpdate();
+
+                    rootJob.ImportXml(rootJobXml);
+
+                    //create the new node and set it up. 
+                    rootNode = new TreeNode();
+                    rootNode.Tag = rootJob;
+                    rootNode.Name = rootJob.ID;
+                    rootNode.Text = rootJob.Name;
+
+                    treeJobList.Nodes.Clear();
+
+                    treeJobList.Nodes.Add(rootNode);
+
+                    //Close panel2 and Spin up the new form
+                    if (panel2 != null)
+                    { panel2.Close(); }
+
+                    panel2 = factory.Create(rootNode);
+                    ResetPanel2();
+
+                    treeJobList.SelectedNode = rootNode;
+
+                    treeJobList.EndUpdate();
+
+                    this.UseWaitCursor = false;
+                    //now update the view
+                    //UpdateForm();
+                }
+
+                
             }
         }
     }
