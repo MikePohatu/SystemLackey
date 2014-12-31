@@ -48,7 +48,7 @@ namespace SystemLackey.UI.Forms
         // /Properties
 
         //Method to output the events from the logger. 
-        public void Update(Object o, LoggerEventArgs e)
+        public void Update(Object sender, LoggerEventArgs e)
         {
             this.textOutput.Text += e.Text;
         }

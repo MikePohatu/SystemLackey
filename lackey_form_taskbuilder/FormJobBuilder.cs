@@ -306,7 +306,7 @@ namespace SystemLackey.UI.Forms
                     Job rootJob = (Job)rootTag;
                     rootJob.Run();
                 }
-            }       
+            }
         }
     }
 }

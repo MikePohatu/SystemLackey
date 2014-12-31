@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace SystemLackey.Logging
 {
-    public delegate void LoggerEventHandler(Object o, LoggerEventArgs e);
+    public delegate void LoggerEventHandler(Object sender, LoggerEventArgs e);
 
     public class Logger
     {
