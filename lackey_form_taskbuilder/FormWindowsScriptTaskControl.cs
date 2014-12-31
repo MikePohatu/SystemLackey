@@ -199,10 +199,16 @@ namespace SystemLackey.UI.Forms
         private void checkTestAllowed_CheckedChanged(object sender, EventArgs e)
         {
             if (checkTestAllowed.Checked)
-            { buttonRun.Enabled = true; }
+            { 
+                buttonTestRun.Enabled = true;
+                //buttonRun.Visible = true;
+            }
 
             else
-            { buttonRun.Enabled = false; }
+            { 
+                buttonTestRun.Enabled = false;
+                //buttonRun.Visible = false;
+            }
         }
     }
 }
