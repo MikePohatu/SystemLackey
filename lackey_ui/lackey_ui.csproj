@@ -44,7 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SystemLackey\lackey_worker.csproj">
+    <ProjectReference Include="..\lackey_worker\lackey_worker.csproj">
       <Project>{0d648eff-1d0f-454c-9930-9e94e66d7c4a}</Project>
       <Name>lackey_worker</Name>
     </ProjectReference>
