@@ -200,8 +200,8 @@ namespace SystemLackey.UI.Forms
             }
         }
 
-        //Insert a node into the tree, and create the appropriate step in the job. 
-        private void InsertTask(ITask pTask,TreeNode pPrevNode)
+        //Insert a new node into the tree, and create the appropriate step in the job. 
+        private void InsertNewTask(ITask pTask,TreeNode pPrevNode)
         {
             treeJobList.BeginUpdate();
             Step s;
@@ -268,14 +268,14 @@ namespace SystemLackey.UI.Forms
             WindowsScript t = new WindowsScript();
             t.Name = "Windows script";
             logger.Write("Task created: " + t.Name + " - " + t.ID, 1);
-            this.InsertTask(t, treeJobList.SelectedNode);
+            this.InsertNewTask(t, treeJobList.SelectedNode);
         }
 
         private void menuItemAddTaskPower_Click(object sender, EventArgs e)
         {
             PowerControl t = new PowerControl();
             logger.Write("Task created: " + t.Name + " - " + t.ID, 1);
-            this.InsertTask(t, treeJobList.SelectedNode);
+            this.InsertNewTask(t, treeJobList.SelectedNode);
         }
 
         private void subJobToolStripMenuItem_Click(object sender, EventArgs e)
@@ -284,7 +284,7 @@ namespace SystemLackey.UI.Forms
             Job t = new Job();
             t.Name = "New sub job";
             logger.Write("Task created: " + t.Name + " - " + t.ID, 1);
-            this.InsertTask(t, treeJobList.SelectedNode);
+            this.InsertNewTask(t, treeJobList.SelectedNode);
         }
 
         //===========================
@@ -316,9 +316,16 @@ namespace SystemLackey.UI.Forms
             Common.SaveXML(rootJob.GetXml());
         }
 
+        //Import a job and populate the tree.
         private void buttonImport_Click(object sender, EventArgs e)
         {
-            if (Common.ConfirmNewJob())
+            bool check = true;
+            if (rootNode != null)
+            {
+                check = Common.ConfirmNewJob();          
+            }
+
+            if (check)
             {
 
                 XElement rootJobXml = Common.OpenXML();
@@ -351,23 +358,51 @@ namespace SystemLackey.UI.Forms
 
                     treeJobList.SelectedNode = rootNode;
 
+                    this.PopulateTree(rootNode);
+                    treeJobList.ExpandAll();
                     treeJobList.EndUpdate();
-
                     this.UseWaitCursor = false;
-                    //now update the view
-                    //UpdateForm();
                 }             
             }
         }
 
-        private void PopulateTree()
+        //Populate the tree with the steps for a job. 
+        //Recursive method for sub jobs. 
+        private void PopulateTree(TreeNode pRootNode)
         {
-            Job rootJob = (Job)rootNode.Tag;
+            Job rootJob;
+
+            if (pRootNode.Tag is Job)
+            { 
+                rootJob = (Job)pRootNode.Tag; 
+            }
+            else { 
+                Step sTemp = (Step)pRootNode.Tag;
+                if ( sTemp.Task is Job )
+                { 
+                    rootJob = (Job)sTemp.Task; 
+                }
+                else 
+                { 
+                    throw new ArgumentException("Invalid node tag when populating tree");
+                }
+            }
+
+            logger.Write("Populating tree for job: " + rootJob.Name, 0);
+
             foreach (Step s in rootJob)
             {
-                //if (s == null) { Debug.WriteLine("Null value"); }
-                //Debug.WriteLine("Step: " + s.Task.Name + " " + s.Task.ID);
-                //this.textOutput.Text += "Step: " + s.Task.Name + " " + s.Task.ID + Environment.NewLine;
+                TreeNode t = new TreeNode();
+                t.Tag = s;
+                t.Name = s.Task.ID;
+                t.Text = s.Task.Name;
+
+                logger.Write("Inserting node: " + t.Text, 0);
+
+                pRootNode.Nodes.Add(t);
+
+                if (s.Task is Job)
+                { PopulateTree(t); }
             }
         }
     }

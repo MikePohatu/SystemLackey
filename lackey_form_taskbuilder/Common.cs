@@ -15,6 +15,8 @@ namespace SystemLackey.UI.Forms
 
             openBox.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
             openBox.FilterIndex = 1;
+            //openBox.DereferenceLinks = false;
+
             if (openBox.ShowDialog() == DialogResult.OK)
             {
                 System.IO.FileStream stream = (System.IO.FileStream)openBox.OpenFile();
