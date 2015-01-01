@@ -71,6 +71,11 @@
             this.splitMain = new System.Windows.Forms.SplitContainer();
             this.tableTreeView = new System.Windows.Forms.TableLayoutPanel();
             this.treeJobList = new System.Windows.Forms.TreeView();
+            this.panelTreeButtons = new System.Windows.Forms.Panel();
+            this.buttonSave = new System.Windows.Forms.Button();
+            this.buttonOpen = new System.Windows.Forms.Button();
+            this.buttonExport = new System.Windows.Forms.Button();
+            this.buttonImport = new System.Windows.Forms.Button();
             this.menuStripTasks = new System.Windows.Forms.MenuStrip();
             this.newToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.jobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,19 +84,14 @@
             this.taskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAddTaskPower = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAddTaskWinScript = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelTreeButtons = new System.Windows.Forms.Panel();
-            this.buttonImport = new System.Windows.Forms.Button();
-            this.buttonExport = new System.Windows.Forms.Button();
-            this.buttonOpen = new System.Windows.Forms.Button();
-            this.buttonSave = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
             this.splitMain.Panel1.SuspendLayout();
             this.splitMain.SuspendLayout();
             this.tableTreeView.SuspendLayout();
-            this.menuStripTasks.SuspendLayout();
             this.panelTreeButtons.SuspendLayout();
+            this.menuStripTasks.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStripMain
@@ -424,6 +424,10 @@
             this.splitMain.Panel1.Controls.Add(this.tableTreeView);
             this.splitMain.Panel1.Controls.Add(this.menuStripTasks);
             this.splitMain.Panel1MinSize = 300;
+            // 
+            // splitMain.Panel2
+            // 
+            this.splitMain.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitMain_Panel2_Paint);
             this.splitMain.Size = new System.Drawing.Size(1370, 485);
             this.splitMain.SplitterDistance = 301;
             this.splitMain.SplitterWidth = 6;
@@ -452,6 +456,62 @@
             this.treeJobList.Size = new System.Drawing.Size(295, 409);
             this.treeJobList.TabIndex = 1;
             this.treeJobList.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.Event_treeJobList_NodeMouseClick);
+            // 
+            // panelTreeButtons
+            // 
+            this.panelTreeButtons.Controls.Add(this.buttonSave);
+            this.panelTreeButtons.Controls.Add(this.buttonOpen);
+            this.panelTreeButtons.Controls.Add(this.buttonExport);
+            this.panelTreeButtons.Controls.Add(this.buttonImport);
+            this.panelTreeButtons.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTreeButtons.Location = new System.Drawing.Point(0, 415);
+            this.panelTreeButtons.Margin = new System.Windows.Forms.Padding(0);
+            this.panelTreeButtons.Name = "panelTreeButtons";
+            this.panelTreeButtons.Size = new System.Drawing.Size(301, 41);
+            this.panelTreeButtons.TabIndex = 2;
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(225, 4);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 38);
+            this.buttonSave.TabIndex = 3;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
+            // 
+            // buttonOpen
+            // 
+            this.buttonOpen.Location = new System.Drawing.Point(150, 4);
+            this.buttonOpen.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonOpen.Name = "buttonOpen";
+            this.buttonOpen.Size = new System.Drawing.Size(75, 38);
+            this.buttonOpen.TabIndex = 2;
+            this.buttonOpen.Text = "Open";
+            this.buttonOpen.UseVisualStyleBackColor = true;
+            this.buttonOpen.Click += new System.EventHandler(this.buttonOpen_Click);
+            // 
+            // buttonExport
+            // 
+            this.buttonExport.Location = new System.Drawing.Point(75, 4);
+            this.buttonExport.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonExport.Name = "buttonExport";
+            this.buttonExport.Size = new System.Drawing.Size(75, 38);
+            this.buttonExport.TabIndex = 1;
+            this.buttonExport.Text = "Export";
+            this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
+            // 
+            // buttonImport
+            // 
+            this.buttonImport.Location = new System.Drawing.Point(0, 4);
+            this.buttonImport.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonImport.Name = "buttonImport";
+            this.buttonImport.Size = new System.Drawing.Size(75, 38);
+            this.buttonImport.TabIndex = 0;
+            this.buttonImport.Text = "Import";
+            this.buttonImport.UseVisualStyleBackColor = true;
+            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
             // 
             // menuStripTasks
             // 
@@ -521,61 +581,6 @@
             this.menuItemAddTaskWinScript.Text = "Windows Script";
             this.menuItemAddTaskWinScript.Click += new System.EventHandler(this.menuItemAddTaskWinScript_Click);
             // 
-            // panelTreeButtons
-            // 
-            this.panelTreeButtons.Controls.Add(this.buttonSave);
-            this.panelTreeButtons.Controls.Add(this.buttonOpen);
-            this.panelTreeButtons.Controls.Add(this.buttonExport);
-            this.panelTreeButtons.Controls.Add(this.buttonImport);
-            this.panelTreeButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTreeButtons.Location = new System.Drawing.Point(0, 415);
-            this.panelTreeButtons.Margin = new System.Windows.Forms.Padding(0);
-            this.panelTreeButtons.Name = "panelTreeButtons";
-            this.panelTreeButtons.Size = new System.Drawing.Size(301, 41);
-            this.panelTreeButtons.TabIndex = 2;
-            // 
-            // buttonImport
-            // 
-            this.buttonImport.Location = new System.Drawing.Point(0, 4);
-            this.buttonImport.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonImport.Name = "buttonImport";
-            this.buttonImport.Size = new System.Drawing.Size(75, 38);
-            this.buttonImport.TabIndex = 0;
-            this.buttonImport.Text = "Import";
-            this.buttonImport.UseVisualStyleBackColor = true;
-            this.buttonImport.Click += new System.EventHandler(this.buttonImport_Click);
-            // 
-            // buttonExport
-            // 
-            this.buttonExport.Location = new System.Drawing.Point(75, 4);
-            this.buttonExport.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonExport.Name = "buttonExport";
-            this.buttonExport.Size = new System.Drawing.Size(75, 38);
-            this.buttonExport.TabIndex = 1;
-            this.buttonExport.Text = "Export";
-            this.buttonExport.UseVisualStyleBackColor = true;
-            this.buttonExport.Click += new System.EventHandler(this.buttonExport_Click);
-            // 
-            // buttonOpen
-            // 
-            this.buttonOpen.Location = new System.Drawing.Point(150, 4);
-            this.buttonOpen.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonOpen.Name = "buttonOpen";
-            this.buttonOpen.Size = new System.Drawing.Size(75, 38);
-            this.buttonOpen.TabIndex = 2;
-            this.buttonOpen.Text = "Open";
-            this.buttonOpen.UseVisualStyleBackColor = true;
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Location = new System.Drawing.Point(225, 4);
-            this.buttonSave.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 38);
-            this.buttonSave.TabIndex = 3;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            // 
             // FormJobBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -598,9 +603,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).EndInit();
             this.splitMain.ResumeLayout(false);
             this.tableTreeView.ResumeLayout(false);
+            this.panelTreeButtons.ResumeLayout(false);
             this.menuStripTasks.ResumeLayout(false);
             this.menuStripTasks.PerformLayout();
-            this.panelTreeButtons.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

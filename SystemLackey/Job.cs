@@ -78,7 +78,7 @@ namespace SystemLackey.Worker
         }
         
         // import job details from xml
-        public void ImportXml(XElement pElement)
+        private void BuildFromXML(XElement pElement, bool pImport)
         {
             TaskFactory factory = new TaskFactory();
             Step currentStep = root;
@@ -86,13 +86,12 @@ namespace SystemLackey.Worker
             root = null;
 
             name = pElement.Element("name").Value;
-            //taskid = pElement.Element("taskid").Value;
-            jobid = pElement.Element("id").Value;
             comments = pElement.Element("comments").Value;
-            
+            if (pImport == false) { jobid = pElement.Element("id").Value; }
+
             foreach (XElement step in pElement.Elements("Step"))
             {
-                newStep = new Step(this, factory.Create(step.Element("Task")));
+                newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
                 
                 if (root == null)
                 {
@@ -106,6 +105,16 @@ namespace SystemLackey.Worker
                     currentStep = newStep;
                 }
             }
+        }
+
+        public void OpenXml(XElement pElement)
+        {
+            BuildFromXML(pElement, false);
+        }
+
+        public void ImportXml(XElement pElement)
+        {
+            BuildFromXML(pElement, true);
         }
 
         public IEnumerator GetEnumerator()

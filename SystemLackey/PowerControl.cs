@@ -78,13 +78,23 @@ namespace SystemLackey.Worker
             set { this.wait = value; }
         }
 
-        public void ImportXml(XElement pElement)
+        private void BuildFromXml(XElement pElement)
         {
             name = pElement.Element("name").Value;
-            //id = pElement.Element("id").Value;
             comments = pElement.Element("comments").Value;
             powerOption = XmlConvert.ToChar(pElement.Element("powerOption").Value);
             wait = XmlConvert.ToInt32(pElement.Element("wait").Value);
+        }
+
+        public void ImportXml(XElement pElement)
+        {
+            this.BuildFromXml(pElement);
+        }
+
+        public void OpenXml(XElement pElement)
+        {
+            id = pElement.Element("id").Value;
+            this.BuildFromXml(pElement);
         }
 
         public XElement GetXml()

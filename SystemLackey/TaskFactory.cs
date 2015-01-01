@@ -31,10 +31,12 @@ namespace SystemLackey.Worker
             //return 
         }
 
-        public ITask Create(XElement pElement)
+        public ITask Create(XElement pElement, bool pImport)
         {
             ITask t = this.Create(pElement.Attribute("Type").Value);
-            t.ImportXml(pElement);
+            if (pImport) { t.ImportXml(pElement); }
+            else { t.OpenXml(pElement); }
+            
             return t;
         }
     }

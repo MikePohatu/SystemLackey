@@ -152,18 +152,27 @@ namespace SystemLackey.Worker
             details.SetAttributeValue("Type", "WinScript");
             return details;
         }
-
-        public void ImportXml(XElement pElement)
+        private void BuildFromXml(XElement pElement,bool pImport)
         {
-            name = pElement.Element("name").Value;
-            //taskid = pElement.Element("taskid").Value;
+            name = pElement.Element("name").Value;          
             async = XmlConvert.ToBoolean(pElement.Element("async").Value);
             timeout = XmlConvert.ToInt32(pElement.Element("timeout").Value);
             code = pElement.Element("code").Value;
-            type =  XmlConvert.ToInt32(pElement.Element("type").Value);
+            type = XmlConvert.ToInt32(pElement.Element("type").Value);
             wow64 = XmlConvert.ToBoolean(pElement.Element("wow64").Value);
             hidden = XmlConvert.ToBoolean(pElement.Element("hidden").Value);
             comments = pElement.Element("comments").Value;
+            if (pImport == false) { taskid = pElement.Element("taskid").Value; }
+        }
+
+        public void ImportXml(XElement pElement)
+        {
+            this.BuildFromXml(pElement,true);
+        }
+
+        public void OpenXml(XElement pElement)
+        {
+            this.BuildFromXml(pElement, false);
         }
 
         //Run a Task_Winscript object

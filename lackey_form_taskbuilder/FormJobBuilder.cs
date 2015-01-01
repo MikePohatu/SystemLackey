@@ -319,10 +319,22 @@ namespace SystemLackey.UI.Forms
         //Import a job and populate the tree.
         private void buttonImport_Click(object sender, EventArgs e)
         {
+            BuildFromXml(true);
+        }
+
+        //Import a job and populate the tree.
+        private void buttonOpen_Click(object sender, EventArgs e)
+        {
+            BuildFromXml(false);
+        }
+
+        //Open the xml file. If import is true, do an import, i.e. don't bring in the job id. 
+        private void BuildFromXml(bool pImport)
+        {
             bool check = true;
             if (rootNode != null)
             {
-                check = Common.ConfirmNewJob();          
+                check = Common.ConfirmNewJob();
             }
 
             if (check)
@@ -337,7 +349,11 @@ namespace SystemLackey.UI.Forms
                     this.UseWaitCursor = true;
                     treeJobList.BeginUpdate();
 
-                    rootJob.ImportXml(rootJobXml);
+                    if (pImport)
+                    { rootJob.ImportXml(rootJobXml); }
+                    else
+                    { rootJob.OpenXml(rootJobXml); }
+                    
 
                     //create the new node and set it up. 
                     rootNode = new TreeNode();
@@ -362,10 +378,9 @@ namespace SystemLackey.UI.Forms
                     treeJobList.ExpandAll();
                     treeJobList.EndUpdate();
                     this.UseWaitCursor = false;
-                }             
+                }
             }
         }
-
         //Populate the tree with the steps for a job. 
         //Recursive method for sub jobs. 
         private void PopulateTree(TreeNode pRootNode)
@@ -404,6 +419,11 @@ namespace SystemLackey.UI.Forms
                 if (s.Task is Job)
                 { PopulateTree(t); }
             }
+        }
+
+        private void splitMain_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
