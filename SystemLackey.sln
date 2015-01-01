@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_worker", "SystemLackey\lackey_worker.csproj", "{0D648EFF-1D0F-454C-9930-9E94E66D7C4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_worker", "lackey_worker\lackey_worker.csproj", "{0D648EFF-1D0F-454C-9930-9E94E66D7C4A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_shell", "lackey_shell\lackey_shell.csproj", "{63E79B14-49F3-4B44-B847-7436AFB92DDD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_io", "lackey_IO\lackey_io.csproj", "{CC1B6343-34CE-48C7-B772-960683553FAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_form_jobbuilder", "lackey_form_taskbuilder\lackey_form_jobbuilder.csproj", "{4648AA6B-178B-49FA-8CCB-EC46B91031A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_form_jobbuilder", "lackey_form_jobbuilder\lackey_form_jobbuilder.csproj", "{4648AA6B-178B-49FA-8CCB-EC46B91031A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_filters", "lackey_filters\lackey_filters.csproj", "{89787298-15F7-4750-89F8-2281076653D9}"
 EndProject

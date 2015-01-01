@@ -41,10 +41,11 @@ namespace SystemLackey.Worker
             Console.WriteLine(startInfo.FileName + " " + startInfo.Arguments);
 
             process.StartInfo = startInfo;
-            //process.WaitForExit(5000);
+            process.Start();
+            process.WaitForExit(5000);
 
-            //int intReturn = process.ExitCode;
-            return 0;
+            int intReturn = process.ExitCode;
+            return intReturn;
         }
 
         //Properties
