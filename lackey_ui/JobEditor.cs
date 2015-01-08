@@ -21,6 +21,21 @@ namespace SystemLackey.UI
             return newStep;
         }
 
+        //insert an existing step after the specified step
+        public static void Insert(Step pNew, Step pPrev)
+        {
+            if (pPrev.Next != null)
+            {
+                pNew.Next = pPrev.Next;
+                pNew.Next.Prev = pNew;
+            }
+
+            //reset the parent in case this step is coming from another job or sub job
+            pNew.Parent = pPrev.Parent;  
+            pPrev.Next = pNew;
+            pNew.Prev = pPrev;
+        }
+
         //insert a new task at the top of a job
         public static Step Insert(ITask pTask, Job rootJob)
         {
@@ -36,7 +51,7 @@ namespace SystemLackey.UI
 
         //Remove a step from the job
         //Return true if Step was the last step in the job.
-        //Does not validate. This is a worker class for the main UI
+        //Does not validate with the user. This is a worker class for the main UI
         //which should be doing the validation. This will do what it is told. 
         public static bool Remove(Step pStep)
         {
@@ -48,7 +63,9 @@ namespace SystemLackey.UI
                 
                 if (pStep.Parent.Root != pStep)
                 { 
+                    //
                     //exception to be added. something is broke
+                    //
                 }
                 pStep.Parent.Root = null;
                 ret = true; 
