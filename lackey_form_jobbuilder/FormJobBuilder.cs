@@ -421,9 +421,67 @@ namespace SystemLackey.UI.Forms
             }
         }
 
-        private void splitMain_Panel2_Paint(object sender, PaintEventArgs e)
+        //Move a task up
+        private void buttonUp_Click(object sender, EventArgs e)
         {
+            TreeNode t = treeJobList.SelectedNode;
+            TreeNode parentNode = t.Parent;
+            Step s = (Step)t.Tag;
 
+            //try to move the step up directly. Otherwise, we may need to use insert method to
+            //move it to the parent job. 
+            if (JobEditor.MoveUp(s))
+            {
+                //We move move this node up
+                parentNode.Nodes.Remove(t);
+                parentNode.Nodes.Insert(t.Index - 1,t);
+                treeJobList.SelectedNode = t;
+            }
+
+            else
+            {
+                //We need to do an insert and go up a layer
+                if (parentNode != rootNode)
+                {
+                    parentNode.Nodes.Remove(t);
+                    parentNode.Parent.Nodes.Insert(parentNode.Index, t);
+                    treeJobList.SelectedNode = t;
+
+                    Step parentStep = (Step)parentNode.Tag;
+
+                    JobEditor.Remove(s);
+                    JobEditor.InsertAbove(s,parentStep);
+                }
+            }        
+        }
+
+        //Move a task down
+        private void buttonDown_Click(object sender, EventArgs e)
+        {
+            TreeNode t = treeJobList.SelectedNode;
+            TreeNode parentNode = t.Parent;
+            Step s = (Step)t.Tag;
+
+            //try to move the step up directly. Otherwise, we may need to use insert method to
+            //move it to the parent job. 
+            if (JobEditor.MoveDown(s))
+            {
+                //We move move this node up
+                parentNode.Nodes.Remove(t);
+                parentNode.Nodes.Insert(t.Index + 1, t);
+                treeJobList.SelectedNode = t;
+            }
+
+            else
+            {
+                //We need to do an insert and go up a layer
+                if (parentNode != rootNode)
+                {
+                    parentNode.Nodes.Remove(t);
+                    parentNode.Parent.Nodes.Insert(parentNode.Index + 1, t);
+                    treeJobList.SelectedNode = t;
+                }
+            }   
         }
     }
 }

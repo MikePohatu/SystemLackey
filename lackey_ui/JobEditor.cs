@@ -24,6 +24,11 @@ namespace SystemLackey.UI
         //insert an existing step after the specified step
         public static void Insert(Step pNew, Step pPrev)
         {
+            InsertBelow(pNew, pPrev);
+        }
+
+        public static void InsertBelow(Step pNew, Step pPrev)
+        {
             if (pPrev.Next != null)
             {
                 pNew.Next = pPrev.Next;
@@ -31,9 +36,24 @@ namespace SystemLackey.UI
             }
 
             //reset the parent in case this step is coming from another job or sub job
-            pNew.Parent = pPrev.Parent;  
+            pNew.Parent = pPrev.Parent;
             pPrev.Next = pNew;
             pNew.Prev = pPrev;
+        }
+
+        //insert an existing step after the specified step
+        public static void InsertAbove(Step pNew, Step pPrev)
+        {
+            if (pPrev.Prev != null)
+            {
+                pNew.Prev = pPrev.Prev;
+                pNew.Prev.Next = pNew;
+            }
+
+            //reset the parent in case this step is coming from another job or sub job
+            pNew.Parent = pPrev.Parent;
+            pPrev.Prev = pNew;
+            pNew.Next = pPrev;
         }
 
         //insert a new task at the top of a job
@@ -102,17 +122,21 @@ namespace SystemLackey.UI
             {
                 Step topStep = aboveStep.Prev;
 
-                topStep.Next = pStep;
+                if (topStep != null) 
+                { topStep.Next = pStep; }  
+                else
+                { pStep.Parent.Root = pStep; }
                 pStep.Prev = topStep;
                 pStep.Next = aboveStep;
                 aboveStep.Prev = pStep;
                 aboveStep.Next = bottomStep;
-                bottomStep.Prev = aboveStep;
+                if (bottomStep != null) { bottomStep.Prev = aboveStep; }
+                
                 return true;
             }
                  
             else
-            //there isn't a step above.
+            //there isn't a step above to move to.
             {
                 return false;
             }
@@ -130,12 +154,13 @@ namespace SystemLackey.UI
             {
                 Step bottomStep = belowStep.Next;
 
-                topStep.Next = belowStep;
+                if (topStep != null) { topStep.Next = belowStep; }
                 pStep.Next = bottomStep;
                 pStep.Prev = belowStep;             
                 belowStep.Prev = topStep;
                 belowStep.Next = pStep;
-                bottomStep.Prev = pStep;
+                if (bottomStep != null) { bottomStep.Prev = pStep; }
+                
                 return true;
             }
 
