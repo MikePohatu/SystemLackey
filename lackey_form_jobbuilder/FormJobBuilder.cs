@@ -312,8 +312,16 @@ namespace SystemLackey.UI.Forms
         //Export the job
         private void buttonExport_Click(object sender, EventArgs e)
         {
-            Job rootJob = (Job)rootNode.Tag;
-            Common.SaveXML(rootJob.GetXml());
+            if ( rootNode != null)
+            {
+                Job rootJob = (Job)rootNode.Tag;             
+                XElement data = rootJob.GetXml();
+                Common.SaveXML(data);
+            }
+
+            else { logger.Write("No job to export", 0); }
+            
+            
         }
 
         //Import a job and populate the tree.
