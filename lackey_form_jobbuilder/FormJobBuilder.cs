@@ -229,6 +229,7 @@ namespace SystemLackey.UI.Forms
                 }                         
             }
 
+            //the rootnode is selected. 
             else
             {
                 parentNode = rootNode;
@@ -447,6 +448,7 @@ namespace SystemLackey.UI.Forms
             if (JobEditor.MoveUp(s))
             {
                 //We move move this node up
+                logger.Write("Step moved up", 0);
                 parentNode.Nodes.Remove(t);
                 parentNode.Nodes.Insert(i - 1,t);
                 treeJobList.SelectedNode = t;
@@ -457,6 +459,7 @@ namespace SystemLackey.UI.Forms
                 //We need to do an insert and go up a layer
                 if (parentNode != rootNode)
                 {
+                    logger.Write("Step at top. Doing insert to move up tree", 0);
                     parentNode.Nodes.Remove(t);
                     parentNode.Parent.Nodes.Insert(parentNode.Index, t);
                     treeJobList.SelectedNode = t;
@@ -594,7 +597,8 @@ namespace SystemLackey.UI.Forms
                                 if (sourceEval.Index > targetEval.Index) //coming from below
                                 {
                                     logger.Write("Inserting step " + sourceStep.Task.Name + " above " + targetStep.Task.Name, 0);
-                                    JobEditor.InsertAbove(sourceStep, targetStep);   
+                                    if (JobEditor.InsertAbove(sourceStep, targetStep)) { logger.Write("Inserted step at root", 0); }
+
                                 }
                                 else //coming from above
                                 {

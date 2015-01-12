@@ -39,26 +39,35 @@ namespace SystemLackey.UI
         }
 
         //insert an existing step after the specified step
-        public static void InsertAbove(Step pNew, Step pTarget)
+        //returns true if the inserted step is the new root step in the job
+        public static bool InsertAbove(Step pNew, Step pTarget)
         {
+            bool isNewRoot = false;
             pNew.Prev = pTarget.Prev;
 
-            if (pTarget.Prev == null) { pTarget.Parent.Root = pNew; }
+            if (pTarget.Prev == null) 
+            { 
+                pTarget.Parent.Root = pNew;
+                isNewRoot = true;
+            }
             else { pNew.Prev.Next = pNew; }
 
             //reset the parent in case this step is coming from another job or sub job
             pNew.Parent = pTarget.Parent;
             pTarget.Prev = pNew;
             pNew.Next = pTarget;
+
+            return isNewRoot;
         }
 
-        //insert a new task at the top of a job
+        //insert a task at the top of a job
         public static Step Insert(ITask pTask, Job rootJob)
         {
             Step newStep = new Step(rootJob, pTask);
             newStep.Next = rootJob.Root;
-            if (rootJob.Root != null) { rootJob.Root.Prev = newStep; }
             rootJob.Root = newStep;
+            if (newStep.Next != null) { newStep.Next.Prev = newStep; }
+            
             return newStep;
         }
 
@@ -66,11 +75,11 @@ namespace SystemLackey.UI
         public static void Insert(Step pStep, Job rootJob)
         {
             pStep.Next = rootJob.Root;
-            if (rootJob.Root != null) { rootJob.Root.Prev = pStep; }
-            //Reset the parent in case coming from another subjob.
-            pStep.Parent = rootJob;
+            pStep.Prev = null;
             rootJob.Root = pStep;
-
+            pStep.Parent = rootJob; //Reset the parent in case coming from another subjob.
+            
+            if (pStep.Next != null) { pStep.Next.Prev = pStep; }
         }
 
         //Remove a step from the job
