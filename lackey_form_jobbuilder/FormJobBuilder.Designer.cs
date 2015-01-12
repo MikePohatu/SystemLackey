@@ -69,6 +69,8 @@
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.splitMain = new System.Windows.Forms.SplitContainer();
+            this.buttonDown = new System.Windows.Forms.Button();
+            this.buttonUp = new System.Windows.Forms.Button();
             this.tableTreeView = new System.Windows.Forms.TableLayoutPanel();
             this.treeJobList = new System.Windows.Forms.TreeView();
             this.panelTreeButtons = new System.Windows.Forms.Panel();
@@ -84,8 +86,6 @@
             this.taskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAddTaskPower = new System.Windows.Forms.ToolStripMenuItem();
             this.menuItemAddTaskWinScript = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonUp = new System.Windows.Forms.Button();
-            this.buttonDown = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitMain)).BeginInit();
@@ -429,6 +429,28 @@
             this.splitMain.SplitterDistance = 300;
             this.splitMain.TabIndex = 4;
             // 
+            // buttonDown
+            // 
+            this.buttonDown.Location = new System.Drawing.Point(250, 0);
+            this.buttonDown.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonDown.Name = "buttonDown";
+            this.buttonDown.Size = new System.Drawing.Size(50, 24);
+            this.buttonDown.TabIndex = 4;
+            this.buttonDown.Text = "Down";
+            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+            // 
+            // buttonUp
+            // 
+            this.buttonUp.Location = new System.Drawing.Point(195, 0);
+            this.buttonUp.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonUp.Name = "buttonUp";
+            this.buttonUp.Size = new System.Drawing.Size(50, 24);
+            this.buttonUp.TabIndex = 3;
+            this.buttonUp.Text = "Up";
+            this.buttonUp.UseVisualStyleBackColor = true;
+            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
+            // 
             // tableTreeView
             // 
             this.tableTreeView.ColumnCount = 1;
@@ -437,7 +459,7 @@
             this.tableTreeView.Controls.Add(this.panelTreeButtons, 0, 1);
             this.tableTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableTreeView.Location = new System.Drawing.Point(0, 24);
-            this.tableTreeView.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableTreeView.Margin = new System.Windows.Forms.Padding(2);
             this.tableTreeView.Name = "tableTreeView";
             this.tableTreeView.RowCount = 2;
             this.tableTreeView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -447,13 +469,18 @@
             // 
             // treeJobList
             // 
+            this.treeJobList.AllowDrop = true;
             this.treeJobList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeJobList.Location = new System.Drawing.Point(2, 2);
-            this.treeJobList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.treeJobList.Margin = new System.Windows.Forms.Padding(2);
             this.treeJobList.Name = "treeJobList";
             this.treeJobList.Size = new System.Drawing.Size(296, 256);
             this.treeJobList.TabIndex = 1;
+            this.treeJobList.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeJobList_ItemDrag);
             this.treeJobList.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.Event_treeJobList_NodeMouseClick);
+            this.treeJobList.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeJobList_DragDrop);
+            this.treeJobList.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeJobList_DragEnter);
+            this.treeJobList.DragOver += new System.Windows.Forms.DragEventHandler(this.treeJobList_DragOver);
             // 
             // panelTreeButtons
             // 
@@ -578,28 +605,6 @@
             this.menuItemAddTaskWinScript.Size = new System.Drawing.Size(156, 22);
             this.menuItemAddTaskWinScript.Text = "Windows Script";
             this.menuItemAddTaskWinScript.Click += new System.EventHandler(this.menuItemAddTaskWinScript_Click);
-            // 
-            // buttonUp
-            // 
-            this.buttonUp.Location = new System.Drawing.Point(195, 0);
-            this.buttonUp.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonUp.Name = "buttonUp";
-            this.buttonUp.Size = new System.Drawing.Size(50, 24);
-            this.buttonUp.TabIndex = 3;
-            this.buttonUp.Text = "Up";
-            this.buttonUp.UseVisualStyleBackColor = true;
-            this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
-            // 
-            // buttonDown
-            // 
-            this.buttonDown.Location = new System.Drawing.Point(250, 0);
-            this.buttonDown.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonDown.Name = "buttonDown";
-            this.buttonDown.Size = new System.Drawing.Size(50, 24);
-            this.buttonDown.TabIndex = 4;
-            this.buttonDown.Text = "Down";
-            this.buttonDown.UseVisualStyleBackColor = true;
-            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
             // 
             // FormJobBuilder
             // 

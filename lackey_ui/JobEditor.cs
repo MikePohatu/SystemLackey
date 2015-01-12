@@ -10,9 +10,9 @@ namespace SystemLackey.UI
         public static Step Insert(ITask pTask, Step pPrev)
         {
             Step newStep = new Step(pPrev.Parent,pTask);
+            newStep.Next = pPrev.Next;
             if (pPrev.Next != null)
             {
-                newStep.Next = pPrev.Next;
                 newStep.Next.Prev = newStep; 
             }
 
@@ -21,52 +21,68 @@ namespace SystemLackey.UI
             return newStep;
         }
 
-        //insert an existing step after the specified step
+        //insert an existing step below the specified step
         public static void Insert(Step pNew, Step pPrev)
         {
             InsertBelow(pNew, pPrev);
         }
 
-        public static void InsertBelow(Step pNew, Step pPrev)
+        public static void InsertBelow(Step pNew, Step pTarget)
         {
-            if (pPrev.Next != null)
+            pNew.Next = pTarget.Next;
+
+            if (pTarget.Next != null)
             {
-                pNew.Next = pPrev.Next;
                 pNew.Next.Prev = pNew;
             }
 
             //reset the parent in case this step is coming from another job or sub job
-            pNew.Parent = pPrev.Parent;
-            pPrev.Next = pNew;
-            pNew.Prev = pPrev;
+            pNew.Parent = pTarget.Parent;
+            pTarget.Next = pNew;
+            pNew.Prev = pTarget;
         }
 
         //insert an existing step after the specified step
-        public static void InsertAbove(Step pNew, Step pPrev)
+        public static void InsertAbove(Step pNew, Step pTarget)
         {
-            if (pPrev.Prev != null)
+            pNew.Prev = pTarget.Prev;
+
+            if (pTarget.Prev != null)
             {
-                pNew.Prev = pPrev.Prev;
                 pNew.Prev.Next = pNew;
             }
 
             //reset the parent in case this step is coming from another job or sub job
-            pNew.Parent = pPrev.Parent;
-            pPrev.Prev = pNew;
-            pNew.Next = pPrev;
+            pNew.Parent = pTarget.Parent;
+            pTarget.Prev = pNew;
+            pNew.Next = pTarget;
         }
 
         //insert a new task at the top of a job
         public static Step Insert(ITask pTask, Job rootJob)
         {
             Step newStep = new Step(rootJob, pTask);
+            newStep.Next = rootJob.Root;
             if (rootJob.Root != null)
             {
-                newStep.Next = rootJob.Root;
-                newStep.Next.Prev = newStep;    
+                rootJob.Root.Prev = newStep;    
             }
             rootJob.Root = newStep;
             return newStep;
+        }
+
+        //insert an existing step at the top of a job
+        public static void Insert(Step pStep, Job rootJob)
+        {
+            pStep.Next = rootJob.Root;
+            if (rootJob.Root != null)
+            {
+                rootJob.Root.Prev = pStep;
+            }
+            //Reset the parent in case coming from another subjob.
+            pStep.Parent = rootJob;
+            rootJob.Root = pStep;
+
         }
 
         //Remove a step from the job
@@ -94,16 +110,16 @@ namespace SystemLackey.UI
             //otherwise, shunt things around as needed.
             else
             {
-                if (pStep.Prev != null)
+                if (pStep.Prev == null)
                 {
-                    pStep.Prev.Next = pStep.Next;
-                    pStep.Next.Prev = pStep.Prev;
+                    pStep.Parent.Root = pStep.Next;
+                    pStep.Next.Prev = null;             
                 }
 
                 else
                 {
-                    pStep.Parent.Root = pStep.Next;
-                    pStep.Next.Prev = null;
+                    pStep.Prev.Next = pStep.Next;
+                    if (pStep.Next != null) { pStep.Next.Prev = pStep.Prev; }                  
                 }
             }
 

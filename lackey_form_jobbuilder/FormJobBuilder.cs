@@ -139,6 +139,7 @@ namespace SystemLackey.UI.Forms
             }
         }
 
+
         private void StartNewJob()
         {
             treeJobList.BeginUpdate();
@@ -289,6 +290,8 @@ namespace SystemLackey.UI.Forms
 
         //===========================
 
+
+        //start the console for diags. 
         private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormJBConsole console = new FormJBConsole(logger);
@@ -296,6 +299,8 @@ namespace SystemLackey.UI.Forms
             console.Show();
         }
 
+
+        //run the job as listed. 
         private void runJobToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (Common.ConfirmJobRun())
@@ -482,7 +487,7 @@ namespace SystemLackey.UI.Forms
 
             else
             {
-                //We need to do an insert and go up a layer
+                //We need to do an insert and go down a layer
                 if (parentNode != rootNode)
                 {
                     parentNode.Nodes.Remove(t);
@@ -490,6 +495,160 @@ namespace SystemLackey.UI.Forms
                     treeJobList.SelectedNode = t;
                 }
             }   
+        }
+
+
+
+        //Drag and drop to move stuff around 
+        private void treeJobList_DragDrop(object sender, DragEventArgs e)
+        {
+            // Ensure that the list item index is contained in the data.
+            if (e.Data.GetDataPresent("System.Windows.Forms.TreeNode",false))
+            {
+                TreeView tree = (TreeView)sender;
+                //e.Effect = DragDropEffects.None;
+
+                TreeNode sourceNode = (TreeNode)e.Data.GetData(typeof(TreeNode));
+
+                //Don't allow move to the root node
+                if ((sourceNode != rootNode) && (sourceNode != null))
+                {
+                    Step sourceStep = (Step)sourceNode.Tag;
+
+                    Point pt = new Point(e.X, e.Y);
+                    pt = tree.PointToClient(pt);
+
+                    TreeNode targetNode = tree.GetNodeAt(pt);
+
+                    if ( targetNode !=  sourceNode )
+                    {
+                        if ((targetNode != null) && (targetNode != rootNode))
+                        {
+                            int sourceIndex = sourceNode.Index;
+                            int targetIndex = targetNode.Index;
+
+                            Step targetStep = (Step)targetNode.Tag;
+                            e.Effect = DragDropEffects.Move;
+
+
+                            //alter the behaviour depending on whether a sub job or task
+                            if (targetStep.Task is Job)
+                            {
+                                logger.Write("Inserting step " + sourceNode.Text + " to root of job " + targetNode.Text, 0);
+                                Job targetJob = (Job)targetStep.Task;
+                                sourceNode.Parent.Nodes.Remove(sourceNode);
+                                targetNode.Nodes.Insert(0, sourceNode);
+                                treeJobList.SelectedNode = sourceNode;
+
+                                JobEditor.Remove(sourceStep);
+                                JobEditor.Insert(sourceStep, targetJob);
+                            }
+
+                            else if (targetStep.Task is ITask)
+                            {
+
+                                //first remove the step from the tree. 
+                                JobEditor.Remove(sourceStep);
+
+                                //now alter the behaviour depending on where the user is dropping to and from.
+                                //this is complicated, but makes it more intuitive. 
+                                //For the TreeView, always insert the node in the original target index. This never changes.
+                                //For the Job/linked list, if the source was originally below the target in the view, 
+                                //it needs to be inserted above the target in the job linked list. If it was above, it
+                                //needs to be inserted below the target. 
+
+                                TreeNode sourceEval = sourceNode;
+                                TreeNode targetEval = targetNode;
+
+                                //first get to the same level with the nodes. This makes sure we're not doing unnessecary checking.
+                                //Break when the levels are the same.
+                                while (true)
+                                {
+                                    if (sourceEval.Level == targetEval.Level) { break; }
+                                    logger.Write("Level mismatch", 0);
+                                    if (sourceEval.Level > targetEval.Level) { sourceEval = sourceEval.Parent; }
+                                    else { targetEval = targetEval.Parent; }
+                                }
+
+                                //now traverse up until to find a common root to compare on. 
+                                //this will tell let us figure out who is higher in the view. 
+                                while (true)
+                                {
+                                    if (sourceEval.Parent == targetEval.Parent) { break; }
+                                    targetEval = targetEval.Parent;
+                                    sourceEval = sourceEval.Parent;
+                                }
+
+                                logger.Write("Source: " + sourceEval.Text + " Index: " + sourceEval.Index, 0);
+                                logger.Write("Target: " + targetEval.Text + " Index: " + targetEval.Index, 0);
+
+                                //now compare and insert. 
+                                if (sourceEval.Index > targetEval.Index)
+                                {
+                                    logger.Write("Inserting step " + sourceStep.Task.Name + " above " + targetStep.Task.Name, 0);
+                                    JobEditor.InsertAbove(sourceStep, targetStep);
+                                }
+                                else
+                                {
+                                    logger.Write("Inserting step " + sourceStep.Task.Name + " below " + targetStep.Task.Name, 0);
+                                    JobEditor.InsertBelow(sourceStep, targetStep);
+                                }
+
+                                //do the insertion for the node. 
+                                sourceNode.Parent.Nodes.Remove(sourceNode);
+                                targetNode.Parent.Nodes.Insert(targetIndex, sourceNode);
+                                treeJobList.SelectedNode = sourceNode;
+                            }
+                        }
+                    }   
+                }             
+            }
+        }
+
+
+        private void treeJobList_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            DoDragDrop(e.Item, DragDropEffects.Move);
+        }
+
+        private void treeJobList_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Move;
+        }
+
+        private void treeJobList_DragOver(object sender, DragEventArgs e)
+        {
+            // Get the tree.
+            TreeView tree = (TreeView)sender;
+
+            // Drag and drop denied by default.
+            e.Effect = DragDropEffects.None;
+
+            // Is it a valid format?
+            if (e.Data.GetData(typeof(TreeNode)) != null)
+            {
+                // Get the screen point.
+                Point pt = new Point(e.X, e.Y);
+
+                // Convert to a point in the TreeView's coordinate system.
+                pt = tree.PointToClient(pt);
+
+                // Is the mouse over a valid node?
+                TreeNode targetNode = tree.GetNodeAt(pt);
+                if (targetNode != null)                     
+                {
+                    if (targetNode != rootNode)
+                    {
+                        e.Effect = DragDropEffects.Move;
+                        tree.SelectedNode = targetNode;
+                    }
+                    else
+                    {
+                        e.Effect = DragDropEffects.None;
+                    }
+                    
+                }
+            }
         }
     }
 }

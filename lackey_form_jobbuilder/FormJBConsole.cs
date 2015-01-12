@@ -29,7 +29,7 @@ namespace SystemLackey.UI.Forms
             JBConsoleOptions startupOptions = new JBConsoleOptions();
             InitializeComponent();
 
-            startupOptions.Debug = false;
+            startupOptions.Debug = true;
             startupOptions.Info = true;
             startupOptions.Warning = true;
             startupOptions.Error = true;
