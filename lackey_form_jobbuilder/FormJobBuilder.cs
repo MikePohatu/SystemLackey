@@ -440,6 +440,7 @@ namespace SystemLackey.UI.Forms
             TreeNode t = treeJobList.SelectedNode;
             TreeNode parentNode = t.Parent;
             Step s = (Step)t.Tag;
+            int i = t.Index;
 
             //try to move the step up directly. Otherwise, we may need to use insert method to
             //move it to the parent job. 
@@ -447,7 +448,7 @@ namespace SystemLackey.UI.Forms
             {
                 //We move move this node up
                 parentNode.Nodes.Remove(t);
-                parentNode.Nodes.Insert(t.Index - 1,t);
+                parentNode.Nodes.Insert(i - 1,t);
                 treeJobList.SelectedNode = t;
             }
 
@@ -474,6 +475,7 @@ namespace SystemLackey.UI.Forms
             TreeNode t = treeJobList.SelectedNode;
             TreeNode parentNode = t.Parent;
             Step s = (Step)t.Tag;
+            int i = t.Index;
 
             //try to move the step down directly. Otherwise, we may need to use insert method to
             //move it to the parent job. 
@@ -481,7 +483,7 @@ namespace SystemLackey.UI.Forms
             {
                 //We move this node up
                 parentNode.Nodes.Remove(t);
-                parentNode.Nodes.Insert(t.Index + 1, t);
+                parentNode.Nodes.Insert(i + 1, t);
                 treeJobList.SelectedNode = t;
             }
 

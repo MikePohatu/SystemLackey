@@ -33,8 +33,7 @@ namespace SystemLackey.UI
 
             if (pTarget.Next != null) { pNew.Next.Prev = pNew; }
 
-            //reset the parent in case this step is coming from another job or sub job
-            pNew.Parent = pTarget.Parent;
+            pNew.Parent = pTarget.Parent; //reset the parent in case this step is coming from another job or sub job
             pTarget.Next = pNew;
             pNew.Prev = pTarget;
         }
@@ -44,7 +43,8 @@ namespace SystemLackey.UI
         {
             pNew.Prev = pTarget.Prev;
 
-            if (pTarget.Prev != null) { pNew.Prev.Next = pNew; }
+            if (pTarget.Prev == null) { pTarget.Parent.Root = pNew; }
+            else { pNew.Prev.Next = pNew; }
 
             //reset the parent in case this step is coming from another job or sub job
             pNew.Parent = pTarget.Parent;
@@ -126,10 +126,8 @@ namespace SystemLackey.UI
             {
                 Step topStep = aboveStep.Prev;
 
-                if (topStep != null) 
-                { topStep.Next = pStep; }  
-                else
-                { pStep.Parent.Root = pStep; }
+                if (topStep == null) { pStep.Parent.Root = pStep; }
+                else { topStep.Next = pStep; }  
 
                 pStep.Prev = topStep;
                 pStep.Next = aboveStep;
