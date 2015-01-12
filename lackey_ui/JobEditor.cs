@@ -31,10 +31,7 @@ namespace SystemLackey.UI
         {
             pNew.Next = pTarget.Next;
 
-            if (pTarget.Next != null)
-            {
-                pNew.Next.Prev = pNew;
-            }
+            if (pTarget.Next != null) { pNew.Next.Prev = pNew; }
 
             //reset the parent in case this step is coming from another job or sub job
             pNew.Parent = pTarget.Parent;
@@ -47,10 +44,7 @@ namespace SystemLackey.UI
         {
             pNew.Prev = pTarget.Prev;
 
-            if (pTarget.Prev != null)
-            {
-                pNew.Prev.Next = pNew;
-            }
+            if (pTarget.Prev != null) { pNew.Prev.Next = pNew; }
 
             //reset the parent in case this step is coming from another job or sub job
             pNew.Parent = pTarget.Parent;
@@ -63,10 +57,7 @@ namespace SystemLackey.UI
         {
             Step newStep = new Step(rootJob, pTask);
             newStep.Next = rootJob.Root;
-            if (rootJob.Root != null)
-            {
-                rootJob.Root.Prev = newStep;    
-            }
+            if (rootJob.Root != null) { rootJob.Root.Prev = newStep; }
             rootJob.Root = newStep;
             return newStep;
         }
@@ -75,10 +66,7 @@ namespace SystemLackey.UI
         public static void Insert(Step pStep, Job rootJob)
         {
             pStep.Next = rootJob.Root;
-            if (rootJob.Root != null)
-            {
-                rootJob.Root.Prev = pStep;
-            }
+            if (rootJob.Root != null) { rootJob.Root.Prev = pStep; }
             //Reset the parent in case coming from another subjob.
             pStep.Parent = rootJob;
             rootJob.Root = pStep;
@@ -142,6 +130,7 @@ namespace SystemLackey.UI
                 { topStep.Next = pStep; }  
                 else
                 { pStep.Parent.Root = pStep; }
+
                 pStep.Prev = topStep;
                 pStep.Next = aboveStep;
                 aboveStep.Prev = pStep;
@@ -170,7 +159,9 @@ namespace SystemLackey.UI
             {
                 Step bottomStep = belowStep.Next;
 
-                if (topStep != null) { topStep.Next = belowStep; }
+                if (topStep == null) { pStep.Parent.Root = belowStep; }
+                else { topStep.Next = belowStep; }
+
                 pStep.Next = bottomStep;
                 pStep.Prev = belowStep;             
                 belowStep.Prev = topStep;

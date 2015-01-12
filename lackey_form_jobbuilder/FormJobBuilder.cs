@@ -475,11 +475,11 @@ namespace SystemLackey.UI.Forms
             TreeNode parentNode = t.Parent;
             Step s = (Step)t.Tag;
 
-            //try to move the step up directly. Otherwise, we may need to use insert method to
+            //try to move the step down directly. Otherwise, we may need to use insert method to
             //move it to the parent job. 
             if (JobEditor.MoveDown(s))
             {
-                //We move move this node up
+                //We move this node up
                 parentNode.Nodes.Remove(t);
                 parentNode.Nodes.Insert(t.Index + 1, t);
                 treeJobList.SelectedNode = t;
@@ -493,6 +493,11 @@ namespace SystemLackey.UI.Forms
                     parentNode.Nodes.Remove(t);
                     parentNode.Parent.Nodes.Insert(parentNode.Index + 1, t);
                     treeJobList.SelectedNode = t;
+
+                    Step parentStep = (Step)parentNode.Tag;
+
+                    JobEditor.Remove(s);
+                    JobEditor.InsertBelow(s, parentStep);
                 }
             }   
         }
@@ -546,13 +551,12 @@ namespace SystemLackey.UI.Forms
 
                             else if (targetStep.Task is ITask)
                             {
-
                                 //first remove the step from the tree. 
                                 JobEditor.Remove(sourceStep);
 
                                 //now alter the behaviour depending on where the user is dropping to and from.
                                 //this is complicated, but makes it more intuitive. 
-                                //For the TreeView, always insert the node in the original target index. This never changes.
+                                
                                 //For the Job/linked list, if the source was originally below the target in the view, 
                                 //it needs to be inserted above the target in the job linked list. If it was above, it
                                 //needs to be inserted below the target. 
@@ -583,20 +587,29 @@ namespace SystemLackey.UI.Forms
                                 logger.Write("Target: " + targetEval.Text + " Index: " + targetEval.Index, 0);
 
                                 //now compare and insert. 
-                                if (sourceEval.Index > targetEval.Index)
+                                int shunt = 0; //if coming from above from another subnode tree, you need to shunt down one.
+
+                                if (sourceEval.Index > targetEval.Index) //coming from below
                                 {
                                     logger.Write("Inserting step " + sourceStep.Task.Name + " above " + targetStep.Task.Name, 0);
                                     JobEditor.InsertAbove(sourceStep, targetStep);
+                                    
                                 }
-                                else
+                                else //coming from above
                                 {
                                     logger.Write("Inserting step " + sourceStep.Task.Name + " below " + targetStep.Task.Name, 0);
                                     JobEditor.InsertBelow(sourceStep, targetStep);
+
+                                    //moving to another node tree, apply the shunt
+                                    if (sourceNode.Parent != targetNode.Parent) 
+                                    {
+                                        logger.Write("Setting the shunt", 0);
+                                        shunt = 1; 
+                                    } 
                                 }
 
-                                //do the insertion for the node. 
                                 sourceNode.Parent.Nodes.Remove(sourceNode);
-                                targetNode.Parent.Nodes.Insert(targetIndex, sourceNode);
+                                targetNode.Parent.Nodes.Insert(targetIndex + shunt, sourceNode);
                                 treeJobList.SelectedNode = sourceNode;
                             }
                         }
