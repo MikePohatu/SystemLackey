@@ -592,8 +592,7 @@ namespace SystemLackey.UI.Forms
                                 if (sourceEval.Index > targetEval.Index) //coming from below
                                 {
                                     logger.Write("Inserting step " + sourceStep.Task.Name + " above " + targetStep.Task.Name, 0);
-                                    JobEditor.InsertAbove(sourceStep, targetStep);
-                                    
+                                    JobEditor.InsertAbove(sourceStep, targetStep);   
                                 }
                                 else //coming from above
                                 {
@@ -607,7 +606,7 @@ namespace SystemLackey.UI.Forms
                                         shunt = 1; 
                                     } 
                                 }
-
+                                //now move the tree nodes.
                                 sourceNode.Parent.Nodes.Remove(sourceNode);
                                 targetNode.Parent.Nodes.Insert(targetIndex + shunt, sourceNode);
                                 treeJobList.SelectedNode = sourceNode;
