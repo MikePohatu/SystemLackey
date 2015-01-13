@@ -10,7 +10,7 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class FormJobDetails : Form
+    public partial class FormJobDetails : Form, ITaskForm
     {
         private Job job = new Job(); 
         private TreeNode node;
@@ -26,14 +26,7 @@ namespace SystemLackey.UI.Forms
         //save the job
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (Common.ConfirmJobSave())
-            {
-                job.Comments = textComments.Text;
-                job.Name = textName.Text;
-                job.ID = labelJobGuid.Text;
-                UpdateNode();
-            }
-            
+            Save();            
         }
 
         public void UpdateForm()
@@ -47,6 +40,17 @@ namespace SystemLackey.UI.Forms
         private void UpdateNode()
         {
             if (node != null) { node.Text = job.Name; }
+        }
+
+        public void Save()
+        {
+            if (Common.ConfirmJobSave())
+            {
+                job.Comments = textComments.Text;
+                job.Name = textName.Text;
+                job.ID = labelJobGuid.Text;
+                UpdateNode();
+            }
         }
     }
 }

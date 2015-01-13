@@ -14,7 +14,7 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class FormWindowsScriptTaskControl : Form
+    public partial class FormWindowsScriptTaskControl : Form, ITaskForm
     {
         private WindowsScript task;
         private TreeNode node;
@@ -36,16 +36,12 @@ namespace SystemLackey.UI.Forms
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if ( Common.ConfirmTaskSave() )
-            {
-                SaveTask();
-                Common.UpdateNode(node,task.Name);
-            }               
+            this.Save();            
         }
 
         private void buttonExport_Click(object sender, EventArgs e)
         {
-            SaveTask();
+            this.Save();
             SaveFileDialog saveBox = new SaveFileDialog();
 
             saveBox.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
@@ -96,39 +92,44 @@ namespace SystemLackey.UI.Forms
 
         }
 
-        private void SaveTask()
+        public void Save()
         {
-            string codeString = "";
-            string[] lines = textCode.Lines;
-
-            // Loop through the array and send the contents to a string 
-            for (int counter = 0; counter < lines.Length; counter++)
+            if (Common.ConfirmTaskSave())
             {
-                codeString = codeString + lines[counter] + System.Environment.NewLine;
-            }
+                string codeString = "";
+                string[] lines = textCode.Lines;
 
-            task.Name = textName.Text;
-            task.Code = codeString;
-            task.Hidden = checkHidden.Checked;
-            task.Wow64 = checkSysWow64.Checked;
-            task.ASync = checkASync.Checked;
-            task.Timeout = (int)numericTimeout.Value;
-            task.Comments = richtextComments.Text;
+                // Loop through the array and send the contents to a string 
+                for (int counter = 0; counter < lines.Length; counter++)
+                {
+                    codeString = codeString + lines[counter] + System.Environment.NewLine;
+                }
+
+                task.Name = textName.Text;
+                task.Code = codeString;
+                task.Hidden = checkHidden.Checked;
+                task.Wow64 = checkSysWow64.Checked;
+                task.ASync = checkASync.Checked;
+                task.Timeout = (int)numericTimeout.Value;
+                task.Comments = richtextComments.Text;
 
 
-            if (radioCmd.Checked)
-            {
-                task.Type = 0;
-            }
+                if (radioCmd.Checked)
+                {
+                    task.Type = 0;
+                }
 
-            else if (radioVbs.Checked)
-            {
-                task.Type = 1;
-            }
+                else if (radioVbs.Checked)
+                {
+                    task.Type = 1;
+                }
 
-            else if (radioPs1.Checked)
-            {
-                task.Type = 2;
+                else if (radioPs1.Checked)
+                {
+                    task.Type = 2;
+                }
+
+                Common.UpdateNode(node, task.Name);
             }
         }
 
@@ -191,7 +192,7 @@ namespace SystemLackey.UI.Forms
         {
             if (MessageBox.Show("Are you sure you want to run this task?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                SaveTask();
+                this.Save();
                 task.Run();
             }
         }

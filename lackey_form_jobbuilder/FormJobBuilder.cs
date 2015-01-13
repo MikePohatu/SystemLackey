@@ -668,5 +668,22 @@ namespace SystemLackey.UI.Forms
                 }
             }
         }
+
+        //handle key shortcuts
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.S))
+            {
+                if (panel2 is ITaskForm)
+                {
+                    ITaskForm taskForm = (ITaskForm)panel2;
+                    taskForm.Save();
+                }
+
+                return true;
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
     }
 }

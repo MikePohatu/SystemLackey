@@ -62,17 +62,18 @@
     <Compile Include="FormJBConsole.Designer.cs">
       <DependentUpon>FormJBConsole.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormPowerControl.cs">
+    <Compile Include="Panel2\ITaskForm.cs" />
+    <Compile Include="Panel2\FormPowerControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormPowerControl.Designer.cs">
+    <Compile Include="Panel2\FormPowerControl.Designer.cs">
       <DependentUpon>FormPowerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Panel2Factory.cs" />
-    <Compile Include="FormJobDetails.cs">
+    <Compile Include="Panel2\Panel2Factory.cs" />
+    <Compile Include="Panel2\FormJobDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormJobDetails.Designer.cs">
+    <Compile Include="Panel2\FormJobDetails.Designer.cs">
       <DependentUpon>FormJobDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="FormJobBuilder.cs">
@@ -81,10 +82,10 @@
     <Compile Include="FormJobBuilder.Designer.cs">
       <DependentUpon>FormJobBuilder.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormWindowsScriptTaskControl.cs">
+    <Compile Include="Panel2\FormWindowsScriptTaskControl.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormWindowsScriptTaskControl.Designer.cs">
+    <Compile Include="Panel2\FormWindowsScriptTaskControl.Designer.cs">
       <DependentUpon>FormWindowsScriptTaskControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -98,13 +99,13 @@
     <EmbeddedResource Include="FormJobBuilder.resx">
       <DependentUpon>FormJobBuilder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormPowerControl.resx">
+    <EmbeddedResource Include="Panel2\FormPowerControl.resx">
       <DependentUpon>FormPowerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormJobDetails.resx">
+    <EmbeddedResource Include="Panel2\FormJobDetails.resx">
       <DependentUpon>FormJobDetails.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormWindowsScriptTaskControl.resx">
+    <EmbeddedResource Include="Panel2\FormWindowsScriptTaskControl.resx">
       <DependentUpon>FormWindowsScriptTaskControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

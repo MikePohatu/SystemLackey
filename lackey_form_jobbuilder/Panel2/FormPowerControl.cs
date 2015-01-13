@@ -10,7 +10,7 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class FormPowerControl : Form
+    public partial class FormPowerControl : Form, ITaskForm
     {
         private PowerControl task;
         private TreeNode node;
@@ -26,30 +26,7 @@ namespace SystemLackey.UI.Forms
         //save the powercontrol
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            if (Common.ConfirmTaskSave())
-            {
-                task.Comments = textComments.Text;
-                task.Name = textName.Text;
-                task.ID = labelJobGuid.Text;
-                task.Wait = (int)numericUpDownWait.Value;
-
-                if (radioReboot.Checked)
-                {
-                    task.PowerOption = 'r';
-                }
-
-                else if (radioShutdown.Checked)
-                {
-                    task.PowerOption = 's';
-                }
-
-                else if (radioLogoff.Checked)
-                {
-                    task.PowerOption = 'l';
-                }
-
-                Common.UpdateNode(node,task.Name);
-            }
+            this.Save();
         }
 
         public void UpdateForm()
@@ -76,6 +53,34 @@ namespace SystemLackey.UI.Forms
             }
 
             Common.UpdateNode(node, task.Name);
+        }
+
+        public void Save()
+        {
+            if (Common.ConfirmTaskSave())
+            {
+                task.Comments = textComments.Text;
+                task.Name = textName.Text;
+                task.ID = labelJobGuid.Text;
+                task.Wait = (int)numericUpDownWait.Value;
+
+                if (radioReboot.Checked)
+                {
+                    task.PowerOption = 'r';
+                }
+
+                else if (radioShutdown.Checked)
+                {
+                    task.PowerOption = 's';
+                }
+
+                else if (radioLogoff.Checked)
+                {
+                    task.PowerOption = 'l';
+                }
+
+                Common.UpdateNode(node,task.Name);
+            }
         }
     }
 }
