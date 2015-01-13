@@ -2,7 +2,7 @@
 
 namespace lackey_filters
 {
-    interface IFilter
+    interface IQuery
     {
         bool Evaluate();
     }

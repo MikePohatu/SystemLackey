@@ -40,8 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IFilter.cs" />
-    <Compile Include="RegFilter.cs" />
+    <Compile Include="Filter.cs" />
+    <Compile Include="Queries\IQuery.cs" />
+    <Compile Include="Queries\RegQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
