@@ -43,10 +43,10 @@
     <Compile Include="JobEnumerator.cs" />
     <Compile Include="Tasks\PowerControl.cs" />
     <Compile Include="TaskFactory.cs" />
-    <Compile Include="ITask.cs" />
+    <Compile Include="Tasks\ITask.cs" />
     <Compile Include="Step.cs" />
     <Compile Include="Tasks\WindowsScript.cs" />
-    <Compile Include="Tasks\Job.cs" />
+    <Compile Include="Job.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
