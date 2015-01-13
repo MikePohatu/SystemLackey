@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 
 using SystemLackey.Logging;
+using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
@@ -76,6 +77,22 @@ namespace SystemLackey.UI.Forms
         public static bool ConfirmJobRun()
         {
             if (MessageBox.Show("Are you sure you want to run this job?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            { return true; }
+            else
+            { return false; }
+        }
+
+        public static bool ConfirmStepDelete(Step pStep)
+        {
+            if (MessageBox.Show("Are you sure you want to delete the step " + pStep.Task.Name +"?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            { return true; }
+            else
+            { return false; }
+        }
+
+        public static bool ConfirmJobDelete(Step pStep)
+        {
+            if (MessageBox.Show("Are you sure you want to delete the step " + pStep.Task.Name + " and all sub steps?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             { return true; }
             else
             { return false; }

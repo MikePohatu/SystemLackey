@@ -685,5 +685,45 @@ namespace SystemLackey.UI.Forms
 
             return base.ProcessCmdKey(ref msg, keyData);
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            TreeNode t = treeJobList.SelectedNode;
+            this.DeleteNode(t);
+        }
+
+
+        private void DeleteNode(TreeNode t)
+        {
+            bool confirm = false;
+
+            if (t != rootNode)
+            {
+                Step s = (Step)t.Tag;
+
+                if (s.Task is Job)
+                {
+                    if (Common.ConfirmJobDelete(s))
+                    {
+                        confirm = true;
+                    }
+                }
+                else
+                {
+                    if (Common.ConfirmStepDelete(s))
+                    {
+                        confirm = true; 
+                    }
+                }
+
+                if (confirm) 
+                {
+                    if (panel2 != null) { panel2.Close(); }
+                    t.Parent.Nodes.Remove(t);
+                    JobEditor.Remove(s);
+                    treeJobList.SelectedNode = null;
+                }
+            }
+        }
     }
 }

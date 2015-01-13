@@ -154,6 +154,15 @@
       <Name>lackey_worker</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash-2x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\caret-top-2x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\caret-bottom-2x.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
