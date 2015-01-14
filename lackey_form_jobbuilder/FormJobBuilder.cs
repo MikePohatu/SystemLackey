@@ -523,6 +523,7 @@ namespace SystemLackey.UI.Forms
                 //Don't allow move to the root node
                 if ((sourceNode != rootNode) && (sourceNode != null))
                 {
+                    treeJobList.BeginUpdate();
                     Step sourceStep = (Step)sourceNode.Tag;
 
                     Point pt = new Point(e.X, e.Y);
@@ -618,7 +619,8 @@ namespace SystemLackey.UI.Forms
                                 treeJobList.SelectedNode = sourceNode;
                             }
                         }
-                    }   
+                    }
+                    treeJobList.EndUpdate();
                 }             
             }
         }
