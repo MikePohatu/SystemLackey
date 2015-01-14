@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Task Type="Job">
+  <name>Test job</name>
+  <id>257d48c3-69ad-41ae-978a-fa1b65e57321</id>
+  <comments></comments>
+  <Step>
+    <ContinueOnError>true</ContinueOnError>
+    <ContinueOnWarning>true</ContinueOnWarning>
+    <taskid>a1ace018-eb16-4690-a4ab-584bf8cd9d05</taskid>
+    <Task Type="WinScript">
+      <name>Test script 1</name>
+      <taskid>a1ace018-eb16-4690-a4ab-584bf8cd9d05</taskid>
+      <async>false</async>
+      <timeout>900</timeout>
+      <code>@echo off
+
+echo Test 1
+
+pause
+</code>
+      <type>0</type>
+      <wow64>false</wow64>
+      <hidden>false</hidden>
+      <comments></comments>
+    </Task>
+  </Step>
+  <Step>
+    <ContinueOnError>true</ContinueOnError>
+    <ContinueOnWarning>true</ContinueOnWarning>
+    <taskid>9f706854-e094-4ad8-ae19-d0ac51f3a01e</taskid>
+    <Task Type="WinScript">
+      <name>Test script 2</name>
+      <taskid>9f706854-e094-4ad8-ae19-d0ac51f3a01e</taskid>
+      <async>false</async>
+      <timeout>900</timeout>
+      <code>@echo off
+
+echo test 2
+
+pause
+</code>
+      <type>0</type>
+      <wow64>false</wow64>
+      <hidden>false</hidden>
+      <comments></comments>
+    </Task>
+  </Step>
+  <Step>
+    <ContinueOnError>true</ContinueOnError>
+    <ContinueOnWarning>true</ContinueOnWarning>
+    <taskid>7b5c255c-2faf-4883-976e-d5a7b081ef9b</taskid>
+    <Task Type="Job">
+      <name>Sub job</name>
+      <id>7b5c255c-2faf-4883-976e-d5a7b081ef9b</id>
+      <comments></comments>
+      <Step>
+        <ContinueOnError>true</ContinueOnError>
+        <ContinueOnWarning>true</ContinueOnWarning>
+        <taskid>bf8e4887-15e0-4150-b1b1-25ffb341999c</taskid>
+        <Task Type="WinScript">
+          <name>Test script 3</name>
+          <taskid>bf8e4887-15e0-4150-b1b1-25ffb341999c</taskid>
+          <async>false</async>
+          <timeout>900</timeout>
+          <code>@echo off
+
+echo test 3
+
+pause
+</code>
+          <type>0</type>
+          <wow64>false</wow64>
+          <hidden>false</hidden>
+          <comments></comments>
+        </Task>
+      </Step>
+      <Step>
+        <ContinueOnError>true</ContinueOnError>
+        <ContinueOnWarning>true</ContinueOnWarning>
+        <taskid>6cc6c46d-4c2e-4cf5-a9ee-b767846e16b3</taskid>
+        <Task Type="Power">
+          <name>Reboot</name>
+          <id>6cc6c46d-4c2e-4cf5-a9ee-b767846e16b3</id>
+          <comments></comments>
+          <powerOption>r</powerOption>
+          <wait>5</wait>
+        </Task>
+      </Step>
+    </Task>
+  </Step>
+</Task>
