@@ -154,7 +154,7 @@
       <Project>{6016bb22-3012-4fbf-bf47-bac8de1fa697}</Project>
       <Name>Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Shell\LackeyShell.csproj">
+    <ProjectReference Include="..\LackeyShell\LackeyShell.csproj">
       <Project>{63e79b14-49f3-4b44-b847-7436afb92ddd}</Project>
       <Name>LackeyShell</Name>
     </ProjectReference>
