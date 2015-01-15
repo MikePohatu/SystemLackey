@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_worker", "lackey_worker\lackey_worker.csproj", "{0D648EFF-1D0F-454C-9930-9E94E66D7C4A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "Worker\Worker.csproj", "{0D648EFF-1D0F-454C-9930-9E94E66D7C4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_shell", "lackey_shell\lackey_shell.csproj", "{63E79B14-49F3-4B44-B847-7436AFB92DDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LackeyShell", "LackeyShell\LackeyShell.csproj", "{63E79B14-49F3-4B44-B847-7436AFB92DDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_io", "lackey_IO\lackey_io.csproj", "{CC1B6343-34CE-48C7-B772-960683553FAA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IO", "IO\IO.csproj", "{CC1B6343-34CE-48C7-B772-960683553FAA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_form_jobbuilder", "lackey_form_jobbuilder\lackey_form_jobbuilder.csproj", "{4648AA6B-178B-49FA-8CCB-EC46B91031A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobBuilder", "JobBuilder\JobBuilder.csproj", "{4648AA6B-178B-49FA-8CCB-EC46B91031A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_filters", "lackey_filters\lackey_filters.csproj", "{89787298-15F7-4750-89F8-2281076653D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filters", "Filters\Filters.csproj", "{89787298-15F7-4750-89F8-2281076653D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_ui", "lackey_ui\lackey_ui.csproj", "{F9E69A36-848A-48BC-BCDB-FDB140FB24E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{F9E69A36-848A-48BC-BCDB-FDB140FB24E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lackey_logging", "lackey_logging\lackey_logging.csproj", "{6016BB22-3012-4FBF-BF47-BAC8DE1FA697}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{6016BB22-3012-4FBF-BF47-BAC8DE1FA697}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

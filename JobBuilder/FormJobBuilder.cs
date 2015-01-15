@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 using SystemLackey.Worker;
 using SystemLackey.UI;
-using SystemLackey.UI.Shell;
+//using SystemLackey.UI.Shell;
 using SystemLackey.Logging;
 
 namespace SystemLackey.UI.Forms
