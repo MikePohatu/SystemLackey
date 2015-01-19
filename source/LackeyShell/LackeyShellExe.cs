@@ -1,4 +1,4 @@
-﻿//    Program.cs: Entry point for the JobBuilder application
+﻿//    Program.cs: Entry point for the LackeyShell application
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -15,24 +15,17 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using SystemLackey.Worker;
+using SystemLackey.UI;
 
-namespace SystemLackey.UI.Forms
+namespace SystemLackey.UI.Shell
 {
-    static class Program
+    public class LackeyShellExe
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        public static void Main(string[] args)
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormJobBuilder());
+            Console.WriteLine("This is a test message");
+            Console.Read();
         }
     }
 }

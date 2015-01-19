@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SystemLackey.UI.Forms</RootNamespace>
-    <AssemblyName>lackey_form_jobbuilder</AssemblyName>
+    <AssemblyName>JobBuilder</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\debug\bin\</OutputPath>
+    <OutputPath>..\..\debug\lib\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,13 +27,14 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\release\bin\</OutputPath>
+    <OutputPath>..\..\Release\lib\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -88,7 +89,7 @@
     <Compile Include="Panel2\FormWindowsScriptTaskControl.Designer.cs">
       <DependentUpon>FormWindowsScriptTaskControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="JobBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="JBConsole\FormJBConsoleOptions.resx">
       <DependentUpon>FormJBConsoleOptions.cs</DependentUpon>
@@ -140,32 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\caret-bottom-2x.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Filters\Filters.csproj">
-      <Project>{89787298-15f7-4750-89f8-2281076653d9}</Project>
-      <Name>Filters</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IO\IO.csproj">
-      <Project>{cc1b6343-34ce-48c7-b772-960683553faa}</Project>
-      <Name>IO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Logging\Logging.csproj">
-      <Project>{6016bb22-3012-4fbf-bf47-bac8de1fa697}</Project>
-      <Name>Logging</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LackeyShell\LackeyShell.csproj">
-      <Project>{63e79b14-49f3-4b44-b847-7436afb92ddd}</Project>
-      <Name>LackeyShell</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UI\UI.csproj">
-      <Project>{f9e69a36-848a-48bc-bcdb-fdb140fb24e8}</Project>
-      <Name>UI</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Worker\Worker.csproj">
-      <Project>{0d648eff-1d0f-454c-9930-9e94e66d7c4a}</Project>
-      <Name>Worker</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
