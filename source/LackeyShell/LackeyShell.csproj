@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>SystemLackey.UI.Shell.LackeyShellExe</StartupObject>
+    <StartupObject>SystemLackey.SystemLackeyExe</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,6 +51,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JobBuilder\JobBuilder.csproj">
+      <Project>{4648aa6b-178b-49fa-8ccb-ec46b91031a3}</Project>
+      <Name>JobBuilder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SystemLackey\Libraries.csproj">
+      <Project>{45e728e4-5549-4cd8-ac90-d5a7bb396beb}</Project>
+      <Name>Libraries</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
