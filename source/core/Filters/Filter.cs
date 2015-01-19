@@ -1,4 +1,5 @@
-﻿//    IQuery.cs: Interface for all queries used by the filter
+﻿//    Filter.cs: A definition based on a number of queries. Used to apply requirements
+//               or conditions to a task or step respectively. 
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -15,11 +16,13 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
-namespace lackey_filters
+namespace SystemLackey.Filters
 {
-    interface IQuery
+    class Filter
     {
-        bool Evaluate();
     }
 }

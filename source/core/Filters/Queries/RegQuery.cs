@@ -17,7 +17,7 @@
 using System;
 using Microsoft.Win32;
 
-namespace lackey_filters
+namespace SystemLackey.Filters
 {
     public class RegQuery : IQuery
     {

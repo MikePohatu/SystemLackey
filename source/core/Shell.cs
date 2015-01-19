@@ -20,7 +20,7 @@ using SystemLackey.UI;
 
 namespace SystemLackey.UI.Shell
 {
-    public class LackeyShellExe
+    public class Shell
     {
         public static void Main(string[] args)
         {

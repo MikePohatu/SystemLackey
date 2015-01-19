@@ -1,4 +1,4 @@
-﻿//    Program.cs: Main SystemLackey executable. Starts either JobBuilder or 
+﻿//    Program.cs: Main SystemLackey executable entry point. Starts either JobBuilder or 
 //                or shell depending on argurments (or lack thereof)
 //    Copyright (C) 2015 Mike Pohatu
 
@@ -22,9 +22,9 @@ using SystemLackey.UI.Shell;
 
 namespace SystemLackey
 {
-    class SystemLackeyExe
+    public static class Entry
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             if (args.Length == 0)
             {
@@ -33,11 +33,11 @@ namespace SystemLackey
 
             else
             {
-                LackeyShellExe.Main(args);
+                Shell.Main(args);
             }
         }
 
-        private static void StartJB()
+        static void StartJB()
         {
             //JobBuilder jb = new JobBuilder();
 

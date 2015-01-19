@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\debug\lib\</OutputPath>
+    <OutputPath>..\..\debug\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -143,9 +143,9 @@
     <None Include="Resources\caret-bottom-2x.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SystemLackey\Libraries.csproj">
+    <ProjectReference Include="..\core\core.csproj">
       <Project>{45e728e4-5549-4cd8-ac90-d5a7bb396beb}</Project>
-      <Name>Libraries</Name>
+      <Name>core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
