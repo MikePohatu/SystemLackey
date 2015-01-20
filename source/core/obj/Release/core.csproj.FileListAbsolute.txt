@@ -1,0 +1,5 @@
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\Release\bin\core.dll
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\Release\bin\core.pdb
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\core\obj\Release\core.csprojResolveAssemblyReference.cache
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\core\obj\Release\core.dll
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\core\obj\Release\core.pdb
