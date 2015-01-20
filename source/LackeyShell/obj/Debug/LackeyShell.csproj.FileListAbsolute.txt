@@ -1,0 +1,6 @@
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\bin\lackey_shell.exe.config
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\bin\lackey_shell.exe
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\bin\lackey_shell.pdb
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\LackeyShell\obj\Debug\LackeyShell.csprojResolveAssemblyReference.cache
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\LackeyShell\obj\Debug\lackey_shell.exe
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\LackeyShell\obj\Debug\lackey_shell.pdb

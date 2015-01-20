@@ -1,0 +1,5 @@
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\SystemLackey.Worker.dll
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\SystemLackey.Worker.pdb
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\Worker\obj\Debug\Worker.csprojResolveAssemblyReference.cache
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\Worker\obj\Debug\SystemLackey.Worker.dll
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\Worker\obj\Debug\SystemLackey.Worker.pdb

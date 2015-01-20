@@ -1,0 +1,5 @@
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\lackey_ui.dll
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\lackey_ui.pdb
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\UI\obj\Debug\UI.csprojResolveAssemblyReference.cache
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\UI\obj\Debug\lackey_ui.dll
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\UI\obj\Debug\lackey_ui.pdb

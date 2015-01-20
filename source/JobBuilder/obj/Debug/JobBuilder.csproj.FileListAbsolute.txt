@@ -1,0 +1,17 @@
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\bin\lackey_form_jobbuilder.exe.config
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\bin\lackey_form_jobbuilder.exe
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\bin\lackey_form_jobbuilder.pdb
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\debug\bin\JobBuilder.exe.config
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\debug\bin\JobBuilder.exe
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\debug\bin\JobBuilder.pdb
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\JobBuilder.csprojResolveAssemblyReference.cache
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\SystemLackey.UI.Forms.FormJBConsoleOptions.resources
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\SystemLackey.UI.Forms.FormJBConsole.resources
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\SystemLackey.UI.Forms.FormJobBuilder.resources
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\SystemLackey.UI.Forms.FormPowerControl.resources
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\SystemLackey.UI.Forms.FormJobDetails.resources
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\SystemLackey.UI.Forms.FormWindowsScriptTaskControl.resources
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\SystemLackey.UI.Forms.Properties.Resources.resources
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\JobBuilder.csproj.GenerateResource.Cache
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\JobBuilder.exe
+C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\JobBuilder\obj\Debug\JobBuilder.pdb
