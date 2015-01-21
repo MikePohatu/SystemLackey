@@ -1,0 +1,14 @@
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\release\bin\lackey_form_jobbuilder.exe.config
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\release\bin\lackey_form_jobbuilder.exe
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\release\bin\lackey_form_jobbuilder.pdb
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\lackey_form_jobbuilder.csprojResolveAssemblyReference.cache
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\SystemLackey.UI.Forms.FormJBConsoleOptions.resources
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\SystemLackey.UI.Forms.FormJBConsole.resources
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\SystemLackey.UI.Forms.FormJobBuilder.resources
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\SystemLackey.UI.Forms.FormPowerControl.resources
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\SystemLackey.UI.Forms.FormJobDetails.resources
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\SystemLackey.UI.Forms.FormWindowsScriptTaskControl.resources
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\SystemLackey.UI.Forms.Properties.Resources.resources
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\lackey_form_jobbuilder.csproj.GenerateResource.Cache
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\lackey_form_jobbuilder.exe
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\SystemLackey\lackey_form_jobbuilder\obj\Release\lackey_form_jobbuilder.pdb

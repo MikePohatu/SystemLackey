@@ -1,0 +1,4 @@
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\debug\bin\Libraries.dll
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\debug\bin\Libraries.pdb
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\source\SystemLackey\obj\Debug\Libraries.dll
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\source\SystemLackey\obj\Debug\Libraries.pdb

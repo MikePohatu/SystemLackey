@@ -3,3 +3,8 @@ C:\Mikes\Visual Studio\Source\Repos\SystemLackey\Release\bin\SystemLackey.pdb
 C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\SystemLackey\obj\Release\SystemLackey.csprojResolveAssemblyReference.cache
 C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\SystemLackey\obj\Release\SystemLackey.exe
 C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\SystemLackey\obj\Release\SystemLackey.pdb
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\source\SystemLackey\obj\Release\SystemLackey.exe
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\source\SystemLackey\obj\Release\SystemLackey.pdb
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\Release\bin\SystemLackey.exe
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\Release\bin\SystemLackey.pdb
+C:\Users\Mike\Documents\Visual Studio 2013\Projects\SystemLackey\source\SystemLackey\obj\Release\SystemLackey.csprojResolveAssemblyReference.cache
