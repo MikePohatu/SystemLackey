@@ -73,6 +73,7 @@
     <Compile Include="Worker\JobEnumerator.cs" />
     <Compile Include="Worker\Step.cs" />
     <Compile Include="Worker\TaskFactory.cs" />
+    <Compile Include="Worker\Tasks\IPickupPoint.cs" />
     <Compile Include="Worker\Tasks\ITask.cs" />
     <Compile Include="Worker\Tasks\PowerControl.cs" />
     <Compile Include="Worker\Tasks\WindowsScript.cs" />

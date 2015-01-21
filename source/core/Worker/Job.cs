@@ -27,7 +27,8 @@ namespace SystemLackey.Worker
 
         private string jobid;
         private string comments = "";
-        private Step root = null;
+        private Step root = null;       //root step for the job
+        private Step pickupPoint;       //step to restart from for restarted job e.g. after reboot
 
         public Job()
         {
@@ -60,6 +61,19 @@ namespace SystemLackey.Worker
         {
             get { return this.root; }
             set { this.root = value; }
+        }
+
+        public Step PickupPoint
+        {
+            get { return this.pickupPoint; }
+            set 
+            { 
+                if (value.Task is IPickupTask)
+                { this.pickupPoint = value; }
+                else
+                { //exception to be added
+                }             
+            }
         }
 
         //========================
@@ -144,7 +158,15 @@ namespace SystemLackey.Worker
         {
             int state = 0;
             int ret;
-            Step s = root;
+            Step s;
+
+            //first check for a pickup point. if one exists, start the job from there.
+            if (this.pickupPoint != null)
+            { 
+                s = this.pickupPoint;
+            }
+            else
+            { s = this.root; }
 
             while (true)
             {
