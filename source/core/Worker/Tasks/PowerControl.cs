@@ -18,15 +18,18 @@ using System;
 using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
+using SystemLackey.Logging;
+
 
 namespace SystemLackey.Worker
 {
-    public class PowerControl : ITask
+    public class PowerControl : ITask, IPickupPoint, ILoggable
     {
         private string name = "Reboot";
         private string id;
         private string comments;
         private int wait = 0;
+        
 
         //r = reboot
         //s = shutdown
@@ -36,7 +39,12 @@ namespace SystemLackey.Worker
         public PowerControl()
         {
             id = Guid.NewGuid().ToString();
+            //LogMessage(this, new LoggerEventArgs("Created power control: " + id, 1));
         }
+
+        //Events
+        public event LoggerEventHandler LogMessage;
+
 
         //Run should return a final state
         //0=Succes
@@ -126,5 +134,24 @@ namespace SystemLackey.Worker
             details.SetAttributeValue("Type", "Power");
             return details;
         }
+
+
+        public bool PickUp()
+        {
+            LogMessage(this, new LoggerEventArgs("Reboot completed", 1));
+            //code to be added. 
+            //has the machine rebooted since the putdown
+            return true;
+        }
+
+        public void PutDown()
+        {
+            //code to be added. 
+            //record the putdown
+            LogMessage(this, new LoggerEventArgs("Rebooting machine. Stopping job", 1));
+            OnPutDown(this, EventArgs.Empty);
+        }
+
+        public event EventHandler OnPutDown;
     }
 }

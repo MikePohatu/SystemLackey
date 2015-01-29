@@ -18,10 +18,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
+using SystemLackey.Logging;
 
 namespace SystemLackey.Worker
 {
-    public class Job : ITask, IEnumerable
+    public class Job : ITask, IEnumerable, ILoggable
     {
         private string name = "";        //Name of the task
 
@@ -68,7 +69,7 @@ namespace SystemLackey.Worker
             get { return this.pickupPoint; }
             set 
             { 
-                if (value.Task is IPickupTask)
+                if (value.Task is IPickupPoint)
                 { this.pickupPoint = value; }
                 else
                 { //exception to be added
@@ -80,9 +81,24 @@ namespace SystemLackey.Worker
         // /Properties
         //========================
 
-        //IEnumerator GetEnumerator()
-        //{
-        //}
+
+        //========================
+        //Events
+        //========================
+
+        public event LoggerEventHandler LogMessage;
+
+        //========================
+        ///Events
+        //========================
+
+
+
+        //Forward any logging messages from the task up the chain
+        public void ForwardLog(object o, LoggerEventArgs e)
+        {
+            this.LogMessage(o, e);
+        }
 
         //get the xml representation of the task
         public XElement GetXml()
@@ -92,7 +108,7 @@ namespace SystemLackey.Worker
             XElement details = new XElement("Task",
                 new XElement("name", name),
                 new XElement("id", jobid),
-                new XElement("comments",comments));
+                new XElement("comments", comments));
             details.SetAttributeValue("Type","Job");
             //enumerate through the list and get the xml from each node (step)
             while (true)
@@ -122,7 +138,16 @@ namespace SystemLackey.Worker
             foreach (XElement step in pElement.Elements("Step"))
             {
                 newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
-                
+
+                //Suscribe to the tasks logs for forwarding
+                ((ILoggable)newStep).LogMessage += this.ForwardLog;
+
+                //now check if the step is a pickup point
+                //if ( step.Element("IsPickupPoint").Value == "true" )
+                //{
+                //    newStep.IsPickupPoint = true;
+                //}
+
                 if (root == null)
                 {
                     root = newStep;

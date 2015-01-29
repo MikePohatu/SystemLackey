@@ -48,6 +48,16 @@ namespace SystemLackey.UI.Forms
         }
         // /Properties
 
+        // Logging
+
+        //Forward any logging messages from the task up the chain
+        public void ForwardLog(object o, LoggerEventArgs e)
+        {
+            logger.Write(e);
+        }
+
+
+
         public FormJobBuilder()
         {
             InitializeComponent();
@@ -163,6 +173,10 @@ namespace SystemLackey.UI.Forms
 
             //Create the new job and root node. 
             Job t = new Job();
+            
+            //subscribe to the jobs logs
+            t.LogMessage += this.ForwardLog;
+
             t.Name = "New job";
 
             //create the new node and set it up. 
@@ -375,10 +389,11 @@ namespace SystemLackey.UI.Forms
 
                 if (rootJobXml != null)
                 {
-                    Job rootJob = new Job();
-
                     this.UseWaitCursor = true;
                     treeJobList.BeginUpdate();
+
+                    Job rootJob = new Job();
+                    rootJob.LogMessage += this.ForwardLog;
 
                     if (pImport)
                     { rootJob.ImportXml(rootJobXml); }

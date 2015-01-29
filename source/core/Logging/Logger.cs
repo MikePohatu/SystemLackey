@@ -58,11 +58,12 @@ namespace SystemLackey.Logging
         public event LoggerEventHandler EventWarning;
         public event LoggerEventHandler EventError;
         public event LoggerEventHandler EventDanger;
-
-        public void Subscribe(Object o)
+        
+        public void Write(LoggerEventArgs e)
         {
-            //m.Tick += new Metronome.TickHandler(HeardIt);
+            this.Write(e.Text, e.Level);
         }
+
 
         public void Write(string pText,int pLevel)
         {

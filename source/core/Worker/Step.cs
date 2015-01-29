@@ -20,17 +20,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
+using SystemLackey.Logging;
 
 namespace SystemLackey.Worker
 {
     //The step class contains details of each step in a job, including the previous and next steps. 
     //This will allow for easy re-ordering of the job. note that a task may be referenced 
-    public class Step
+    public class Step : ILoggable
     {
         private Step next;
         private Step prev;
         private ITask task;
         private Job parent;
+        private bool isPickupPoint = false;
         //private Evaluation eval;
         private bool onError = true;
         private bool onWarn = true;
@@ -74,9 +76,32 @@ namespace SystemLackey.Worker
            get { return this.parent; }
            set { this.parent = value; }
         }
+
+        public bool IsPickupPoint
+        {
+            get { return this.isPickupPoint; }
+            set { this.isPickupPoint = value; }
+        }
+
+
         //========================
         // /Properties
         //========================
+
+
+
+
+        //========================
+        //Events
+        //========================
+
+        public event LoggerEventHandler LogMessage;
+
+        //========================
+        ///Events
+        //========================
+
+
 
 
         //========================
@@ -86,27 +111,55 @@ namespace SystemLackey.Worker
         {
             parent = pParent;
             task = pTask;
+
+            //Suscribe to the tasks logs for forwarding
+            if (task is ILoggable)
+            {
+                ((ILoggable)task).LogMessage += this.ForwardLog;
+            }
+
+            
+            if (task is IPickupPoint)
+            {
+                //Subscribe to putdown events
+                ((IPickupPoint)task).OnPutDown += this.CatchPutDown;
+            }
         }
 
-        //public Step(Task_Job pParent)
-        //{
-        //    parent = pParent;
-        //}
+        //Catch a putdown event from a task and process it. 
+        public void CatchPutDown(object o, EventArgs e)
+        {
+            isPickupPoint = true;
+            NotifyIsPickup(this, EventArgs.Empty);
+        }
 
         public XElement GetXML()
         {
             XElement details = new XElement("Step",
                 new XElement("ContinueOnError",onError),
                 new XElement("ContinueOnWarning",onWarn));
-            
+
+            if (isPickupPoint)
+            {
+                details.Add(new XElement("IsPickupPoint", isPickupPoint));
+            }
+
             if (task != null)
             {
                 details.Add(new XElement("taskid", task.ID));
                 details.Add(task.GetXml());
             }
-                
+   
             return details;
         }
+
+        //Forward any logging messages from the task up the chain
+        public void ForwardLog(object o, LoggerEventArgs e)
+        {
+            this.LogMessage(o, e);
+        }
+
+        public event EventHandler NotifyIsPickup;
 
     }
 }

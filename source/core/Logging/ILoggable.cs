@@ -1,5 +1,4 @@
-﻿//    IPickupPoint.cs: Interface for tasks that can be points for a job to restart
-//                      from e.g. reboots
+﻿//    ILogable.cs: Interface for classes that can send SystemLackey logs
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -14,15 +13,13 @@
 //    You should have received a copy of the GNU General Public License along
 //    with this program; if not, write to the Free Software Foundation, Inc.,
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+
 using System;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Logging
 {
-    public interface IPickupPoint
+    interface ILoggable
     {
-        bool PickUp();
-        void PutDown();
-
-        event EventHandler OnPutDown;
+        event LoggerEventHandler LogMessage;
     }
 }
