@@ -1,4 +1,0 @@
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\lackey_filters.dll
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\lackey_filters.pdb
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\Filters\obj\Debug\lackey_filters.dll
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\Filters\obj\Debug\lackey_filters.pdb

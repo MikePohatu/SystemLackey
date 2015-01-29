@@ -1,5 +1,0 @@
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\lackey_IO.dll
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\lackey_IO.pdb
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\IO\obj\Debug\IO.csprojResolveAssemblyReference.cache
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\IO\obj\Debug\lackey_IO.dll
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\IO\obj\Debug\lackey_IO.pdb

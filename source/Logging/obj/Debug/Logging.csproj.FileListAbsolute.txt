@@ -1,5 +1,0 @@
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\lackey_logging.dll
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\debug\lib\lackey_logging.pdb
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\Logging\obj\Debug\Logging.csprojResolveAssemblyReference.cache
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\Logging\obj\Debug\lackey_logging.dll
-C:\Mikes\Visual Studio\Source\Repos\SystemLackey\source\Logging\obj\Debug\lackey_logging.pdb
