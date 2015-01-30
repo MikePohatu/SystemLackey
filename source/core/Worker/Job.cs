@@ -22,7 +22,7 @@ using SystemLackey.Logging;
 
 namespace SystemLackey.Worker
 {
-    public class Job : Loggable, ITask, IEnumerable
+    public class Job : LoggingExtensions, ITask, IEnumerable
     {
         private string name = "";        //Name of the task
 
@@ -126,7 +126,7 @@ namespace SystemLackey.Worker
                 newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
 
                 //Suscribe to the tasks logs for forwarding
-                ((Loggable)newStep).LogEvent += this.ForwardLog;
+                ((LoggingExtensions)newStep).LogEvent += this.ForwardLog;
 
                 //now check if the step is a pickup point
                 //if ( step.Element("IsPickupPoint").Value == "true" )

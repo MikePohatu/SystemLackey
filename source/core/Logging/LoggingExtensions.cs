@@ -1,4 +1,4 @@
-﻿//    ILogable.cs: Interface for classes that can send SystemLackey logs
+﻿//    LoggingExtensions.cs: Standard logging methods
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -18,23 +18,22 @@ using System;
 
 namespace SystemLackey.Logging
 {
-    public abstract class Loggable
+    public abstract class LoggingExtensions
     {
         public event LoggerEventHandler LogEvent;
 
         //Forward any logging messages from the task up the chain
-        public void ForwardLog(object o, LoggerEventArgs e)
+        public void ForwardLog(ILoggable o, LoggerEventArgs e)
         {
             this.LogMessage(o, e);
         }
 
         //Log a new event. Check for empty event handler first
-        protected virtual void LogMessage(object o, LoggerEventArgs e)
+        protected virtual void LogMessage(ILoggable o, LoggerEventArgs e)
         {
             LoggerEventHandler tmp = LogEvent;
             if (tmp != null)
             { tmp(o, e); }
-
         }
     }
 }
