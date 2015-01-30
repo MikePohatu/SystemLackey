@@ -23,7 +23,7 @@ using SystemLackey.Logging;
 
 namespace SystemLackey.Worker
 {
-    public class PowerControl : ITask, IPickupPoint, ILoggable
+    public class PowerControl : Loggable, ITask, IPickupPoint
     {
         private string name = "Reboot";
         private string id;
@@ -42,7 +42,6 @@ namespace SystemLackey.Worker
         }
 
         //Events
-        public event LoggerEventHandler LogMessage;
         public event EventHandler OnPutDown;
 
         //Run should return a final state

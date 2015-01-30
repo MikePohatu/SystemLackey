@@ -21,7 +21,7 @@ using SystemLackey.Logging;
 
 namespace SystemLackey.Worker
 {
-    class TaskFactory: ILoggable
+    class TaskFactory: Loggable
     {
         public ITask Create(string pType)
         {
@@ -59,8 +59,5 @@ namespace SystemLackey.Worker
             
             return t;
         }
-
-        //Events
-        public event LoggerEventHandler LogMessage;
     }
 }

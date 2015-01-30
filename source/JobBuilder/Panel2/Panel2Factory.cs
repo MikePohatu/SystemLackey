@@ -22,7 +22,7 @@ using SystemLackey.Logging;
 
 namespace SystemLackey.UI.Forms
 {
-    class Panel2Factory: ILoggable
+    class Panel2Factory: Loggable
     {
         public Form Create(TreeNode n)
         {
@@ -60,9 +60,5 @@ namespace SystemLackey.UI.Forms
                 else { return null; }
             }
         }
-
-
-        //Events
-        public event LoggerEventHandler LogMessage;
     }
 }

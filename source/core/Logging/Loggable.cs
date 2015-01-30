@@ -18,8 +18,23 @@ using System;
 
 namespace SystemLackey.Logging
 {
-    public interface ILoggable
+    public abstract class Loggable
     {
-        event LoggerEventHandler LogMessage;
+        public event LoggerEventHandler LogEvent;
+
+        //Forward any logging messages from the task up the chain
+        public void ForwardLog(object o, LoggerEventArgs e)
+        {
+            this.LogMessage(o, e);
+        }
+
+        //Log a new event. Check for empty event handler first
+        protected virtual void LogMessage(object o, LoggerEventArgs e)
+        {
+            LoggerEventHandler tmp = LogEvent;
+            if (tmp != null)
+            { tmp(o, e); }
+
+        }
     }
 }

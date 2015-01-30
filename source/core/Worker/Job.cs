@@ -22,7 +22,7 @@ using SystemLackey.Logging;
 
 namespace SystemLackey.Worker
 {
-    public class Job : ITask, IEnumerable, ILoggable
+    public class Job : Loggable, ITask, IEnumerable
     {
         private string name = "";        //Name of the task
 
@@ -82,23 +82,7 @@ namespace SystemLackey.Worker
         //========================
 
 
-        //========================
-        //Events
-        //========================
-
-        public event LoggerEventHandler LogMessage;
-
-        //========================
-        ///Events
-        //========================
-
-
-
-        //Forward any logging messages from the task up the chain
-        public void ForwardLog(object o, LoggerEventArgs e)
-        {
-            this.LogMessage(o, e);
-        }
+        
 
         //get the xml representation of the task
         public XElement GetXml()
@@ -127,7 +111,7 @@ namespace SystemLackey.Worker
         private void BuildFromXML(XElement pElement, bool pImport)
         {
             TaskFactory factory = new TaskFactory();
-            factory.LogMessage += this.ForwardLog;
+            factory.LogEvent += this.ForwardLog;
 
             Step currentStep = root;
             Step newStep;
@@ -142,7 +126,7 @@ namespace SystemLackey.Worker
                 newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
 
                 //Suscribe to the tasks logs for forwarding
-                ((ILoggable)newStep).LogMessage += this.ForwardLog;
+                ((Loggable)newStep).LogEvent += this.ForwardLog;
 
                 //now check if the step is a pickup point
                 //if ( step.Element("IsPickupPoint").Value == "true" )

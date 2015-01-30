@@ -64,7 +64,7 @@
     <Compile Include="Filters\Queries\RegQuery.cs" />
     <Compile Include="IO\IOConfiguration.cs" />
     <Compile Include="IO\XmlHandler.cs" />
-    <Compile Include="Logging\ILoggable.cs" />
+    <Compile Include="Logging\Loggable.cs" />
     <Compile Include="Shell.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\LoggerEventArgs.cs" />

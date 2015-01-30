@@ -26,7 +26,7 @@ namespace SystemLackey.Worker
 {
     //The step class contains details of each step in a job, including the previous and next steps. 
     //This will allow for easy re-ordering of the job. note that a task may be referenced 
-    public class Step : ILoggable
+    public class Step : Loggable
     {
         private Step next;
         private Step prev;
@@ -92,19 +92,6 @@ namespace SystemLackey.Worker
 
 
         //========================
-        //Events
-        //========================
-
-        public event LoggerEventHandler LogMessage;
-
-        //========================
-        ///Events
-        //========================
-
-
-
-
-        //========================
         // Constructors
         //========================
         public Step(Job pParent,ITask pTask)
@@ -113,9 +100,9 @@ namespace SystemLackey.Worker
             task = pTask;
 
             //Suscribe to the tasks logs for forwarding
-            if (task is ILoggable)
+            if (task is Loggable)
             {
-                ((ILoggable)task).LogMessage += this.ForwardLog;
+                ((Loggable)task).LogEvent += this.ForwardLog;
             }
 
             
@@ -151,12 +138,6 @@ namespace SystemLackey.Worker
             }
    
             return details;
-        }
-
-        //Forward any logging messages from the task up the chain
-        public void ForwardLog(object o, LoggerEventArgs e)
-        {
-            this.LogMessage(o, e);
         }
 
         public event EventHandler NotifyIsPickup;
