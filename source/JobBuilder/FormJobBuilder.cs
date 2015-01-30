@@ -172,6 +172,13 @@ namespace SystemLackey.UI.Forms
         {
             treeJobList.BeginUpdate();
 
+            //cleanup old event listeners
+            if (rootNode != null)
+            {
+                Job oldJob = (Job)rootNode.Tag;
+                oldJob.LogMessage -= this.ForwardLog;
+            }
+
             //Create the new job and root node. 
             Job t = new Job();
             
@@ -392,6 +399,13 @@ namespace SystemLackey.UI.Forms
                 {
                     this.UseWaitCursor = true;
                     treeJobList.BeginUpdate();
+
+                    //cleanup old event listeners
+                    if (rootNode != null)
+                    {
+                        Job oldJob = (Job)rootNode.Tag;
+                        oldJob.LogMessage -= this.ForwardLog;
+                    }
 
                     Job rootJob = new Job();
                     rootJob.LogMessage += this.ForwardLog;

@@ -43,7 +43,7 @@ namespace SystemLackey.Worker
 
         //Events
         public event LoggerEventHandler LogMessage;
-
+        public event EventHandler OnPutDown;
 
         //Run should return a final state
         //0=Succes
@@ -151,6 +151,6 @@ namespace SystemLackey.Worker
             OnPutDown(this, EventArgs.Empty);
         }
 
-        public event EventHandler OnPutDown;
+        
     }
 }
