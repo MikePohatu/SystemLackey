@@ -39,7 +39,6 @@ namespace SystemLackey.Worker
         public PowerControl()
         {
             id = Guid.NewGuid().ToString();
-            //LogMessage(this, new LoggerEventArgs("Created power control: " + id, 1));
         }
 
         //Events

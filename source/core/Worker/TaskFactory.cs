@@ -17,10 +17,11 @@
 
 using System;
 using System.Xml.Linq;
+using SystemLackey.Logging;
 
 namespace SystemLackey.Worker
 {
-    class TaskFactory
+    class TaskFactory: ILoggable
     {
         public ITask Create(string pType)
         {
@@ -30,15 +31,19 @@ namespace SystemLackey.Worker
                 //batch script.
                 case "WinScript":
                     ret = new WindowsScript();
+                    LogMessage(ret, new LoggerEventArgs("Created windows script task: " + ret.ID, 1));
                     break;
                 case "Job":
                     ret = new Job();
+                    LogMessage(ret, new LoggerEventArgs("Created Job: " + ret.ID, 1));
                     break;
                 case "Power":
                     ret = new PowerControl();
+                    LogMessage(ret, new LoggerEventArgs("Created power control task: " + ret.ID, 1));
                     break;
                 //invalid type. Throw exception
                 default:
+                    LogMessage(this, new LoggerEventArgs("Failed to create unknown type: " + pType, 3));
                     Console.WriteLine("Unknown type:" + pType);
                     System.ArgumentException argEx = new System.ArgumentException("Invalid script type " + pType,"SetType");
                     return null;
@@ -56,5 +61,8 @@ namespace SystemLackey.Worker
             
             return t;
         }
+
+        //Events
+        public event LoggerEventHandler LogMessage;
     }
 }

@@ -18,7 +18,7 @@ using System;
 
 namespace SystemLackey.Logging
 {
-    interface ILoggable
+    public interface ILoggable
     {
         event LoggerEventHandler LogMessage;
     }

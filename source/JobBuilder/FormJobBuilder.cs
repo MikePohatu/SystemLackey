@@ -61,6 +61,7 @@ namespace SystemLackey.UI.Forms
         public FormJobBuilder()
         {
             InitializeComponent();
+            factory.LogMessage += this.ForwardLog;
         }
 
         private void ShowNewForm(object sender, EventArgs e)

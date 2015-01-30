@@ -18,10 +18,11 @@
 using System;
 using System.Windows.Forms;
 using SystemLackey.Worker;
+using SystemLackey.Logging;
 
 namespace SystemLackey.UI.Forms
 {
-    class Panel2Factory
+    class Panel2Factory: ILoggable
     {
         public Form Create(TreeNode n)
         {
@@ -59,5 +60,9 @@ namespace SystemLackey.UI.Forms
                 else { return null; }
             }
         }
+
+
+        //Events
+        public event LoggerEventHandler LogMessage;
     }
 }
