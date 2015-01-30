@@ -127,7 +127,7 @@ namespace SystemLackey.Worker
         private void BuildFromXML(XElement pElement, bool pImport)
         {
             TaskFactory factory = new TaskFactory();
-            //factory.LogMessage += this.ForwardLog;
+            factory.LogMessage += this.ForwardLog;
 
             Step currentStep = root;
             Step newStep;

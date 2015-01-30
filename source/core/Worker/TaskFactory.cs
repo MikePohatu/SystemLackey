@@ -30,16 +30,13 @@ namespace SystemLackey.Worker
             {
                 //batch script.
                 case "WinScript":
-                    ret = new WindowsScript();
-                    LogMessage(ret, new LoggerEventArgs("Created windows script task: " + ret.ID, 1));
+                    ret = new WindowsScript();                    
                     break;
                 case "Job":
                     ret = new Job();
-                    LogMessage(ret, new LoggerEventArgs("Created Job: " + ret.ID, 1));
                     break;
                 case "Power":
                     ret = new PowerControl();
-                    LogMessage(ret, new LoggerEventArgs("Created power control task: " + ret.ID, 1));
                     break;
                 //invalid type. Throw exception
                 default:
@@ -49,6 +46,7 @@ namespace SystemLackey.Worker
                     return null;
             }
 
+            LogMessage(ret, new LoggerEventArgs("Created " + pType + " task: " + ret.ID, 1));
             return ret;
             //return 
         }
