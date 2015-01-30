@@ -47,13 +47,6 @@ namespace SystemLackey.UI.Forms
         }
         // /Properties
 
-        //Forward any logging messages from the task up the chain
-        public void ForwardLog(object o, LoggerEventArgs e)
-        {
-            logger.Write(e);
-        }
-
-
 
         public FormJobBuilder()
         {
