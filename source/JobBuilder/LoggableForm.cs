@@ -1,4 +1,4 @@
-﻿//    ILoggable.cs: Interface for classes that can send SystemLackey logs
+﻿//    LoggableForm.cs: Base class with logging functionality for forms. 
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -14,12 +14,29 @@
 //    with this program; if not, write to the Free Software Foundation, Inc.,
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-using System;
 
-namespace SystemLackey.Logging
+using System;
+using System.Windows.Forms;
+using SystemLackey.Logging;
+
+namespace SystemLackey.UI.Forms
 {
-    public interface ILoggable
+    public abstract class LoggableForm : Form, ILoggable
     {
-        event LoggerEventHandler LogEvent;
+        public event LoggerEventHandler LogEvent;
+
+        //Forward any logging messages from the task up the chain
+        public void ForwardLog(object o, LoggerEventArgs e)
+        {
+            this.LogMessage(o, e);
+        }
+
+        //Log a new event. Check for empty event handler first
+        protected virtual void LogMessage(Object o, LoggerEventArgs e)
+        {
+            LoggerEventHandler temp = LogEvent;
+            if (temp != null)
+            { temp(o, e); }
+        }
     }
 }

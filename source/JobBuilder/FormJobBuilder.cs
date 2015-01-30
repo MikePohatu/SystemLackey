@@ -31,7 +31,7 @@ using SystemLackey.Logging;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class FormJobBuilder : Form
+    public partial class FormJobBuilder : LoggableForm
     {
         private TreeNode rootNode;
         private Panel2Factory factory = new Panel2Factory();

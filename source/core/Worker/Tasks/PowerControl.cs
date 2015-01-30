@@ -23,7 +23,7 @@ using SystemLackey.Logging;
 
 namespace SystemLackey.Worker
 {
-    public class PowerControl : LoggingExtensions, ITask, IPickupPoint
+    public class PowerControl : BaseLoggable, ITask, IPickupPoint, ILoggable
     {
         private string name = "Reboot";
         private string id;

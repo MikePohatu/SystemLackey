@@ -1,4 +1,4 @@
-﻿//    LoggingExtensions.cs: Standard logging methods
+﻿//    BaseTask.cs: Base class for tasks with common methods
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -14,26 +14,28 @@
 //    with this program; if not, write to the Free Software Foundation, Inc.,
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+
 using System;
+using SystemLackey.Logging;
 
 namespace SystemLackey.Logging
 {
-    public abstract class LoggingExtensions
+    public abstract class BaseLoggable : ILoggable
     {
         public event LoggerEventHandler LogEvent;
 
         //Forward any logging messages from the task up the chain
-        public void ForwardLog(ILoggable o, LoggerEventArgs e)
+        public void ForwardLog(object o, LoggerEventArgs e)
         {
             this.LogMessage(o, e);
         }
 
         //Log a new event. Check for empty event handler first
-        protected virtual void LogMessage(ILoggable o, LoggerEventArgs e)
+        protected virtual void LogMessage(Object o, LoggerEventArgs e)
         {
-            LoggerEventHandler tmp = LogEvent;
-            if (tmp != null)
-            { tmp(o, e); }
+            LoggerEventHandler temp = LogEvent;
+            if (temp != null)
+            { temp(o, e); }
         }
     }
 }

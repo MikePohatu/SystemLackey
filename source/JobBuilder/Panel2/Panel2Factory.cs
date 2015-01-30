@@ -22,7 +22,7 @@ using SystemLackey.Logging;
 
 namespace SystemLackey.UI.Forms
 {
-    class Panel2Factory: LoggingExtensions
+    class Panel2Factory: BaseLoggable, ILoggable
     {
         public Form Create(TreeNode n)
         {

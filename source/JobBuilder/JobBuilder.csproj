@@ -70,6 +70,9 @@
     <Compile Include="Panel2\FormPowerControl.Designer.cs">
       <DependentUpon>FormPowerControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoggableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Panel2\Panel2Factory.cs" />
     <Compile Include="Panel2\FormJobDetails.cs">
       <SubType>Form</SubType>

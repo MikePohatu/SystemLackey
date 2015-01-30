@@ -26,7 +26,7 @@ namespace SystemLackey.Worker
 {
     //The step class contains details of each step in a job, including the previous and next steps. 
     //This will allow for easy re-ordering of the job. note that a task may be referenced 
-    public class Step : LoggingExtensions
+    public class Step : BaseLoggable, ILoggable
     {
         private Step next;
         private Step prev;
@@ -100,9 +100,9 @@ namespace SystemLackey.Worker
             task = pTask;
 
             //Suscribe to the tasks logs for forwarding
-            if (task is LoggingExtensions)
+            if (task is ILoggable)
             {
-                ((LoggingExtensions)task).LogEvent += this.ForwardLog;
+                ((ILoggable)task).LogEvent += ForwardLog;
             }
 
             
