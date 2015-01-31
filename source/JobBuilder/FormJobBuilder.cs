@@ -54,6 +54,13 @@ namespace SystemLackey.UI.Forms
             factory.LogEvent += this.ForwardLog;
         }
 
+        //Forward any logging messages from the task up the chain
+        public override void ForwardLog(object o, LoggerEventArgs e)
+        {
+            logger.Write(o,e);
+        }
+
+
         private void ShowNewForm(object sender, EventArgs e)
         {
             Form childForm = new Form();

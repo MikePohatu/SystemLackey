@@ -125,7 +125,7 @@ namespace SystemLackey.Worker
             {
                 newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
 
-                //Suscribe to the tasks logs for forwarding
+                //Suscribe to the step's logs for forwarding
                 ((ILoggable)newStep).LogEvent += this.ForwardLog;
 
                 //now check if the step is a pickup point

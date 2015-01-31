@@ -40,22 +40,40 @@ namespace SystemLackey.Worker
                     break;
                 //invalid type. Throw exception
                 default:
-                    LogMessage(this, new LoggerEventArgs("Failed to create unknown type: " + pType, 3));
+                    this.LogMessage(this, new LoggerEventArgs("Failed to create unknown type: " + pType, 3));
                     Console.WriteLine("Unknown type:" + pType);
                     System.ArgumentException argEx = new System.ArgumentException("Invalid script type " + pType,"SetType");
                     return null;
             }
 
-            LogMessage(ret, new LoggerEventArgs("Created " + pType + " task: " + ret.ID, 1));
+            this.LogMessage(this, new LoggerEventArgs("Created " + pType, 1));
             return ret;
             //return 
         }
 
         public ITask Create(XElement pElement, bool pImport)
         {
-            ITask t = this.Create(pElement.Attribute("Type").Value);
-            if (pImport) { t.ImportXml(pElement); }
-            else { t.OpenXml(pElement); }
+            //create the task
+            string type = pElement.Attribute("Type").Value;
+            ITask t = this.Create(type);
+
+            //subscribe to logging events so the factory can pass them up the tree
+            //the parent job won't subscribe until after the factory is finished
+            if (t is ILoggable) { ((ILoggable)t).LogEvent += this.ForwardLog; }
+
+            //now import/open the xml
+            if (pImport) 
+            {
+                this.LogMessage(this, new LoggerEventArgs("Importing " + type, 1));
+                t.ImportXml(pElement);
+                this.LogMessage(this, new LoggerEventArgs("Finished importing " + type + " task: " + t.Name + " ID: " + t.ID, 1));
+            }
+            else 
+            {
+                this.LogMessage(this, new LoggerEventArgs("Importing " + type, 1));
+                t.OpenXml(pElement);
+                this.LogMessage(this, new LoggerEventArgs("Finished opening " + type + " task: " + t.Name + " ID: " + t.ID, 1));
+            }
             
             return t;
         }

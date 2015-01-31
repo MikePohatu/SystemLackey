@@ -25,9 +25,9 @@ namespace SystemLackey.Logging
         public event LoggerEventHandler LogEvent;
 
         //Forward any logging messages from the task up the chain
-        public void ForwardLog(object o, LoggerEventArgs e)
+        public virtual void ForwardLog(object o, LoggerEventArgs e)
         {
-            this.LogMessage(o, e);
+            LogMessage(o, e);
         }
 
         //Log a new event. Check for empty event handler first

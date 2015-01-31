@@ -64,6 +64,12 @@ namespace SystemLackey.Logging
             this.Write(e.Text, e.Level);
         }
 
+        public void Write(object o, LoggerEventArgs e)
+        {
+            string type = o.GetType().ToString();
+            //this.Write(e.Text + " - SOURCE=" + type, e.Level);
+            this.Write(e.Text, e.Level);
+        }
 
         public void Write(string pText,int pLevel)
         {

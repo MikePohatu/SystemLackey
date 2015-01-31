@@ -26,7 +26,7 @@ namespace SystemLackey.UI.Forms
         public event LoggerEventHandler LogEvent;
 
         //Forward any logging messages from the task up the chain
-        public void ForwardLog(object o, LoggerEventArgs e)
+        public virtual void ForwardLog(object o, LoggerEventArgs e)
         {
             this.LogMessage(o, e);
         }
