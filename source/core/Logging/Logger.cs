@@ -61,20 +61,28 @@ namespace SystemLackey.Logging
         
         public void Write(LoggerEventArgs e)
         {
-            this.Write(e.Text, e.Level);
+            this.Write(e.Text, e.Level, e.Time);
         }
 
         public void Write(object o, LoggerEventArgs e)
         {
             string type = o.GetType().ToString();
             //this.Write(e.Text + " - SOURCE=" + type, e.Level);
-            this.Write(e.Text, e.Level);
+            this.Write(e.Text, e.Level, e.Time);
         }
 
+        //take a Write with no time set. Set time to when it reached the logger. 
         public void Write(string pText,int pLevel)
         {
+            string time;
+            time = DateTime.Now.ToString("u") + ": ";
+            this.Write(pText, pLevel, time);
+        }
+
+        public void Write(string pText,int pLevel, string pTime)
+        {
             DateTime now = DateTime.Now;
-            string time = now.ToString("u") + ": ";
+            string time = pTime;
             string prefix;
             switch (pLevel)
             {

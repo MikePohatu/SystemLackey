@@ -23,17 +23,27 @@ namespace SystemLackey.Logging
     {
         private string text;
         private int level;
+        private string time;
 
         public LoggerEventArgs(string pText,int pLevel)
         {
             text = pText;
             level = pLevel;
+            //Set time to the creation of the loggereventargs (which will probably be
+            //accurate in most cases).
+            time = DateTime.Now.ToString("u") + ": ";
         }
 
         public string Text
         {
             get { return this.text; }
             set { this.text = value; }
+        }
+
+        public string Time
+        {
+            get { return this.time; }
+            set { this.time = value; }
         }
 
         //0=Success, 1=Information, 2=Warning, 3=Error, 4=Unknown 
