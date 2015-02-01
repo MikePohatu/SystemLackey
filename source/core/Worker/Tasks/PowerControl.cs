@@ -53,6 +53,8 @@ namespace SystemLackey.Worker
         //5=Exception
         public int Run()
         {
+            int intReturn;
+
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 
@@ -62,12 +64,75 @@ namespace SystemLackey.Worker
 
             Console.WriteLine(startInfo.FileName + " " + startInfo.Arguments);
 
-            process.StartInfo = startInfo;
-            process.Start();
-            process.WaitForExit(5000);
+            if ( this.SetupScheduledTask() )
+            {
+                try
+                {
+                    process.StartInfo = startInfo;
+                    //process.Start();
+                    //process.WaitForExit(5000);
+                    intReturn = process.ExitCode;
+                }
+                
+                catch
+                {
+                    intReturn = 1;
+                }
+            }
 
-            int intReturn = process.ExitCode;
+            else { return 1; }
+            
             return intReturn;
+        }
+
+
+        private bool SetupScheduledTask()
+        {
+            string command;
+            string exePath;
+            string exeOptions;
+            string jobXml = "";
+            string schedTaskName = "SystemLackey-" + jobXml;
+            bool success = true;
+            exePath = "";
+            exeOptions = "";
+
+            try
+            {
+                command = @"schtasks /create /tn """ + schedTaskName + @""" /sc ONSTART /z /v1 /f /ru SYSTEM /tr """ + exePath + @"""" + " " + exeOptions + @"""";
+                LogMessage(this, new LoggerEventArgs("Scheduled task creation: " + schedTaskName, 1));
+                LogMessage(this, new LoggerEventArgs(command, 0));
+            }
+            catch
+            { 
+                //exception to be added
+                success = false;
+            }
+
+            return success;
+        }
+
+
+        private bool ClearScheduledTask()
+        {
+            string command;
+            string jobXml = "";
+            string schedTaskName = "SystemLackey-" + jobXml;
+            bool success = true;
+
+            try
+            {
+                command = @"schtasks /delete /tn """ + schedTaskName + @""" /f";
+                LogMessage(this, new LoggerEventArgs("Scheduled task deletion: " + schedTaskName, 1));
+                LogMessage(this, new LoggerEventArgs(command, 0));
+            }
+            catch
+            {
+                //exception to be added
+                success = false;
+            }
+
+            return success;
         }
 
         //Properties
@@ -101,23 +166,23 @@ namespace SystemLackey.Worker
             set { this.wait = value; }
         }
 
-        private void BuildFromXml(XElement pElement)
+        private void BuildFromXml(XElement pElement, bool pImport)
         {
             name = pElement.Element("name").Value;
             comments = pElement.Element("comments").Value;
             powerOption = XmlConvert.ToChar(pElement.Element("powerOption").Value);
             wait = XmlConvert.ToInt32(pElement.Element("wait").Value);
+            if (!pImport) { id = pElement.Element("id").Value; }
         }
 
         public void ImportXml(XElement pElement)
         {
-            this.BuildFromXml(pElement);
+            this.BuildFromXml(pElement,true);
         }
 
         public void OpenXml(XElement pElement)
-        {
-            id = pElement.Element("id").Value;
-            this.BuildFromXml(pElement);
+        {           
+            this.BuildFromXml(pElement,false);
         }
 
         public XElement GetXml()

@@ -146,6 +146,9 @@ namespace SystemLackey.Worker
                     currentStep = newStep;
                 }
             }
+
+            //cleanup
+            factory.LogEvent -= this.ForwardLog;
         }
 
         public void OpenXml(XElement pElement)

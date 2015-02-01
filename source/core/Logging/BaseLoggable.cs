@@ -17,6 +17,7 @@
 
 using System;
 using SystemLackey.Logging;
+using SystemLackey.Worker;
 
 namespace SystemLackey.Logging
 {
@@ -27,6 +28,15 @@ namespace SystemLackey.Logging
         //Forward any logging messages from the task up the chain
         public virtual void ForwardLog(object o, LoggerEventArgs e)
         {
+            //string source;
+            //string thisType = this.GetType().ToString();
+         
+            //if (this is ITask) { source = ((ITask)this).Name; }
+            //else { source = thisType; }
+
+            //var lea = new LoggerEventArgs(source + @"->" + e.Text, e.Level);
+
+            //LogMessage(o, lea);
             LogMessage(o, e);
         }
 
