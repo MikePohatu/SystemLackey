@@ -99,7 +99,10 @@ namespace SystemLackey.Worker
 
             try
             {
+                exeOptions = "";
+                exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\SystemLackey.exe";
                 command = @"schtasks /create /tn """ + schedTaskName + @""" /sc ONSTART /z /v1 /f /ru SYSTEM /tr """ + exePath + @"""" + " " + exeOptions + @"""";
+                //LogMessage(this, new LoggerEventArgs(exePath, 0));
                 LogMessage(this, new LoggerEventArgs("Scheduled task creation: " + schedTaskName, 1));
                 LogMessage(this, new LoggerEventArgs(command, 0));
             }
