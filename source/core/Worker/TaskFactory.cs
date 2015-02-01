@@ -35,7 +35,7 @@ namespace SystemLackey.Worker
                 case "Job":
                     ret = new Job();
                     break;
-                case "Power":
+                case "PowerControl":
                     ret = new PowerControl();
                     break;
                 //invalid type. Throw exception
@@ -46,7 +46,7 @@ namespace SystemLackey.Worker
                     return null;
             }
 
-            this.LogMessage(this, new LoggerEventArgs("Created " + pType, 1));
+            this.LogMessage(this, new LoggerEventArgs("Created " + pType, 0));
             return ret;
             //return 
         }
@@ -64,13 +64,13 @@ namespace SystemLackey.Worker
             //now import/open the xml
             if (pImport) 
             {
-                this.LogMessage(this, new LoggerEventArgs("Importing " + type, 1));
+                this.LogMessage(this, new LoggerEventArgs("Importing " + type, 0));
                 t.ImportXml(pElement);
                 this.LogMessage(this, new LoggerEventArgs("Finished importing " + type + " task: " + t.Name + " ID: " + t.ID, 1));
             }
             else 
             {
-                this.LogMessage(this, new LoggerEventArgs("Importing " + type, 1));
+                this.LogMessage(this, new LoggerEventArgs("Opening " + type, 0));
                 t.OpenXml(pElement);
                 this.LogMessage(this, new LoggerEventArgs("Finished opening " + type + " task: " + t.Name + " ID: " + t.ID, 1));
             }

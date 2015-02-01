@@ -194,7 +194,7 @@ namespace SystemLackey.Worker
                 new XElement("powerOption", powerOption),
                 new XElement("wait", wait));
 
-            details.SetAttributeValue("Type", "Power");
+            details.SetAttributeValue("Type", "PowerControl");
             return details;
         }
 
