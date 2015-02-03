@@ -103,8 +103,8 @@ namespace SystemLackey.Worker
                 exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\SystemLackey.exe";
                 command = @"schtasks /create /tn """ + schedTaskName + @""" /sc ONSTART /z /v1 /f /ru SYSTEM /tr """ + exePath + @"""" + " " + exeOptions + @"""";
                 //LogMessage(this, new LoggerEventArgs(exePath, 0));
-                LogMessage(this, new MessageEventArgs("Scheduled task creation: " + schedTaskName, 1));
-                LogMessage(this, new MessageEventArgs(command, 0));
+                SendMessage(this, new MessageEventArgs("Scheduled task creation: " + schedTaskName, 1));
+                SendMessage(this, new MessageEventArgs(command, 0));
             }
             catch
             { 
@@ -126,8 +126,8 @@ namespace SystemLackey.Worker
             try
             {
                 command = @"schtasks /delete /tn """ + schedTaskName + @""" /f";
-                LogMessage(this, new MessageEventArgs("Scheduled task deletion: " + schedTaskName, 1));
-                LogMessage(this, new MessageEventArgs(command, 0));
+                SendMessage(this, new MessageEventArgs("Scheduled task deletion: " + schedTaskName, 1));
+                SendMessage(this, new MessageEventArgs(command, 0));
             }
             catch
             {
@@ -204,7 +204,7 @@ namespace SystemLackey.Worker
 
         public bool PickUp()
         {
-            LogMessage(this, new MessageEventArgs("Reboot completed", 1));
+            SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));
             //code to be added. 
             //has the machine rebooted since the putdown
             return true;
@@ -214,7 +214,7 @@ namespace SystemLackey.Worker
         {
             //code to be added. 
             //record the putdown
-            LogMessage(this, new MessageEventArgs("Rebooting machine. Stopping job", 1));
+            SendMessage(this, new MessageEventArgs("PowerControl rebooting machine. Stop job", MessageType.PUTDOWN));
             OnPutDown(this, EventArgs.Empty);
         }
 

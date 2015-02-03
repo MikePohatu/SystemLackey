@@ -102,7 +102,7 @@ namespace SystemLackey.Worker
             //Suscribe to the tasks logs for forwarding
             if (task is IMessaging)
             {
-                ((IMessaging)task).LogEvent += ForwardLog;
+                ((IMessaging)task).LogEvent += ForwardMessage;
             }
 
             

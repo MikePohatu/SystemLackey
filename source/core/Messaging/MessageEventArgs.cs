@@ -45,6 +45,7 @@ namespace SystemLackey.Messaging
             type = pType;
         }
 
+
         public MessageEventArgs(string pText, MessageType pType)
         {
             text = pText;

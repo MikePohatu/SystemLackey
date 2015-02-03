@@ -26,7 +26,7 @@ namespace SystemLackey.Messaging
         public event MessagingEventHandler LogEvent;
 
         //Forward any logging messages from the task up the chain
-        public virtual void ForwardLog(object o, MessageEventArgs e)
+        public virtual void ForwardMessage(object o, MessageEventArgs e)
         {
             //string source;
             //string thisType = this.GetType().ToString();
@@ -37,11 +37,11 @@ namespace SystemLackey.Messaging
             //var lea = new LoggerEventArgs(source + @"->" + e.Text, e.Level);
 
             //LogMessage(o, lea);
-            LogMessage(o, e);
+            SendMessage(o, e);
         }
 
         //Log a new event. Check for empty event handler first
-        protected virtual void LogMessage(Object o, MessageEventArgs e)
+        protected virtual void SendMessage(Object o, MessageEventArgs e)
         {
             MessagingEventHandler temp = LogEvent;
             if (temp != null)

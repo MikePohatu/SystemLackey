@@ -111,7 +111,7 @@ namespace SystemLackey.Worker
         private void BuildFromXML(XElement pElement, bool pImport)
         {
             TaskFactory factory = new TaskFactory();
-            factory.LogEvent += this.ForwardLog;
+            factory.LogEvent += this.ForwardMessage;
 
             Step currentStep = root;
             Step newStep;
@@ -126,7 +126,7 @@ namespace SystemLackey.Worker
                 newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
 
                 //Suscribe to the step's logs for forwarding
-                ((IMessaging)newStep).LogEvent += this.ForwardLog;
+                ((IMessaging)newStep).LogEvent += this.ForwardMessage;
 
                 //now check if the step is a pickup point
                 //if ( step.Element("IsPickupPoint").Value == "true" )
@@ -148,7 +148,7 @@ namespace SystemLackey.Worker
             }
 
             //cleanup
-            factory.LogEvent -= this.ForwardLog;
+            factory.LogEvent -= this.ForwardMessage;
         }
 
         public void OpenXml(XElement pElement)

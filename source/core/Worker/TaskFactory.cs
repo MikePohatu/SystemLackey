@@ -40,13 +40,13 @@ namespace SystemLackey.Worker
                     break;
                 //invalid type. Throw exception
                 default:
-                    this.LogMessage(this, new MessageEventArgs("Failed to create unknown type: " + pType, 3));
+                    this.SendMessage(this, new MessageEventArgs("Failed to create unknown type: " + pType, 3));
                     Console.WriteLine("Unknown type:" + pType);
                     System.ArgumentException argEx = new System.ArgumentException("Invalid script type " + pType,"SetType");
                     return null;
             }
 
-            this.LogMessage(this, new MessageEventArgs("Created " + pType, 0));
+            this.SendMessage(this, new MessageEventArgs("Created " + pType, 0));
             return ret;
             //return 
         }
@@ -59,20 +59,20 @@ namespace SystemLackey.Worker
 
             //subscribe to logging events so the factory can pass them up the tree
             //the parent job won't subscribe until after the factory is finished
-            if (t is IMessaging) { ((IMessaging)t).LogEvent += this.ForwardLog; }
+            if (t is IMessaging) { ((IMessaging)t).LogEvent += this.ForwardMessage; }
 
             //now import/open the xml
             if (pImport) 
             {
-                this.LogMessage(this, new MessageEventArgs("Importing " + type, 0));
+                this.SendMessage(this, new MessageEventArgs("Importing " + type, 0));
                 t.ImportXml(pElement);
-                this.LogMessage(this, new MessageEventArgs("Finished importing " + type + " task: " + t.Name + " ID: " + t.ID, 1));
+                this.SendMessage(this, new MessageEventArgs("Finished importing " + type + " task: " + t.Name + " ID: " + t.ID, 1));
             }
             else 
             {
-                this.LogMessage(this, new MessageEventArgs("Opening " + type, 0));
+                this.SendMessage(this, new MessageEventArgs("Opening " + type, 0));
                 t.OpenXml(pElement);
-                this.LogMessage(this, new MessageEventArgs("Finished opening " + type + " task: " + t.Name + " ID: " + t.ID, 1));
+                this.SendMessage(this, new MessageEventArgs("Finished opening " + type + " task: " + t.Name + " ID: " + t.ID, 1));
             }
             
             return t;
