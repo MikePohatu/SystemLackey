@@ -31,7 +31,7 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class FormWindowsScriptTaskControl : LoggableForm, ITaskForm
+    public partial class FormWindowsScriptTaskControl : MessagingForm, ITaskForm
     {
         private WindowsScript task;
         private TreeNode node;

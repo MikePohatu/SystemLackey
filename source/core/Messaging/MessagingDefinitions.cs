@@ -1,4 +1,4 @@
-﻿//    ILoggable.cs: Interface for classes that can send SystemLackey logs
+﻿//    MessagingDefinitions.cs: File containing messaging delegate definitions and enums
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -16,10 +16,8 @@
 
 using System;
 
-namespace SystemLackey.Logging
+namespace SystemLackey.Messaging
 {
-    public interface ILoggable
-    {
-        event LoggerEventHandler LogEvent;
-    }
+    public enum MessageType { LOG };
+    public delegate void MessagingEventHandler(Object sender, MessageEventArgs e);
 }

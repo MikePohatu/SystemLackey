@@ -21,7 +21,7 @@ using System;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-using SystemLackey.Logging;
+using SystemLackey.Messaging;
 using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms

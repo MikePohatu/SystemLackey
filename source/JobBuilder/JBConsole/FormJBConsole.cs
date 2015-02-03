@@ -25,7 +25,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using SystemLackey.Worker;
-using SystemLackey.Logging;
+using SystemLackey.Messaging;
 
 namespace SystemLackey.UI.Forms
 {
@@ -65,7 +65,7 @@ namespace SystemLackey.UI.Forms
         // /Properties
 
         //Method to output the events from the logger. 
-        public void Update(Object sender, LoggerEventArgs e)
+        public void Update(Object sender, MessageEventArgs e)
         {
             this.textOutput.Text += e.Text;
         }
@@ -99,45 +99,45 @@ namespace SystemLackey.UI.Forms
             {
                 updateList += "**Debug filter updated - Old: " + options.Debug + " New: " + pOptions.Debug + Environment.NewLine;
                 if (pOptions.Debug)
-                { _logger.EventDebug += new LoggerEventHandler(Update); }
+                { _logger.EventDebug += new MessagingEventHandler(Update); }
                 else
-                { _logger.EventDebug -= new LoggerEventHandler(Update); }
+                { _logger.EventDebug -= new MessagingEventHandler(Update); }
             }
 
             if (options.Info != pOptions.Info)
             {
                 updateList += "**Information filter updated - Old: " + options.Info + " New: " + pOptions.Info + Environment.NewLine;
                 if (pOptions.Info)
-                { _logger.EventInfo += new LoggerEventHandler(Update); }
+                { _logger.EventInfo += new MessagingEventHandler(Update); }
                 else
-                { _logger.EventInfo -= new LoggerEventHandler(Update); }
+                { _logger.EventInfo -= new MessagingEventHandler(Update); }
             }
 
             if (options.Warning != pOptions.Warning)
             {
                 updateList += "**Warning filter updated - Old: " + options.Warning + " New: " + pOptions.Warning + Environment.NewLine;
                 if (pOptions.Warning)
-                { _logger.EventWarning += new LoggerEventHandler(Update); }
+                { _logger.EventWarning += new MessagingEventHandler(Update); }
                 else
-                { _logger.EventWarning -= new LoggerEventHandler(Update); }
+                { _logger.EventWarning -= new MessagingEventHandler(Update); }
             }
 
             if (options.Error != pOptions.Error)
             {
                 updateList += "**Error filter updated - Old: " + options.Error + " New: " + pOptions.Error + Environment.NewLine;
                 if (pOptions.Error)
-                { _logger.EventError += new LoggerEventHandler(Update); }
+                { _logger.EventError += new MessagingEventHandler(Update); }
                 else
-                { _logger.EventError -= new LoggerEventHandler(Update); }
+                { _logger.EventError -= new MessagingEventHandler(Update); }
             }
 
             if (options.Danger != pOptions.Danger)
             {
                 updateList += "**Danger filter updated - Old: " + options.Danger + " New: " + pOptions.Danger + Environment.NewLine;
                 if (pOptions.Danger)
-                { _logger.EventDanger += new LoggerEventHandler(Update); }
+                { _logger.EventDanger += new MessagingEventHandler(Update); }
                 else
-                { _logger.EventDanger -= new LoggerEventHandler(Update); }
+                { _logger.EventDanger -= new MessagingEventHandler(Update); }
             }
 
             //Output to the console that the filters have been updated. 
@@ -150,15 +150,15 @@ namespace SystemLackey.UI.Forms
         {
             //deregister from any events. 
             if (options.Debug)
-            { _logger.EventDebug -= new LoggerEventHandler(Update); }
+            { _logger.EventDebug -= new MessagingEventHandler(Update); }
             if (options.Info)
-            { _logger.EventInfo -= new LoggerEventHandler(Update); }
+            { _logger.EventInfo -= new MessagingEventHandler(Update); }
             if (options.Warning)
-            { _logger.EventWarning -= new LoggerEventHandler(Update); }
+            { _logger.EventWarning -= new MessagingEventHandler(Update); }
             if (options.Error)
-            { _logger.EventError -= new LoggerEventHandler(Update); }
+            { _logger.EventError -= new MessagingEventHandler(Update); }
             if (options.Danger)
-            { _logger.EventDanger -= new LoggerEventHandler(Update); }
+            { _logger.EventDanger -= new MessagingEventHandler(Update); }
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)

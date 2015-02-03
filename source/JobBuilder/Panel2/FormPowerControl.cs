@@ -26,7 +26,7 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class FormPowerControl : LoggableForm, ITaskForm
+    public partial class FormPowerControl : MessagingForm, ITaskForm
     {
         private PowerControl task;
         private TreeNode node;

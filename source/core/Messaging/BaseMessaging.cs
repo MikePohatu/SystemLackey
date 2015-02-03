@@ -1,4 +1,4 @@
-﻿//    LoggableForm.cs: Base class with logging functionality for forms. 
+﻿//    BaseMessaging.cs: Base class for tasks with common methods
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -16,25 +16,34 @@
 
 
 using System;
-using System.Windows.Forms;
-using SystemLackey.Logging;
+using SystemLackey.Messaging;
+using SystemLackey.Worker;
 
-namespace SystemLackey.UI.Forms
+namespace SystemLackey.Messaging
 {
-    public abstract class LoggableForm : Form, ILoggable
+    public abstract class BaseMessaging : IMessaging
     {
-        public event LoggerEventHandler LogEvent;
+        public event MessagingEventHandler LogEvent;
 
         //Forward any logging messages from the task up the chain
-        public virtual void ForwardLog(object o, LoggerEventArgs e)
+        public virtual void ForwardLog(object o, MessageEventArgs e)
         {
-            this.LogMessage(o, e);
+            //string source;
+            //string thisType = this.GetType().ToString();
+         
+            //if (this is ITask) { source = ((ITask)this).Name; }
+            //else { source = thisType; }
+
+            //var lea = new LoggerEventArgs(source + @"->" + e.Text, e.Level);
+
+            //LogMessage(o, lea);
+            LogMessage(o, e);
         }
 
         //Log a new event. Check for empty event handler first
-        protected virtual void LogMessage(Object o, LoggerEventArgs e)
+        protected virtual void LogMessage(Object o, MessageEventArgs e)
         {
-            LoggerEventHandler temp = LogEvent;
+            MessagingEventHandler temp = LogEvent;
             if (temp != null)
             { temp(o, e); }
         }

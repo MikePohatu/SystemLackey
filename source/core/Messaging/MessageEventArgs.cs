@@ -1,4 +1,4 @@
-﻿//    LoggerEventArgs.cs: EventArgs derived class for the Logger class
+﻿//    MessageEventArgs.cs: EventArgs derived class for the Logger class
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -17,21 +17,41 @@
 using System;
 using System.Text;
 
-namespace SystemLackey.Logging
+namespace SystemLackey.Messaging
 {
-    public class LoggerEventArgs : EventArgs
+    public class MessageEventArgs : EventArgs
     {
         private string text;
-        private int level;
+        private int level = 0; //default to debug
         private string time;
+        private MessageType type = MessageType.LOG;  //default to logging message
 
-        public LoggerEventArgs(string pText,int pLevel)
+        public MessageEventArgs(string pText,int pLevel)
+        {
+           text = pText;
+            level = pLevel;
+            //Set time to the creation of the loggereventargs (which will probably be
+            //accurate in most cases).
+            time = DateTime.Now.ToString("u") + ": ";
+        }
+
+        public MessageEventArgs(string pText, int pLevel, MessageType pType)
         {
             text = pText;
             level = pLevel;
             //Set time to the creation of the loggereventargs (which will probably be
             //accurate in most cases).
             time = DateTime.Now.ToString("u") + ": ";
+            type = pType;
+        }
+
+        public MessageEventArgs(string pText, MessageType pType)
+        {
+            text = pText;
+            //Set time to the creation of the loggereventargs (which will probably be
+            //accurate in most cases).
+            time = DateTime.Now.ToString("u") + ": ";
+            type = pType;
         }
 
         public string Text
@@ -51,6 +71,12 @@ namespace SystemLackey.Logging
         {
             get { return this.level; }
             set { this.level = value; }
+        }
+
+        public MessageType Type
+        {
+            get { return this.type; }
+            set { this.type = value; }
         }
     }
 }

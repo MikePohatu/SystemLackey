@@ -27,11 +27,11 @@ using System.Xml.Linq;
 
 using SystemLackey.Worker;
 using SystemLackey.UI;
-using SystemLackey.Logging;
+using SystemLackey.Messaging;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class FormJobBuilder : LoggableForm
+    public partial class FormJobBuilder : MessagingForm
     {
         private TreeNode rootNode;
         private Panel2Factory factory = new Panel2Factory();
@@ -55,7 +55,7 @@ namespace SystemLackey.UI.Forms
         }
 
         //Forward any logging messages from the task up the chain
-        public override void ForwardLog(object o, LoggerEventArgs e)
+        public override void ForwardLog(object o, MessageEventArgs e)
         {
             logger.Write(o,e);
         }

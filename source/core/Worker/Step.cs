@@ -20,13 +20,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using SystemLackey.Logging;
+using SystemLackey.Messaging;
 
 namespace SystemLackey.Worker
 {
     //The step class contains details of each step in a job, including the previous and next steps. 
     //This will allow for easy re-ordering of the job. note that a task may be referenced 
-    public class Step : BaseLoggable, ILoggable
+    public class Step : BaseMessaging, IMessaging
     {
         private Step next;
         private Step prev;
@@ -100,9 +100,9 @@ namespace SystemLackey.Worker
             task = pTask;
 
             //Suscribe to the tasks logs for forwarding
-            if (task is ILoggable)
+            if (task is IMessaging)
             {
-                ((ILoggable)task).LogEvent += ForwardLog;
+                ((IMessaging)task).LogEvent += ForwardLog;
             }
 
             

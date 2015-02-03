@@ -17,11 +17,11 @@
 using System;
 using System.Xml;
 using System.Xml.Linq;
-using SystemLackey.Logging;
+using SystemLackey.Messaging;
 
 namespace SystemLackey.Worker
 {
-    public class WindowsScript : BaseLoggable, ITask, ILoggable
+    public class WindowsScript : BaseMessaging, ITask, IMessaging
     {
         private string name = "";        //Name of the task
         private int type = 0;            //0=cmd, 1=vbs, 2=ps1

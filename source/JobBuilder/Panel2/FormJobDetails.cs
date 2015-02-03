@@ -26,7 +26,7 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
-    public partial class FormJobDetails : LoggableForm, ITaskForm
+    public partial class FormJobDetails : MessagingForm, ITaskForm
     {
         private Job job = new Job(); 
         private TreeNode node;

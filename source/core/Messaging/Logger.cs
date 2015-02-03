@@ -19,10 +19,8 @@
 using System;
 using System.Threading.Tasks;
 
-namespace SystemLackey.Logging
+namespace SystemLackey.Messaging
 {
-    public delegate void LoggerEventHandler(Object sender, LoggerEventArgs e);
-
     public class Logger
     {
         //Logging levels
@@ -53,22 +51,22 @@ namespace SystemLackey.Logging
         //=======================
 
 
-        public event LoggerEventHandler EventDebug;
-        public event LoggerEventHandler EventInfo;
-        public event LoggerEventHandler EventWarning;
-        public event LoggerEventHandler EventError;
-        public event LoggerEventHandler EventDanger;
+        public event MessagingEventHandler EventDebug;
+        public event MessagingEventHandler EventInfo;
+        public event MessagingEventHandler EventWarning;
+        public event MessagingEventHandler EventError;
+        public event MessagingEventHandler EventDanger;
         
-        public void Write(LoggerEventArgs e)
+        public void Write(MessageEventArgs e)
         {
             this.Write(e.Text, e.Level, e.Time);
         }
 
-        public void Write(object o, LoggerEventArgs e)
-        {
-            string type = o.GetType().ToString();
+        public void Write(object o, MessageEventArgs e)
+        {        
+            //string type = o.GetType().ToString();
             //this.Write(e.Text + " - SOURCE=" + type, e.Level);
-            this.Write(e.Text, e.Level, e.Time);
+            this.Write(e.Text, e.Level, e.Time);            
         }
 
         //take a Write with no time set. Set time to when it reached the logger. 
@@ -90,7 +88,7 @@ namespace SystemLackey.Logging
                     if (EventDebug != null)
                     {
                         prefix = " [DEBUG] ";
-                        EventDebug(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
+                        EventDebug(this, new MessageEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                     }
                     
                     break;
@@ -98,20 +96,20 @@ namespace SystemLackey.Logging
                     if (EventInfo != null)
                     {
                         prefix = " [INFO] ";
-                        EventInfo(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
+                        EventInfo(this, new MessageEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                     } 
                     break;
                 case 2:
                     prefix = " [WARN] ";
-                    EventWarning(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
+                    EventWarning(this, new MessageEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                     break;
                 case 3:
                     prefix = " [ERROR] ";
-                    EventError(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
+                    EventError(this, new MessageEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                     break;
                 case 4:
                     prefix = " [DANGER WILL ROBINSON!!!] ";
-                    EventDanger(this, new LoggerEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
+                    EventDanger(this, new MessageEventArgs(time + prefix + pText + Environment.NewLine, pLevel));
                     break;
                 default:
                     prefix = " [Invalid logging level] ";

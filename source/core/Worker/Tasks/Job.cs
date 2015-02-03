@@ -18,11 +18,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using SystemLackey.Logging;
+using SystemLackey.Messaging;
 
 namespace SystemLackey.Worker
 {
-    public class Job : BaseLoggable, ITask, IEnumerable, ILoggable 
+    public class Job : BaseMessaging, ITask, IEnumerable, IMessaging 
     {
         private string name = "";        //Name of the task
 
@@ -126,7 +126,7 @@ namespace SystemLackey.Worker
                 newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
 
                 //Suscribe to the step's logs for forwarding
-                ((ILoggable)newStep).LogEvent += this.ForwardLog;
+                ((IMessaging)newStep).LogEvent += this.ForwardLog;
 
                 //now check if the step is a pickup point
                 //if ( step.Element("IsPickupPoint").Value == "true" )

@@ -18,11 +18,11 @@
 using System;
 using System.Windows.Forms;
 using SystemLackey.Worker;
-using SystemLackey.Logging;
+using SystemLackey.Messaging;
 
 namespace SystemLackey.UI.Forms
 {
-    class Panel2Factory: BaseLoggable, ILoggable
+    class Panel2Factory: BaseMessaging, IMessaging
     {
         public Form Create(TreeNode n)
         {
