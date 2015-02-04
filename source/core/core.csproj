@@ -64,8 +64,11 @@
     <Compile Include="Filters\Queries\RegQuery.cs" />
     <Compile Include="IO\IOConfiguration.cs" />
     <Compile Include="IO\XmlHandler.cs" />
+    <Compile Include="Messaging\IMessageForwarder.cs" />
+    <Compile Include="Messaging\IMessageReceiver.cs" />
+    <Compile Include="Messaging\MessageForwarder.cs" />
     <Compile Include="Messaging\MessagingDefinitions.cs" />
-    <Compile Include="Messaging\IMessaging.cs" />
+    <Compile Include="Messaging\IMessageSender.cs" />
     <Compile Include="Shell.cs" />
     <Compile Include="Messaging\Logger.cs" />
     <Compile Include="Messaging\MessageEventArgs.cs" />
@@ -75,7 +78,7 @@
     <Compile Include="Worker\JobEnumerator.cs" />
     <Compile Include="Worker\Step.cs" />
     <Compile Include="Worker\TaskFactory.cs" />
-    <Compile Include="Messaging\BaseMessaging.cs" />
+    <Compile Include="Messaging\MessageSender.cs" />
     <Compile Include="Worker\Tasks\IPickupPoint.cs" />
     <Compile Include="Worker\Tasks\ITask.cs" />
     <Compile Include="Worker\Tasks\PowerControl.cs" />

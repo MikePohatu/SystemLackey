@@ -22,7 +22,7 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.UI.Forms
 {
-    class Panel2Factory: BaseMessaging, IMessaging
+    class Panel2Factory: MessageSender, IMessageSender
     {
         public Form Create(TreeNode n)
         {

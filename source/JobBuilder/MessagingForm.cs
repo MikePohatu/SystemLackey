@@ -21,12 +21,12 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.UI.Forms
 {
-    public abstract class MessagingForm : Form, IMessaging
+    public abstract class MessagingForm : Form, IMessageSender, IMessageForwarder
     {
         public event MessagingEventHandler LogEvent;
 
         //Forward any logging messages from the task up the chain
-        public virtual void ForwardLog(object o, MessageEventArgs e)
+        public virtual void ForwardMessage(object o, MessageEventArgs e)
         {
             this.LogMessage(o, e);
         }

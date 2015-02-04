@@ -1,4 +1,4 @@
-﻿//    IMessaging.cs: Interface for classes that can send SystemLackey logs
+﻿//    IMessageForwarder.cs: Interface for classes that can send SystemLackey logs
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -18,8 +18,8 @@ using System;
 
 namespace SystemLackey.Messaging
 {
-    public interface IMessaging
+    public interface IMessageForwarder
     {
-        event MessagingEventHandler LogEvent;
+        void ForwardMessage(object o, MessageEventArgs e);
     }
 }

@@ -23,7 +23,7 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.Worker
 {
-    public class PowerControl : BaseMessaging, ITask, IPickupPoint, IMessaging
+    public class PowerControl : MessageSender, ITask, IPickupPoint, IMessageSender
     {
         private string name = "Reboot";
         private string id;

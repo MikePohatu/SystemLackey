@@ -21,24 +21,9 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.Messaging
 {
-    public abstract class BaseMessaging : IMessaging
+    public abstract class MessageSender : IMessageSender
     {
         public event MessagingEventHandler LogEvent;
-
-        //Forward any logging messages from the task up the chain
-        public virtual void ForwardMessage(object o, MessageEventArgs e)
-        {
-            //string source;
-            //string thisType = this.GetType().ToString();
-         
-            //if (this is ITask) { source = ((ITask)this).Name; }
-            //else { source = thisType; }
-
-            //var lea = new LoggerEventArgs(source + @"->" + e.Text, e.Level);
-
-            //LogMessage(o, lea);
-            SendMessage(o, e);
-        }
 
         //Log a new event. Check for empty event handler first
         protected virtual void SendMessage(Object o, MessageEventArgs e)

@@ -1,4 +1,4 @@
-﻿//    JobBuilder.cs: Entry point for the JobBuilder application
+﻿//    IMessageSender.cs: Interface for classes that can send SystemLackey logs
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -15,21 +15,11 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace SystemLackey.UI.Forms
+namespace SystemLackey.Messaging
 {
-    public static class JobBuilder
+    public interface IMessageSender
     {
-        [STAThread]
-        public static void Main()
-        {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormJobBuilder());
-        }
+        event MessagingEventHandler LogEvent;
     }
 }

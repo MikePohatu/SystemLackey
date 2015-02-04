@@ -22,7 +22,7 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.Worker
 {
-    public class Job : BaseMessaging, ITask, IEnumerable, IMessaging 
+    public class Job : MessageForwarder, ITask, IEnumerable 
     {
         private string name = "";        //Name of the task
 
@@ -126,7 +126,7 @@ namespace SystemLackey.Worker
                 newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
 
                 //Suscribe to the step's logs for forwarding
-                ((IMessaging)newStep).LogEvent += this.ForwardMessage;
+                ((IMessageSender)newStep).LogEvent += this.ForwardMessage;
 
                 //now check if the step is a pickup point
                 //if ( step.Element("IsPickupPoint").Value == "true" )

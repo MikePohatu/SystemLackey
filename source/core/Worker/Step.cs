@@ -26,7 +26,7 @@ namespace SystemLackey.Worker
 {
     //The step class contains details of each step in a job, including the previous and next steps. 
     //This will allow for easy re-ordering of the job. note that a task may be referenced 
-    public class Step : BaseMessaging, IMessaging
+    public class Step : MessageForwarder, IMessageSender
     {
         private Step next;
         private Step prev;
@@ -100,9 +100,9 @@ namespace SystemLackey.Worker
             task = pTask;
 
             //Suscribe to the tasks logs for forwarding
-            if (task is IMessaging)
+            if (task is IMessageSender)
             {
-                ((IMessaging)task).LogEvent += ForwardMessage;
+                ((IMessageSender)task).LogEvent += ForwardMessage;
             }
 
             

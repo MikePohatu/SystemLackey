@@ -21,7 +21,7 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.Worker
 {
-    public class WindowsScript : BaseMessaging, ITask, IMessaging
+    public class WindowsScript : MessageSender, ITask, IMessageSender
     {
         private string name = "";        //Name of the task
         private int type = 0;            //0=cmd, 1=vbs, 2=ps1

@@ -51,11 +51,11 @@ namespace SystemLackey.UI.Forms
         public FormJobBuilder()
         {
             InitializeComponent();
-            factory.LogEvent += this.ForwardLog;
+            factory.LogEvent += this.ForwardMessage;
         }
 
         //Forward any logging messages from the task up the chain
-        public override void ForwardLog(object o, MessageEventArgs e)
+        public override void ForwardMessage(object o, MessageEventArgs e)
         {
             logger.Write(o,e);
         }
@@ -173,14 +173,14 @@ namespace SystemLackey.UI.Forms
             if (rootNode != null)
             {
                 Job oldJob = (Job)rootNode.Tag;
-                oldJob.LogEvent -= this.ForwardLog;
+                oldJob.LogEvent -= this.ForwardMessage;
             }
 
             //Create the new job and root node. 
             Job t = new Job();
             
             //subscribe to the jobs logs
-            t.LogEvent += this.ForwardLog;
+            t.LogEvent += this.ForwardMessage;
 
             t.Name = "New job";
 
@@ -401,11 +401,11 @@ namespace SystemLackey.UI.Forms
                     if (rootNode != null)
                     {
                         Job oldJob = (Job)rootNode.Tag;
-                        oldJob.LogEvent -= this.ForwardLog;
+                        oldJob.LogEvent -= this.ForwardMessage;
                     }
 
                     Job rootJob = new Job();
-                    rootJob.LogEvent += this.ForwardLog;
+                    rootJob.LogEvent += this.ForwardMessage;
 
                     if (pImport)
                     { rootJob.ImportXml(rootJobXml); }

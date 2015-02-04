@@ -21,7 +21,7 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.Worker
 {
-    class TaskFactory: BaseMessaging, IMessaging
+    class TaskFactory: MessageForwarder, IMessageSender
     {
         public ITask Create(string pType)
         {
@@ -59,7 +59,7 @@ namespace SystemLackey.Worker
 
             //subscribe to logging events so the factory can pass them up the tree
             //the parent job won't subscribe until after the factory is finished
-            if (t is IMessaging) { ((IMessaging)t).LogEvent += this.ForwardMessage; }
+            if (t is IMessageSender) { ((IMessageSender)t).LogEvent += this.ForwardMessage; }
 
             //now import/open the xml
             if (pImport) 
