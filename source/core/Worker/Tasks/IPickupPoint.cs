@@ -20,9 +20,14 @@ namespace SystemLackey.Worker
 {
     public interface IPickupPoint
     {
-        bool PickUp();
+        //Pick should return a final state of the task
+        //0=Succes
+        //1=Information
+        //2=Warning
+        //3=Error
+        //4=Timeout
+        //5=Exception
+        int PickUp();
         void PutDown();
-
-        event EventHandler OnPutDown;
     }
 }

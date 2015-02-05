@@ -204,6 +204,7 @@ namespace SystemLackey.Worker
 
             //make sure the working directory is there
             System.IO.Directory.CreateDirectory(strWorkingPath);
+            this.SendMessage(this, new MessageEventArgs("Running script: " + this.name, 1));
 
             //Figure out the correct scripting engine to use based on the type and SysWow64 setting i.e.
             //run code as 32bit on 64bit OS

@@ -41,9 +41,6 @@ namespace SystemLackey.Worker
             id = Guid.NewGuid().ToString();
         }
 
-        //Events
-        public event EventHandler OnPutDown;
-
         //Run should return a final state
         //0=Succes
         //1=Information
@@ -66,6 +63,7 @@ namespace SystemLackey.Worker
 
             if ( this.SetupScheduledTask() )
             {
+                this.PutDown();
                 try
                 {
                     process.StartInfo = startInfo;
@@ -80,7 +78,11 @@ namespace SystemLackey.Worker
                 }
             }
 
-            else { return 1; }
+            else 
+            {
+                this.SendMessage(this, new MessageEventArgs("Scheduled task creation failed", 2));
+                return 1; 
+            }
             
             return intReturn;
         }
@@ -202,12 +204,13 @@ namespace SystemLackey.Worker
         }
 
 
-        public bool PickUp()
+        public int PickUp()
         {
+            this.ClearScheduledTask();
             SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));
             //code to be added. 
             //has the machine rebooted since the putdown
-            return true;
+            return 0;
         }
 
         public void PutDown()
@@ -215,7 +218,6 @@ namespace SystemLackey.Worker
             //code to be added. 
             //record the putdown
             SendMessage(this, new MessageEventArgs("PowerControl rebooting machine. Stop job", MessageType.PUTDOWN));
-            OnPutDown(this, EventArgs.Empty);
         }
 
         

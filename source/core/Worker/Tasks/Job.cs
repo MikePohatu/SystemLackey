@@ -22,7 +22,7 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.Worker
 {
-    public class Job : MessageForwarder, ITask, IEnumerable 
+    public class Job : MessageSender, IMessageReceiver, ITask, IEnumerable, IPickupPoint
     {
         private string name = "";        //Name of the task
 
@@ -30,6 +30,7 @@ namespace SystemLackey.Worker
         private string comments = "";
         private Step root = null;       //root step for the job
         private Step pickupPoint;       //step to restart from for restarted job e.g. after reboot
+        private bool isPutDown = false;         //has this job been put down
 
         public Job()
         {
@@ -61,7 +62,17 @@ namespace SystemLackey.Worker
         public Step Root
         {
             get { return this.root; }
-            set { this.root = value; }
+            set 
+            {
+                //unsubscribe from any messaging
+                if (( this.root != null ) && (this.root.Parent != this))
+                { root.SendMessageEvent -= this.ReceiveMessage; }
+
+                this.root = value;
+                //Suscribe to the step's logs for forwarding
+                ((IMessageSender)this.root).SendMessageEvent += this.ReceiveMessage;
+                 
+            }
         }
 
         public Step PickupPoint
@@ -82,6 +93,50 @@ namespace SystemLackey.Worker
         //========================
 
 
+        public int PickUp()
+        {
+            //code to be added. 
+            //has the machine rebooted since the putdown
+            return Run();
+        }
+
+        public void PutDown()
+        {
+            //code to be added. 
+            //record the putdown
+            //SendMessage(this, new MessageEventArgs("PowerControl rebooting machine. Stop job", MessageType.PUTDOWN));
+        }
+
+
+        //Forward any logging messages from the task up the chain. 
+        //send pickup and putdown events as a new event from the step,
+        //do not forwrard from the task. 
+        public void ReceiveMessage(object o, MessageEventArgs e)
+        {
+            if (e.Type == MessageType.PUTDOWN)
+            {
+                this.isPutDown = true;
+                this.pickupPoint = (Step)o;
+                //forward the message as a log. 
+                //SendMessage(o, new MessageEventArgs(e.Text, e.Level, MessageType.LOG));
+                //send a putdown
+                SendMessage(this, e);
+            }
+
+            else if (e.Type == MessageType.PICKUP)
+            {
+                this.isPutDown = false;
+                this.pickupPoint = null;
+                //forward the message as a log. 
+                //SendMessage(o, new MessageEventArgs(e.Text, e.Level, MessageType.LOG));
+                //send a pickup
+                SendMessage(this, e);
+            }
+
+            //Forward message on
+            else
+            { SendMessage(o, e); }
+        }
         
 
         //get the xml representation of the task
@@ -111,7 +166,7 @@ namespace SystemLackey.Worker
         private void BuildFromXML(XElement pElement, bool pImport)
         {
             TaskFactory factory = new TaskFactory();
-            factory.SendMessageEvent += this.ForwardMessage;
+            factory.SendMessageEvent += this.ReceiveMessage;
 
             Step currentStep = root;
             Step newStep;
@@ -126,13 +181,14 @@ namespace SystemLackey.Worker
                 newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
 
                 //Suscribe to the step's logs for forwarding
-                ((IMessageSender)newStep).SendMessageEvent += this.ForwardMessage;
+                ((IMessageSender)newStep).SendMessageEvent += this.ReceiveMessage;
 
                 //now check if the step is a pickup point
-                //if ( step.Element("IsPickupPoint").Value == "true" )
-                //{
-                //    newStep.IsPickupPoint = true;
-                //}
+                if ((bool)step.Attribute("IsPickupPoint") == true)
+                {
+                    newStep.IsPickupPoint = true;
+                    this.PickupPoint = newStep;
+                }
 
                 if (root == null)
                 {
@@ -148,7 +204,7 @@ namespace SystemLackey.Worker
             }
 
             //cleanup
-            factory.SendMessageEvent -= this.ForwardMessage;
+            factory.SendMessageEvent -= this.ReceiveMessage;
         }
 
         public void OpenXml(XElement pElement)
@@ -182,7 +238,7 @@ namespace SystemLackey.Worker
             else
             { s = this.root; }
 
-            while (true)
+            while (isPutDown == false)
             {
                 //check for null step. A null step indicates the end of the job. 
                 if (s != null)
@@ -190,8 +246,16 @@ namespace SystemLackey.Worker
                     //check for step with a null task. In theory it shouldn't happen, but oh well. 
                     if (s.Task != null)
                     {
-                        //run the task for the step, keeping the return value
-                        ret = s.Task.Run();
+                        ITask task = s.Task;
+                        //run the task for the step, keeping the return value (or the pickup the task)
+                        if (s.IsPickupPoint == true)
+                        { 
+                            var pickupTask = (IPickupPoint)task;
+                            ret = pickupTask.PickUp(); 
+                        }
+                        else
+                        { ret = task.Run(); }
+                        
 
                         //catch warnings. check whether to contine
                         if ((ret == 3) && !s.ContinueOnWarning)

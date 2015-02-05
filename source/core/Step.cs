@@ -96,12 +96,18 @@ namespace SystemLackey.Worker
             if (e.Type == MessageType.PUTDOWN)
             {
                 isPickupPoint = true;
-                SendMessage(this, e); 
+                //forward the message as a log. 
+                //SendMessage(o, new MessageEventArgs(e.Text, e.Level, MessageType.LOG));
+                //send a putdown
+                SendMessage(this, e);
             }
             
             else if (e.Type == MessageType.PICKUP)
             {
                 isPickupPoint = false;
+                //forward the message as a log. 
+                //SendMessage(o, new MessageEventArgs(e.Text, e.Level, MessageType.LOG));
+                //send a pickup
                 SendMessage(this, e);
             }
 
@@ -122,6 +128,7 @@ namespace SystemLackey.Worker
             //Suscribe to the tasks messages
             if (task is IMessageSender)
             {
+                //this.SendMessage(this, new MessageEventArgs("Added task to step: " + pTask.Name,1));
                 ((IMessageSender)task).SendMessageEvent += ReceiveMessage;
             }
         }
@@ -132,16 +139,12 @@ namespace SystemLackey.Worker
                 new XElement("ContinueOnError",onError),
                 new XElement("ContinueOnWarning",onWarn));
 
-            if (isPickupPoint)
-            {
-                details.Add(new XElement("IsPickupPoint", isPickupPoint));
-            }
-
             if (task != null)
             {
                 details.Add(new XElement("taskid", task.ID));
                 details.Add(task.GetXml());
             }
+            details.SetAttributeValue("IsPickupPoint", isPickupPoint);
    
             return details;
         }

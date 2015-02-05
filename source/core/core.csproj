@@ -75,7 +75,7 @@
     <Compile Include="UI\JobEditor.cs" />
     <Compile Include="Worker\Tasks\Job.cs" />
     <Compile Include="Worker\JobEnumerator.cs" />
-    <Compile Include="Worker\Step.cs" />
+    <Compile Include="Step.cs" />
     <Compile Include="Worker\TaskFactory.cs" />
     <Compile Include="Messaging\MessageSender.cs" />
     <Compile Include="Worker\Tasks\IPickupPoint.cs" />
