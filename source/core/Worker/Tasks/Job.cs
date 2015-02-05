@@ -234,11 +234,12 @@ namespace SystemLackey.Worker
             if (this.pickupPoint != null)
             { 
                 s = this.pickupPoint;
+                //isPutDown = false;
             }
             else
             { s = this.root; }
 
-            while (isPutDown == false)
+            while (true)
             {
                 //check for null step. A null step indicates the end of the job. 
                 if (s != null)
@@ -270,6 +271,8 @@ namespace SystemLackey.Worker
                             state = ret;
                             break;
                         }
+
+                        if (isPutDown == true) break;
                     }
                     s = s.Next;
                 }

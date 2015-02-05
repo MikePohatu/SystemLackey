@@ -206,8 +206,8 @@ namespace SystemLackey.Worker
 
         public int PickUp()
         {
-            this.ClearScheduledTask();
             SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));
+            this.ClearScheduledTask();           
             //code to be added. 
             //has the machine rebooted since the putdown
             return 0;
