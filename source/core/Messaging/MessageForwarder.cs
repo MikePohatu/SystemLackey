@@ -21,10 +21,10 @@ using SystemLackey.Worker;
 
 namespace SystemLackey.Messaging
 {
-    public abstract class MessageForwarder : MessageSender, IMessageSender
+    public abstract class MessageForwarder : MessageSender
     {
         //Forward any logging messages from the task up the chain
-        protected virtual void ForwardMessage(object o, MessageEventArgs e)
+        public virtual void ForwardMessage(object o, MessageEventArgs e)
         {           
             SendMessage(o, e);
         }

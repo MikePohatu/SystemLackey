@@ -20,6 +20,6 @@ namespace SystemLackey.Messaging
 {
     public interface IMessageSender
     {
-        event MessagingEventHandler LogEvent;
+        event MessagingEventHandler SendMessageEvent;
     }
 }

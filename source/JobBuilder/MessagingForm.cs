@@ -21,9 +21,9 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.UI.Forms
 {
-    public abstract class MessagingForm : Form, IMessageSender, IMessageForwarder
+    public abstract class MessagingForm : Form, IMessageSender
     {
-        public event MessagingEventHandler LogEvent;
+        public event MessagingEventHandler SendMessageEvent;
 
         //Forward any logging messages from the task up the chain
         public virtual void ForwardMessage(object o, MessageEventArgs e)
@@ -34,7 +34,7 @@ namespace SystemLackey.UI.Forms
         //Log a new event. Check for empty event handler first
         protected virtual void LogMessage(Object o, MessageEventArgs e)
         {
-            MessagingEventHandler temp = LogEvent;
+            MessagingEventHandler temp = SendMessageEvent;
             if (temp != null)
             { temp(o, e); }
         }

@@ -23,12 +23,12 @@ namespace SystemLackey.Messaging
 {
     public abstract class MessageSender : IMessageSender
     {
-        public event MessagingEventHandler LogEvent;
+        public event MessagingEventHandler SendMessageEvent;
 
         //Log a new event. Check for empty event handler first
         protected virtual void SendMessage(Object o, MessageEventArgs e)
         {
-            MessagingEventHandler temp = LogEvent;
+            MessagingEventHandler temp = SendMessageEvent;
             if (temp != null)
             { temp(o, e); }
         }

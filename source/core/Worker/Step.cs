@@ -26,7 +26,7 @@ namespace SystemLackey.Worker
 {
     //The step class contains details of each step in a job, including the previous and next steps. 
     //This will allow for easy re-ordering of the job. note that a task may be referenced 
-    public class Step : MessageForwarder, IMessageSender
+    public class Step : MessageSender,IMessageReceiver
     {
         private Step next;
         private Step prev;
@@ -88,7 +88,27 @@ namespace SystemLackey.Worker
         // /Properties
         //========================
 
+        //Forward any logging messages from the task up the chain. 
+        //send pickup and putdown events as a new event from the step,
+        //do not forwrard from the task. 
+        public void ReceiveMessage(object o, MessageEventArgs e)
+        {
+            if (e.Type == MessageType.PUTDOWN)
+            {
+                isPickupPoint = true;
+                SendMessage(this, e); 
+            }
+            
+            else if (e.Type == MessageType.PICKUP)
+            {
+                isPickupPoint = false;
+                SendMessage(this, e);
+            }
 
+            //Forward message on
+            else
+            { SendMessage(o, e); }            
+        }
 
 
         //========================
@@ -99,25 +119,11 @@ namespace SystemLackey.Worker
             parent = pParent;
             task = pTask;
 
-            //Suscribe to the tasks logs for forwarding
+            //Suscribe to the tasks messages
             if (task is IMessageSender)
             {
-                ((IMessageSender)task).LogEvent += ForwardMessage;
+                ((IMessageSender)task).SendMessageEvent += ReceiveMessage;
             }
-
-            
-            if (task is IPickupPoint)
-            {
-                //Subscribe to putdown events
-                ((IPickupPoint)task).OnPutDown += this.CatchPutDown;
-            }
-        }
-
-        //Catch a putdown event from a task and process it. 
-        public void CatchPutDown(object o, EventArgs e)
-        {
-            isPickupPoint = true;
-            NotifyIsPickup(this, EventArgs.Empty);
         }
 
         public XElement GetXML()
@@ -139,8 +145,5 @@ namespace SystemLackey.Worker
    
             return details;
         }
-
-        public event EventHandler NotifyIsPickup;
-
     }
 }

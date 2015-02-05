@@ -64,7 +64,6 @@
     <Compile Include="Filters\Queries\RegQuery.cs" />
     <Compile Include="IO\IOConfiguration.cs" />
     <Compile Include="IO\XmlHandler.cs" />
-    <Compile Include="Messaging\IMessageForwarder.cs" />
     <Compile Include="Messaging\IMessageReceiver.cs" />
     <Compile Include="Messaging\MessageForwarder.cs" />
     <Compile Include="Messaging\MessagingDefinitions.cs" />
