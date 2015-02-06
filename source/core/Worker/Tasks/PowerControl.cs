@@ -119,7 +119,7 @@ namespace SystemLackey.Worker
             wait = XmlConvert.ToInt32(pElement.Element("wait").Value);
             
             //get the putdowntime if there is one. This element may not exist
-            object dt = pElement.Element("PutDownTime");
+            XElement dt = pElement.Element("PutDownTime");
             if (dt != null) putDownTime = (DateTime)dt;
 
             if (!pImport) { id = pElement.Element("id").Value; }
