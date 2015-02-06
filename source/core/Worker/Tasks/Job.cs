@@ -95,8 +95,6 @@ namespace SystemLackey.Worker
 
         public int PickUp()
         {
-            //code to be added. 
-            //has the machine rebooted since the putdown
             return Run();
         }
 
@@ -109,8 +107,7 @@ namespace SystemLackey.Worker
 
 
         //Forward any logging messages from the task up the chain. 
-        //send pickup and putdown events as a new event from the step,
-        //do not forwrard from the task. 
+        //send pickup and putdown events as a new event from the job 
         public void ReceiveMessage(object o, MessageEventArgs e)
         {
             if (e.Type == MessageType.PUTDOWN)

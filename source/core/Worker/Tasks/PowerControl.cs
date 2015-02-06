@@ -19,17 +19,17 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
 using SystemLackey.Messaging;
-
+using SystemLackey.Filters;
 
 namespace SystemLackey.Worker
 {
-    public class PowerControl : MessageForwarder, ITask, IPickupPoint
+    public class PowerControl : MessageSender, ITask, IPickupPoint
     {
         private string name = "Reboot";
         private string id;
         private string comments;
         private int wait = 0;
-        private WindowsTaskScheduler winTaskSched = new WindowsTaskScheduler();
+        private DateTime putDownTime;
 
         //r = reboot
         //s = shutdown
@@ -39,7 +39,6 @@ namespace SystemLackey.Worker
         public PowerControl()
         {
             id = Guid.NewGuid().ToString();
-            winTaskSched.SendMessageEvent += this.ForwardMessage;
         }
 
         //Run should return a final state
@@ -118,6 +117,11 @@ namespace SystemLackey.Worker
             comments = pElement.Element("comments").Value;
             powerOption = XmlConvert.ToChar(pElement.Element("powerOption").Value);
             wait = XmlConvert.ToInt32(pElement.Element("wait").Value);
+            
+            //get the putdowntime if there is one. This element may not exist
+            object dt = pElement.Element("PutDownTime");
+            if (dt != null) putDownTime = (DateTime)dt;
+
             if (!pImport) { id = pElement.Element("id").Value; }
         }
 
@@ -140,14 +144,19 @@ namespace SystemLackey.Worker
                 new XElement("powerOption", powerOption),
                 new XElement("wait", wait));
 
-            details.SetAttributeValue("Type", "PowerControl");
+            if (putDownTime != DateTime.MinValue) details.Add(new XElement("PutDownTime", putDownTime));
+            details.SetAttributeValue("Type", "PowerControl");          
             return details;
         }
 
 
         public int PickUp()
         {
-            SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));        
+            //reset the putdown time
+            putDownTime = DateTime.MinValue;
+            SendMessage(this, new MessageEventArgs("Uptime: " + WindowsPerformanceQuery.UpTime.ToString(), MessageType.LOG));
+            SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP)); 
+            
             //code to be added. 
             //has the machine rebooted since the putdown
             return 0;
@@ -155,12 +164,11 @@ namespace SystemLackey.Worker
 
         public void PutDown()
         {
+            putDownTime = DateTime.Now;
             //code to be added. 
             //record the putdown
-            SendMessage(this, new MessageEventArgs("PowerControl contine on reboot requested", MessageType.CONTINUE_ONBOOT));
-            SendMessage(this, new MessageEventArgs("PowerControl rebooting machine. Stop job", MessageType.PUTDOWN));           
+            SendMessage(this, new MessageEventArgs("PowerControl rebooting machine. Stop job", MessageType.PUTDOWN));
+            SendMessage(this, new MessageEventArgs("PowerControl contine on reboot requested", MessageType.CONTINUE_ONBOOT));                       
         }
-
-        
     }
 }
