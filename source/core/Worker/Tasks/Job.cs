@@ -272,6 +272,7 @@ namespace SystemLackey.Worker
                             break;
                         }
 
+                        //now check if the job has been putdown
                         if (isPutDown == true) break;
                     }
                     s = s.Next;

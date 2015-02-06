@@ -23,13 +23,13 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.Worker
 {
-    public class PowerControl : MessageSender, ITask, IPickupPoint
+    public class PowerControl : MessageForwarder, ITask, IPickupPoint
     {
         private string name = "Reboot";
         private string id;
         private string comments;
         private int wait = 0;
-        
+        private WindowsTaskScheduler winTaskSched = new WindowsTaskScheduler();
 
         //r = reboot
         //s = shutdown
@@ -39,6 +39,7 @@ namespace SystemLackey.Worker
         public PowerControl()
         {
             id = Guid.NewGuid().ToString();
+            winTaskSched.SendMessageEvent += this.ForwardMessage;
         }
 
         //Run should return a final state
@@ -59,9 +60,9 @@ namespace SystemLackey.Worker
             startInfo.FileName = "shutdown";
             startInfo.Arguments = @"/" + powerOption + @" /t " + wait;
 
-            Console.WriteLine(startInfo.FileName + " " + startInfo.Arguments);
+            //Console.WriteLine(startInfo.FileName + " " + startInfo.Arguments);
 
-            if ( this.SetupScheduledTask() )
+            if (winTaskSched.SetupOnBoot("test"))
             {
                 this.PutDown();
                 try
@@ -88,57 +89,7 @@ namespace SystemLackey.Worker
         }
 
 
-        private bool SetupScheduledTask()
-        {
-            string command;
-            string exePath;
-            string exeOptions;
-            string jobXml = "";
-            string schedTaskName = "SystemLackey-" + jobXml;
-            bool success = true;
-            exePath = "";
-            exeOptions = "";
-
-            try
-            {
-                exeOptions = "";
-                exePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\SystemLackey.exe";
-                command = @"schtasks /create /tn """ + schedTaskName + @""" /sc ONSTART /z /v1 /f /ru SYSTEM /tr """ + exePath + @"""" + " " + exeOptions + @"""";
-                //LogMessage(this, new LoggerEventArgs(exePath, 0));
-                SendMessage(this, new MessageEventArgs("Scheduled task creation: " + schedTaskName, 1));
-                SendMessage(this, new MessageEventArgs(command, 0));
-            }
-            catch
-            { 
-                //exception to be added
-                success = false;
-            }
-
-            return success;
-        }
-
-
-        private bool ClearScheduledTask()
-        {
-            string command;
-            string jobXml = "";
-            string schedTaskName = "SystemLackey-" + jobXml;
-            bool success = true;
-
-            try
-            {
-                command = @"schtasks /delete /tn """ + schedTaskName + @""" /f";
-                SendMessage(this, new MessageEventArgs("Scheduled task deletion: " + schedTaskName, 1));
-                SendMessage(this, new MessageEventArgs(command, 0));
-            }
-            catch
-            {
-                //exception to be added
-                success = false;
-            }
-
-            return success;
-        }
+        
 
         //Properties
         public string Name
@@ -207,7 +158,7 @@ namespace SystemLackey.Worker
         public int PickUp()
         {
             SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));
-            this.ClearScheduledTask();           
+            winTaskSched.ClearOnBoot("test");           
             //code to be added. 
             //has the machine rebooted since the putdown
             return 0;

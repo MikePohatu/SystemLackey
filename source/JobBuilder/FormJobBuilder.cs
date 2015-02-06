@@ -326,8 +326,6 @@ namespace SystemLackey.UI.Forms
         }
 
         //===========================
-
-
         //start the console for diags. 
         private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
