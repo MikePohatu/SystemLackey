@@ -60,29 +60,19 @@ namespace SystemLackey.Worker
             startInfo.FileName = "shutdown";
             startInfo.Arguments = @"/" + powerOption + @" /t " + wait;
 
-            //Console.WriteLine(startInfo.FileName + " " + startInfo.Arguments);
+            this.PutDown();
 
-            if (winTaskSched.SetupOnBoot("test"))
+            try
             {
-                this.PutDown();
-                try
-                {
-                    process.StartInfo = startInfo;
-                    //process.Start();
-                    //process.WaitForExit(5000);
-                    intReturn = process.ExitCode;
-                }
-                
-                catch
-                {
-                    intReturn = 1;
-                }
+                process.StartInfo = startInfo;
+                //process.Start();
+                //process.WaitForExit(5000);
+                intReturn = process.ExitCode;
             }
-
-            else 
+                
+            catch
             {
-                this.SendMessage(this, new MessageEventArgs("Scheduled task creation failed", 2));
-                return 1; 
+                intReturn = 1;
             }
             
             return intReturn;
@@ -157,8 +147,7 @@ namespace SystemLackey.Worker
 
         public int PickUp()
         {
-            SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));
-            winTaskSched.ClearOnBoot("test");           
+            SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));        
             //code to be added. 
             //has the machine rebooted since the putdown
             return 0;
@@ -168,7 +157,8 @@ namespace SystemLackey.Worker
         {
             //code to be added. 
             //record the putdown
-            SendMessage(this, new MessageEventArgs("PowerControl rebooting machine. Stop job", MessageType.PUTDOWN));
+            SendMessage(this, new MessageEventArgs("PowerControl contine on reboot requested", MessageType.CONTINUE_ONBOOT));
+            SendMessage(this, new MessageEventArgs("PowerControl rebooting machine. Stop job", MessageType.PUTDOWN));           
         }
 
         
