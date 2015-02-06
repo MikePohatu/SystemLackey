@@ -152,14 +152,19 @@ namespace SystemLackey.Worker
 
         public int PickUp()
         {
-            //reset the putdown time
-            putDownTime = DateTime.MinValue;
-            SendMessage(this, new MessageEventArgs("Uptime: " + WindowsPerformanceQuery.UpTime.ToString(), MessageType.LOG));
-            SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP)); 
             
-            //code to be added. 
-            //has the machine rebooted since the putdown
-            return 0;
+            if (WindowsPerformanceQuery.BootTime > putDownTime)
+            { //reset the putdown time
+                putDownTime = DateTime.MinValue;
+                SendMessage(this, new MessageEventArgs("Bootime: " + WindowsPerformanceQuery.BootTime.ToString(), MessageType.LOG));
+                SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));
+                return 0;
+            }
+            else
+            {
+                SendMessage(this, new MessageEventArgs("No reboot since putdown", 2));
+                return 2;
+            }
         }
 
         public void PutDown()

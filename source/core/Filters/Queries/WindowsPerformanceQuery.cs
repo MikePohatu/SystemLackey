@@ -34,5 +34,14 @@ namespace SystemLackey.Filters
                 }
             }
         }
+
+        public static DateTime BootTime
+        {
+            get
+            {
+                DateTime now = DateTime.Now;
+                return now - UpTime;
+            }
+        }
     }
 }
