@@ -169,9 +169,9 @@ namespace SystemLackey.Worker
 
         public void PutDown()
         {
-            putDownTime = DateTime.Now;
-            //code to be added. 
             //record the putdown
+            putDownTime = DateTime.Now;
+            
             SendMessage(this, new MessageEventArgs("PowerControl rebooting machine. Stop job", MessageType.PUTDOWN));
             SendMessage(this, new MessageEventArgs("PowerControl contine on reboot requested", MessageType.CONTINUE_ONBOOT));                       
         }

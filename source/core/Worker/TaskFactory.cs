@@ -74,7 +74,9 @@ namespace SystemLackey.Worker
                 t.OpenXml(pElement);
                 this.SendMessage(this, new MessageEventArgs("Finished opening " + type + " task: " + t.Name + " ID: " + t.ID, 1));
             }
-            
+
+            //cleanup message subscription
+            if (t is IMessageSender) { ((IMessageSender)t).SendMessageEvent -= this.ForwardMessage; }
             return t;
         }
     }

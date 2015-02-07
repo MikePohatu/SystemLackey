@@ -64,11 +64,22 @@ namespace SystemLackey.UI.Forms
         }
         // /Properties
 
-        //Method to output the events from the logger. 
-        public void Update(Object sender, MessageEventArgs e)
+        private delegate void JbUpdateHandler(string s);
+
+        //Method to deal with the events from the logger. Use invoke if running on 
+        //another thread (which it should be)
+        public void OutputMessage(Object sender, MessageEventArgs e)
         {
-            this.textOutput.Text += e.Text;
+            if (textOutput.InvokeRequired)
+            { textOutput.Invoke(new JbUpdateHandler(UpdateTextOutput), e.Text); }
+            else
+            { UpdateTextOutput(e.Text); }
+            
         }
+
+        //actually output the text to the screen
+        private void UpdateTextOutput(string pText)
+        { this.textOutput.Text += pText; }
 
         //Output the XML for the full job list
         private void allToolStripMenuItem_Click(object sender, EventArgs e)
@@ -99,45 +110,45 @@ namespace SystemLackey.UI.Forms
             {
                 updateList += "**Debug filter updated - Old: " + options.Debug + " New: " + pOptions.Debug + Environment.NewLine;
                 if (pOptions.Debug)
-                { _logger.EventDebug += new MessagingEventHandler(Update); }
+                { _logger.EventDebug += new MessagingEventHandler(OutputMessage); }
                 else
-                { _logger.EventDebug -= new MessagingEventHandler(Update); }
+                { _logger.EventDebug -= new MessagingEventHandler(OutputMessage); }
             }
 
             if (options.Info != pOptions.Info)
             {
                 updateList += "**Information filter updated - Old: " + options.Info + " New: " + pOptions.Info + Environment.NewLine;
                 if (pOptions.Info)
-                { _logger.EventInfo += new MessagingEventHandler(Update); }
+                { _logger.EventInfo += new MessagingEventHandler(OutputMessage); }
                 else
-                { _logger.EventInfo -= new MessagingEventHandler(Update); }
+                { _logger.EventInfo -= new MessagingEventHandler(OutputMessage); }
             }
 
             if (options.Warning != pOptions.Warning)
             {
                 updateList += "**Warning filter updated - Old: " + options.Warning + " New: " + pOptions.Warning + Environment.NewLine;
                 if (pOptions.Warning)
-                { _logger.EventWarning += new MessagingEventHandler(Update); }
+                { _logger.EventWarning += new MessagingEventHandler(OutputMessage); }
                 else
-                { _logger.EventWarning -= new MessagingEventHandler(Update); }
+                { _logger.EventWarning -= new MessagingEventHandler(OutputMessage); }
             }
 
             if (options.Error != pOptions.Error)
             {
                 updateList += "**Error filter updated - Old: " + options.Error + " New: " + pOptions.Error + Environment.NewLine;
                 if (pOptions.Error)
-                { _logger.EventError += new MessagingEventHandler(Update); }
+                { _logger.EventError += new MessagingEventHandler(OutputMessage); }
                 else
-                { _logger.EventError -= new MessagingEventHandler(Update); }
+                { _logger.EventError -= new MessagingEventHandler(OutputMessage); }
             }
 
             if (options.Danger != pOptions.Danger)
             {
                 updateList += "**Danger filter updated - Old: " + options.Danger + " New: " + pOptions.Danger + Environment.NewLine;
                 if (pOptions.Danger)
-                { _logger.EventDanger += new MessagingEventHandler(Update); }
+                { _logger.EventDanger += new MessagingEventHandler(OutputMessage); }
                 else
-                { _logger.EventDanger -= new MessagingEventHandler(Update); }
+                { _logger.EventDanger -= new MessagingEventHandler(OutputMessage); }
             }
 
             //Output to the console that the filters have been updated. 
@@ -150,15 +161,15 @@ namespace SystemLackey.UI.Forms
         {
             //deregister from any events. 
             if (options.Debug)
-            { _logger.EventDebug -= new MessagingEventHandler(Update); }
+            { _logger.EventDebug -= new MessagingEventHandler(OutputMessage); }
             if (options.Info)
-            { _logger.EventInfo -= new MessagingEventHandler(Update); }
+            { _logger.EventInfo -= new MessagingEventHandler(OutputMessage); }
             if (options.Warning)
-            { _logger.EventWarning -= new MessagingEventHandler(Update); }
+            { _logger.EventWarning -= new MessagingEventHandler(OutputMessage); }
             if (options.Error)
-            { _logger.EventError -= new MessagingEventHandler(Update); }
+            { _logger.EventError -= new MessagingEventHandler(OutputMessage); }
             if (options.Danger)
-            { _logger.EventDanger -= new MessagingEventHandler(Update); }
+            { _logger.EventDanger -= new MessagingEventHandler(OutputMessage); }
         }
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)

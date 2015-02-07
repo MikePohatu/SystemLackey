@@ -115,8 +115,9 @@ namespace SystemLackey.Worker
                 this.isPutDown = true;
                 this.pickupPoint = (Step)o;
                 //forward the message as a log. 
-                //SendMessage(o, new MessageEventArgs(e.Text, e.Level, MessageType.LOG));
-                //send a putdown
+                //var me = new MessageEventArgs("Message forwarded from: " + this.GetType().ToString(), 0);
+                //SendMessage(this, me);
+
                 SendMessage(this, e);
             }
 
@@ -125,14 +126,18 @@ namespace SystemLackey.Worker
                 this.isPutDown = false;
                 this.pickupPoint = null;
                 //forward the message as a log. 
-                //SendMessage(o, new MessageEventArgs(e.Text, e.Level, MessageType.LOG));
-                //send a pickup
+                //var me = new MessageEventArgs("Message forwarded from: " + this.GetType().ToString(), 0);
+                //SendMessage(this, me);
                 SendMessage(this, e);
             }
 
             //Forward message on
             else
-            { SendMessage(o, e); }
+            {
+                //var me = new MessageEventArgs("Message forwarded from: " + this.GetType().ToString(), 0);
+                //SendMessage(this, me);
+                SendMessage(o, e); 
+            }
         }
         
 
@@ -181,7 +186,8 @@ namespace SystemLackey.Worker
                 ((IMessageSender)newStep).SendMessageEvent += this.ReceiveMessage;
 
                 //now check if the step is a pickup point
-                if ((bool)step.Attribute("IsPickupPoint") == true)
+                XAttribute isPickup = step.Attribute("IsPickupPoint");
+                if ((isPickup != null) && ((bool)isPickup == true))
                 {
                     newStep.IsPickupPoint = true;
                     this.PickupPoint = newStep;

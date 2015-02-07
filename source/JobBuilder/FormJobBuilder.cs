@@ -24,6 +24,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using System.Threading;
 
 using SystemLackey.Worker;
 using SystemLackey.UI;
@@ -329,11 +330,25 @@ namespace SystemLackey.UI.Forms
         //start the console for diags. 
         private void consoleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormJBConsole console = new FormJBConsole(logger);
-            console.ParentJobBuilder = this;
-            console.Show();
+            Thread jbThread = new Thread(this.LaunchJBConsole);
+            jbThread.SetApartmentState(ApartmentState.STA);
+            jbThread.IsBackground = true;
+            jbThread.Start();          
         }
 
+        private void LaunchJBConsole()
+        {
+            
+            FormJBConsole console = new FormJBConsole(logger);
+            console.ParentJobBuilder = this;
+            //using (Form1 _form = new Form1())
+            //{
+            //    Application.Run(_form);
+            //}
+            Application.Run(console);
+            //console.Show();
+        }
+        
 
         //run the job as listed. 
         private void runJobToolStripMenuItem_Click(object sender, EventArgs e)

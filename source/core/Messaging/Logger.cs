@@ -64,9 +64,9 @@ namespace SystemLackey.Messaging
 
         public void Write(object o, MessageEventArgs e)
         {        
-            //string type = o.GetType().ToString();
-            //this.Write(e.Text + " - SOURCE=" + type, e.Level);
-            this.Write(e.Text, e.Level, e.Time);            
+            string type = o.GetType().ToString();
+            this.Write(e.Text + " - SOURCE=" + type, e.Level);
+            //this.Write(e.Text, e.Level, e.Time);            
         }
 
         //take a Write with no time set. Set time to when it reached the logger. 

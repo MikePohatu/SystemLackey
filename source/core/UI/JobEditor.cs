@@ -26,6 +26,9 @@ namespace SystemLackey.UI
         public static Step Insert(ITask pTask, Step pPrev)
         {
             Step newStep = new Step(pPrev.Parent,pTask);
+            //subscribe to messaging
+            newStep.SendMessageEvent += newStep.Parent.ReceiveMessage;
+            
             newStep.Next = pPrev.Next;
             if (pPrev.Next != null)
             {
@@ -45,6 +48,10 @@ namespace SystemLackey.UI
 
         public static void InsertBelow(Step pNew, Step pTarget)
         {
+            //reset messaging to come from new parent
+            if (pNew.Parent != null) pNew.SendMessageEvent -= pNew.Parent.ReceiveMessage; 
+            pNew.SendMessageEvent += pTarget.Parent.ReceiveMessage;
+
             pNew.Next = pTarget.Next;
 
             if (pTarget.Next != null) { pNew.Next.Prev = pNew; }
@@ -59,6 +66,11 @@ namespace SystemLackey.UI
         public static bool InsertAbove(Step pNew, Step pTarget)
         {
             bool isNewRoot = false;
+
+            //reset messaging to come from new parent{
+            if (pNew.Parent != null) pNew.SendMessageEvent -= pNew.Parent.ReceiveMessage;
+            pNew.SendMessageEvent += pTarget.Parent.ReceiveMessage;
+            
             pNew.Prev = pTarget.Prev;
 
             if (pTarget.Prev == null) 
@@ -80,6 +92,9 @@ namespace SystemLackey.UI
         public static Step Insert(ITask pTask, Job rootJob)
         {
             Step newStep = new Step(rootJob, pTask);
+            //subscribe to messaging
+            newStep.SendMessageEvent += newStep.Parent.ReceiveMessage;
+
             newStep.Next = rootJob.Root;
             rootJob.Root = newStep;
             if (newStep.Next != null) { newStep.Next.Prev = newStep; }
@@ -90,11 +105,15 @@ namespace SystemLackey.UI
         //insert an existing step at the top of a job
         public static void Insert(Step pStep, Job rootJob)
         {
+            //Reset the parent in case coming from another subjob.
+            if (pStep.Parent != null) pStep.SendMessageEvent -= pStep.Parent.ReceiveMessage;
+            pStep.Parent = rootJob;
+            pStep.SendMessageEvent += pStep.Parent.ReceiveMessage;
+
             pStep.Next = rootJob.Root;
             pStep.Prev = null;
             rootJob.Root = pStep;
-            pStep.Parent = rootJob; //Reset the parent in case coming from another subjob.
-            
+
             if (pStep.Next != null) { pStep.Next.Prev = pStep; }
         }
 
@@ -135,6 +154,12 @@ namespace SystemLackey.UI
                     if (pStep.Next != null) { pStep.Next.Prev = pStep.Prev; }                  
                 }
             }
+
+            //unsubscribe from messaging
+            pStep.SendMessageEvent -= pStep.Parent.ReceiveMessage;
+            pStep.Parent = null;
+            pStep.Next = null;
+            pStep.Prev = null;
 
             return ret;
         }

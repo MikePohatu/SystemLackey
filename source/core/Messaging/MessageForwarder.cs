@@ -25,7 +25,9 @@ namespace SystemLackey.Messaging
     {
         //Forward any logging messages from the task up the chain
         public virtual void ForwardMessage(object o, MessageEventArgs e)
-        {           
+        {
+            //var me = new MessageEventArgs("Message forwarded from: " + this.GetType().ToString(), 0);            
+            //SendMessage(this, me);
             SendMessage(o, e);
         }
     }
