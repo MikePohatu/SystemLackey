@@ -23,163 +23,59 @@ namespace SystemLackey.Worker
 {
     public class WindowsScript : MessageSender, ITask, IMessageSender
     {
-        private string name = "";        //Name of the task
-        private int type = 0;            //0=cmd, 1=vbs, 2=ps1
-        private int timeout = 900;       //The timeout for the script
-
-        private bool wow64 = false;      //native processor architecture 
-        private bool async = false;      //run synchronous
-        private bool hidden = true;
-
-        private string code = "";        //the actual code of the script
-        private string taskid;
-        private string comments = "";
+        public string Name { get; set; }
+        public int Timeout { get; set; }
+        public bool ASync { get; set; }
+        public string Code { get; set; }
+        public bool Wow64 { get; set; }
+        public string ID { get; set; }
+        public bool Hidden { get; set; }
+        public int Type { get; set; }
+        public string Comments { get; set; }
 
         //Default constructor
         public WindowsScript()
         {           
-            taskid = Guid.NewGuid().ToString();
+            this.ID = Guid.NewGuid().ToString();
+            this.Name = "";
+            this.Type = 0;
+            this.Timeout = 900;
+            this.Wow64 = false;
+            this.ASync = false;
+            this.Hidden = true;
+            this.Code = "";
+            this.Comments = "";
         }
-
-        //Constructor parameters:
-        // pTimeout = script timeout value
-        // pCode = the actual script text
-        // pSysWow = run in 32bit mode on a 64 bit OS
-        public WindowsScript(string pName, int pType, string pCode, bool pSysWow, int pTimeout,bool pHidden)
-        {
-            name = pName;
-            timeout = pTimeout;
-            code = pCode;
-            type = pType;
-            wow64 = pSysWow;
-            taskid = Guid.NewGuid().ToString();
-            hidden = pHidden;
-
-        }
-
-        //Constructor parameters:
-        // pASync = run script asynchronously
-        // pCode = the actual script text
-        // pSysWow = run in 32bit mode on a 64 bit OS
-        public WindowsScript(string pName, int pType, string pCode, bool pSysWow, bool pASync, bool pHidden)
-        {
-            name = pName;
-            async = pASync;
-            code = pCode;
-            type = pType;
-            wow64 = pSysWow;
-            taskid = Guid.NewGuid().ToString();
-            hidden = pHidden;
-        }
-
-        //Constructor parameters: 
-        // pTimeout = script timeout
-        // pASync = run script asynchronously
-        // pCode = the actual script text
-        // pSysWow = run in 32bit mode on a 64 bit OS
-        public WindowsScript(string pName, int pType, string pCode, bool pSysWow, bool pASync, int pTimeout, bool pHidden)
-        {
-            name = pName;
-            timeout = pTimeout;
-            async = pASync;
-            code = pCode;
-            type = pType;
-            wow64 = pSysWow;
-            taskid = Guid.NewGuid().ToString();
-            hidden = pHidden;
-        }
-
-
-        //========================
-        //Properties
-        //========================
-
-        public string Name
-        {
-            get  {return this.name;}
-            set {this.name = value;}
-        }
-
-        public int Timeout
-        {
-            get { return this.timeout; }
-            set { this.timeout = value; }
-        }
-
-        public bool ASync
-        {
-            get { return this.async; }
-            set { this.async = value; }
-        }
-
-        public string Code
-        {
-            get { return this.code; }
-            set { this.code = value; }
-        }
-
-        public bool Wow64
-        {
-            get { return this.wow64; }
-            set { this.wow64 = value; }
-        }
-
-        public string ID
-        {
-            get { return this.taskid; }
-            set { this.taskid = value; }
-        }
-
-        public bool Hidden
-        {
-            get { return this.hidden; }
-            set { this.hidden = value; }
-        }
-
-        public int Type
-        {
-            get { return this.type; }
-            set { this.type = value; }
-        }
-
-        public string Comments
-        {
-            get { return this.comments; }
-            set { this.comments = value; }
-        }
-        //=====================================
-        // /Properties
-        //=====================================
 
 
         //get the xml representation of the task
         public XElement GetXml()
         {
             XElement details = new XElement("Task",
-                new XElement("name",name),
-                new XElement("taskid",taskid),
-                new XElement("async",async),
-                new XElement("timeout", timeout),
-                new XElement("code",code),
-                new XElement("type",type),
-                new XElement("wow64",wow64),
-                new XElement("hidden", hidden),
-                new XElement("comments", comments));
+                new XElement("name",Name),
+                new XElement("taskid",ID),
+                new XElement("async",ASync),
+                new XElement("timeout", Timeout),
+                new XElement("code",Code),
+                new XElement("type",Type),
+                new XElement("wow64",Wow64),
+                new XElement("hidden", Hidden),
+                new XElement("comments", Comments));
 
             details.SetAttributeValue("Type", "WinScript");
             return details;
         }
         private void BuildFromXml(XElement pElement,bool pImport)
         {
-            name = pElement.Element("name").Value;          
-            async = XmlConvert.ToBoolean(pElement.Element("async").Value);
-            timeout = XmlConvert.ToInt32(pElement.Element("timeout").Value);
-            code = pElement.Element("code").Value;
-            type = XmlConvert.ToInt32(pElement.Element("type").Value);
-            wow64 = XmlConvert.ToBoolean(pElement.Element("wow64").Value);
-            hidden = XmlConvert.ToBoolean(pElement.Element("hidden").Value);
-            comments = pElement.Element("comments").Value;
-            if (pImport == false) { taskid = pElement.Element("taskid").Value; }
+            Name = pElement.Element("name").Value;          
+            ASync = XmlConvert.ToBoolean(pElement.Element("async").Value);
+            Timeout = XmlConvert.ToInt32(pElement.Element("timeout").Value);
+            Code = pElement.Element("code").Value;
+            Type = XmlConvert.ToInt32(pElement.Element("type").Value);
+            Wow64 = XmlConvert.ToBoolean(pElement.Element("wow64").Value);
+            Hidden = XmlConvert.ToBoolean(pElement.Element("hidden").Value);
+            Comments = pElement.Element("comments").Value;
+            if (pImport == false) { ID = pElement.Element("taskid").Value; }
         }
 
         public void ImportXml(XElement pElement)
@@ -204,15 +100,15 @@ namespace SystemLackey.Worker
 
             //make sure the working directory is there
             System.IO.Directory.CreateDirectory(strWorkingPath);
-            this.SendMessage(this, new MessageEventArgs("Running script: " + this.name, 1));
+            this.SendMessage(this, new MessageEventArgs("Running script: " + this.Name, 1));
 
             //Figure out the correct scripting engine to use based on the type and SysWow64 setting i.e.
             //run code as 32bit on 64bit OS
-            switch (this.type)
+            switch (this.Type)
             {
                 //batch script.
                 case 0:
-                    if (this.wow64)
+                    if (this.Wow64)
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.SystemX86) + @"\cmd.exe";
                     }
@@ -223,14 +119,14 @@ namespace SystemLackey.Worker
                     }
                     strExtn = ".cmd";
 
-                    strScriptFile = strWorkingPath + @"\" + this.taskid + strExtn;
+                    strScriptFile = strWorkingPath + @"\" + this.ID + strExtn;
                     strArguments = "/c " + strScriptFile;
                     break;
 
                 //vbscript
                 case 1:
                     strExtn = ".vbs";
-                    if (this.wow64)
+                    if (this.Wow64)
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.SystemX86) + @"\cscript.exe";
                     }
@@ -239,14 +135,14 @@ namespace SystemLackey.Worker
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\cscript.exe";
                     }
-                    strScriptFile = strWorkingPath + @"\" + this.taskid + strExtn;
+                    strScriptFile = strWorkingPath + @"\" + this.ID + strExtn;
                     strArguments = "/nologo " + strScriptFile;
                     break;
 
                 //powershell
                 case 2:
                     strExtn = ".ps1";
-                    if (this.wow64)
+                    if (this.Wow64)
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.SystemX86) + @"\WindowsPowerShell\v1.0\powershell.exe";
                     }
@@ -255,25 +151,25 @@ namespace SystemLackey.Worker
                     {
                         strStartFile = Environment.GetFolderPath(Environment.SpecialFolder.System) + @"\WindowsPowerShell\v1.0\powershell.exe";
                     }
-                    strScriptFile = strWorkingPath + @"\" + this.taskid + strExtn;
+                    strScriptFile = strWorkingPath + @"\" + this.ID + strExtn;
                     strArguments = "-executionpolicy bypass " + strScriptFile;
                     break;
 
                 //invalid type. Throw exception
                 default:
-                    System.ArgumentException argEx = new System.ArgumentException("Invalid script type " + this.type, "SetType");
+                    System.ArgumentException argEx = new System.ArgumentException("Invalid script type " + this.Type, "SetType");
                     return 5;
             }
 
             //Now write the script file to the working directory
-            WriteScript(strScriptFile, this.code);
+            WriteScript(strScriptFile, this.Code);
 
             //Now run the script
             System.Diagnostics.Process process = new System.Diagnostics.Process();
             System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
 
             //Set if the script windows is hidden
-            if (this.hidden)
+            if (this.Hidden)
             {
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             }
@@ -287,7 +183,7 @@ namespace SystemLackey.Worker
             try
             {
                 process.Start();
-                process.WaitForExit(this.timeout * 1000);
+                process.WaitForExit(this.Timeout * 1000);
                 int intReturn = process.ExitCode;
                 //return intReturn;
             }

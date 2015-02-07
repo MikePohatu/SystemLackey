@@ -25,20 +25,27 @@ namespace SystemLackey.Worker
 {
     public class PowerControl : MessageSender, ITask, IPickupPoint
     {
-        private string name = "Reboot";
-        private string id;
-        private string comments;
-        private int wait = 0;
         private DateTime putDownTime;
 
+
+        //Properties
+        public string Name { get; set; }
+        public string ID { get; set; }
+        public string Comments { get; set; }
+        public char PowerOption { get; set; }
+        //PowerOption:
         //r = reboot
         //s = shutdown
         //l = logoff
-        private char powerOption = 'r'; 
+        public int Wait { get; set; }
+        
 
         public PowerControl()
         {
-            id = Guid.NewGuid().ToString();
+            this.Name = "Reboot";
+            this.PowerOption = 'r';
+            this.ID = Guid.NewGuid().ToString();
+            this.Wait = 0;
         }
 
         //Run should return a final state
@@ -57,7 +64,7 @@ namespace SystemLackey.Worker
 
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "shutdown";
-            startInfo.Arguments = @"/" + powerOption + @" /t " + wait;
+            startInfo.Arguments = @"/" + PowerOption + @" /t " + Wait;
 
             this.PutDown();
 
@@ -80,49 +87,20 @@ namespace SystemLackey.Worker
 
         
 
-        //Properties
-        public string Name
-        {
-            get { return this.name; }
-            set { this.name = value; }
-        }
-
-        public string ID
-        {
-            get { return this.id; }
-            set { this.id = value; }
-        }
-
-        public string Comments
-        {
-            get { return this.comments; }
-            set { this.comments = value; }
-        }
-
-        public char PowerOption
-        {
-            get { return this.powerOption; }
-            set { this.powerOption = value; }
-        }
-
-        public int Wait
-        {
-            get { return this.wait; }
-            set { this.wait = value; }
-        }
+        
 
         private void BuildFromXml(XElement pElement, bool pImport)
         {
-            name = pElement.Element("name").Value;
-            comments = pElement.Element("comments").Value;
-            powerOption = XmlConvert.ToChar(pElement.Element("powerOption").Value);
-            wait = XmlConvert.ToInt32(pElement.Element("wait").Value);
+            Name = pElement.Element("name").Value;
+            Comments = pElement.Element("comments").Value;
+            PowerOption = XmlConvert.ToChar(pElement.Element("powerOption").Value);
+            Wait = XmlConvert.ToInt32(pElement.Element("wait").Value);
             
             //get the putdowntime if there is one. This element may not exist
             XElement dt = pElement.Element("PutDownTime");
             if (dt != null) putDownTime = (DateTime)dt;
 
-            if (!pImport) { id = pElement.Element("id").Value; }
+            if (!pImport) { ID = pElement.Element("id").Value; }
         }
 
         public void ImportXml(XElement pElement)
@@ -138,11 +116,11 @@ namespace SystemLackey.Worker
         public XElement GetXml()
         {
             XElement details = new XElement("Task",
-                new XElement("name", name),
-                new XElement("id", id),
-                new XElement("comments", comments),
-                new XElement("powerOption", powerOption),
-                new XElement("wait", wait));
+                new XElement("name", Name),
+                new XElement("id", ID),
+                new XElement("comments", Comments),
+                new XElement("powerOption", PowerOption),
+                new XElement("wait", Wait));
 
             if (putDownTime != DateTime.MinValue) details.Add(new XElement("PutDownTime", putDownTime));
             details.SetAttributeValue("Type", "PowerControl");          

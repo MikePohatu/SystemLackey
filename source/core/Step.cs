@@ -28,83 +28,67 @@ namespace SystemLackey.Worker
     //This will allow for easy re-ordering of the job. note that a task may be referenced 
     public class Step : MessageSender,IMessageReceiver
     {
-        private Step next;
-        private Step prev;
-        private ITask task;
         private Job parent;
-        private bool isPickupPoint = false;
-        //private Evaluation eval;
-        private bool onError = true;
-        private bool onWarn = true;
-        //private 
+
+        //========================
+        // Constructors
+        //========================
+        public Step(Job pParent, ITask pTask)
+        {
+            parent = pParent;
+            Task = pTask;
+            this.IsPickupPoint = false;
+
+            //Suscribe to the tasks messages
+            if (Task is IMessageSender)
+            {
+                //this.SendMessage(this, new MessageEventArgs("Added task to step: " + pTask.Name,1));
+                ((IMessageSender)Task).SendMessageEvent += this.ReceiveMessage;
+            }
+        }
+
+
 
         //========================
         // Properties
         //========================
 
-        public Step Next
-        {
-            get { return this.next; }
-            set { this.next = value; }
-        }
+        public Step Next { get; set; }
+        public Step Prev { get; set; }
+        public ITask Task { get; set; }
+        public bool ContinueOnError { get; set; }
+        public bool ContinueOnWarning { get; set; }
+        public bool IsPickupPoint { get; set; }
 
-        public Step Prev
-        {
-            get { return this.prev; }
-            set { this.prev = value; }
-        }
-
-        public ITask Task
-        {
-            get { return this.task; }
-            set { this.task = value; }
-        }
-
-        public bool ContinueOnError
-        {
-            get { return this.onError; }
-            set { this.onError = value;}
-        }
-
-        public bool ContinueOnWarning
-        {
-            get { return this.onWarn; }
-            set { this.onWarn = value; }
-        }
         public Job Parent
         {
-           get { return this.parent; }
-           set 
-           {
-               //check if changed and update messaging
-               if (this.parent != value)
-               {
-                   SendMessage(this, new MessageEventArgs("Changing step parent for task: " + this.task.Name, 0));
-                   if (this.parent != null)
-                   {                  
-                       this.SendMessageEvent -= this.parent.ReceiveMessage;
-                   }
+            get { return this.parent; }
+            set
+            {
+                //check if changed and update messaging
+                if (this.parent != value)
+                {
+                    SendMessage(this, new MessageEventArgs("Changing step parent for task: " + this.Task.Name, 0));
+                    if (this.parent != null)
+                    {
+                        this.SendMessageEvent -= this.parent.ReceiveMessage;
+                    }
 
-                   this.parent = value;
+                    this.parent = value;
 
-                   if (this.parent != null)
-                   {
-                       this.SendMessageEvent += this.parent.ReceiveMessage;
-                   }                 
-               }               
-           }
-        }
-
-        public bool IsPickupPoint
-        {
-            get { return this.isPickupPoint; }
-            set { this.isPickupPoint = value; }
+                    if (this.parent != null)
+                    {
+                        this.SendMessageEvent += this.parent.ReceiveMessage;
+                    }
+                }
+            }
         }
 
 
         //========================
         // /Properties
         //========================
+
 
         //Forward any logging messages from the task up the chain. 
         //send pickup and putdown events as a new event from the step,
@@ -113,7 +97,7 @@ namespace SystemLackey.Worker
         {
             if (e.Type == MessageType.PUTDOWN)
             {
-                isPickupPoint = true;
+                IsPickupPoint = true;
                 //forward the message as a log. 
                 //SendMessage(o, new MessageEventArgs(e.Text, e.Level, MessageType.LOG));
                 //send a putdown
@@ -122,7 +106,7 @@ namespace SystemLackey.Worker
             
             else if (e.Type == MessageType.PICKUP)
             {
-                isPickupPoint = false;
+                IsPickupPoint = false;
                 //forward the message as a log. 
                 //SendMessage(o, new MessageEventArgs(e.Text, e.Level, MessageType.LOG));
                 //send a pickup
@@ -135,34 +119,20 @@ namespace SystemLackey.Worker
         }
 
 
-        //========================
-        // Constructors
-        //========================
-        public Step(Job pParent,ITask pTask)
-        {
-            parent = pParent;
-            task = pTask;
 
-            //Suscribe to the tasks messages
-            if (task is IMessageSender)
-            {
-                //this.SendMessage(this, new MessageEventArgs("Added task to step: " + pTask.Name,1));
-                ((IMessageSender)task).SendMessageEvent += this.ReceiveMessage;
-            }
-        }
 
         public XElement GetXML()
         {
             XElement details = new XElement("Step",
-                new XElement("ContinueOnError",onError),
-                new XElement("ContinueOnWarning",onWarn));
+                new XElement("ContinueOnError",ContinueOnError),
+                new XElement("ContinueOnWarning",ContinueOnWarning));
 
-            if (task != null)
+            if (Task != null)
             {
-                details.Add(new XElement("taskid", task.ID));
-                details.Add(task.GetXml());
+                details.Add(new XElement("taskid", Task.ID));
+                details.Add(Task.GetXml());
             }
-            details.SetAttributeValue("IsPickupPoint", isPickupPoint);
+            details.SetAttributeValue("IsPickupPoint", IsPickupPoint);
    
             return details;
         }
