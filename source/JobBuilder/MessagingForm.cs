@@ -21,7 +21,7 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.UI.Forms
 {
-    public abstract class MessagingForm : Form, IMessageSender
+    public class MessagingForm : Form, IMessageSender
     {
         public event MessagingEventHandler SendMessageEvent;
 

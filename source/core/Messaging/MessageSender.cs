@@ -26,7 +26,7 @@ namespace SystemLackey.Messaging
         public event MessagingEventHandler SendMessageEvent;
 
         //Log a new event. Check for empty event handler first
-        protected virtual void SendMessage(Object o, MessageEventArgs e)
+        public virtual void SendMessage(Object o, MessageEventArgs e)
         {
             MessagingEventHandler temp = SendMessageEvent;
             if (temp != null)

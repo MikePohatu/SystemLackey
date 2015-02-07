@@ -62,17 +62,7 @@ namespace SystemLackey.Worker
         public Step Root
         {
             get { return this.root; }
-            set 
-            {
-                //unsubscribe from any messaging
-                if (( this.root != null ) && (this.root.Parent != this))
-                { root.SendMessageEvent -= this.ReceiveMessage; }
-
-                this.root = value;
-                //Suscribe to the step's logs for forwarding
-                ((IMessageSender)this.root).SendMessageEvent += this.ReceiveMessage;
-                 
-            }
+            set { this.root = value; }
         }
 
         public Step PickupPoint
@@ -190,7 +180,10 @@ namespace SystemLackey.Worker
                 if ((isPickup != null) && ((bool)isPickup == true))
                 {
                     newStep.IsPickupPoint = true;
-                    this.PickupPoint = newStep;
+                    if (this.pickupPoint != null) { SendMessage(this, new MessageEventArgs("Corrupt XML. Multiple pickup points for job", 3)); }
+                    this.pickupPoint = newStep;
+                    this.isPutDown = true;
+                    SendMessage(this, new MessageEventArgs("PickupPoint: " + newStep.Task.Name + " ID: " + newStep.Task.ID, 1));
                 }
 
                 if (root == null)

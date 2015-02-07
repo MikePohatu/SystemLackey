@@ -74,7 +74,25 @@ namespace SystemLackey.Worker
         public Job Parent
         {
            get { return this.parent; }
-           set { this.parent = value; }
+           set 
+           {
+               //check if changed and update messaging
+               if (this.parent != value)
+               {
+                   SendMessage(this, new MessageEventArgs("Changing step parent for task: " + this.task.Name, 0));
+                   if (this.parent != null)
+                   {                  
+                       this.SendMessageEvent -= this.parent.ReceiveMessage;
+                   }
+
+                   this.parent = value;
+
+                   if (this.parent != null)
+                   {
+                       this.SendMessageEvent += this.parent.ReceiveMessage;
+                   }                 
+               }               
+           }
         }
 
         public bool IsPickupPoint
@@ -129,7 +147,7 @@ namespace SystemLackey.Worker
             if (task is IMessageSender)
             {
                 //this.SendMessage(this, new MessageEventArgs("Added task to step: " + pTask.Name,1));
-                ((IMessageSender)task).SendMessageEvent += ReceiveMessage;
+                ((IMessageSender)task).SendMessageEvent += this.ReceiveMessage;
             }
         }
 
