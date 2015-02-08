@@ -18,6 +18,6 @@ using System;
 
 namespace SystemLackey.Messaging
 {
-    public enum MessageType { LOG, PICKUP, PUTDOWN, CONTINUE_ONBOOT };
+    public enum MessageType { LOG, PICKUP, PUTDOWN, CONTINUE_ONBOOT, CLEAR_ONBOOT };
     public delegate void MessagingEventHandler(Object sender, MessageEventArgs e);
 }

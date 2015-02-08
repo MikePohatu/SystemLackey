@@ -26,7 +26,7 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Threading;
 
-using SystemLackey.Worker;
+using SystemLackey.Tasks;
 using SystemLackey.UI;
 using SystemLackey.Messaging;
 

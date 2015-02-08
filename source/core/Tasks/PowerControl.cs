@@ -21,7 +21,7 @@ using System.Diagnostics;
 using SystemLackey.Messaging;
 using SystemLackey.Filters;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Tasks
 {
     public class PowerControl : MessageSender, ITask, IPickupPoint
     {
@@ -135,6 +135,7 @@ namespace SystemLackey.Worker
             { //reset the putdown time
                 putDownTime = DateTime.MinValue;
                 SendMessage(this, new MessageEventArgs("Bootime: " + WindowsPerformanceQuery.BootTime.ToString(), MessageType.LOG));
+                SendMessage(this, new MessageEventArgs("Clear ONBOOT setup", MessageType.CLEAR_ONBOOT));
                 SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));
                 return 0;
             }

@@ -15,7 +15,7 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
-using SystemLackey.Worker;
+using SystemLackey.Tasks;
 using SystemLackey.UI;
 
 namespace SystemLackey.UI.Shell

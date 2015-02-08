@@ -19,7 +19,7 @@ using System;
 using System.Xml.Linq;
 using SystemLackey.Messaging;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Tasks
 {
     class TaskFactory: MessageForwarder
     {

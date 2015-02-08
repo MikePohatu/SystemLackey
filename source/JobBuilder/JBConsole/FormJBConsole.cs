@@ -24,7 +24,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
-using SystemLackey.Worker;
+using SystemLackey.Tasks;
 using SystemLackey.Messaging;
 
 namespace SystemLackey.UI.Forms

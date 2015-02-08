@@ -17,7 +17,7 @@
 
 using System;
 using SystemLackey.Messaging;
-using SystemLackey.Worker;
+using SystemLackey.Tasks;
 
 namespace SystemLackey.Messaging
 {

@@ -73,17 +73,18 @@
     <Compile Include="Messaging\MessageEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\JobEditor.cs" />
-    <Compile Include="Worker\Tasks\Job.cs" />
-    <Compile Include="Worker\JobEnumerator.cs" />
+    <Compile Include="Tasks\Job.cs" />
+    <Compile Include="Tasks\JobEnumerator.cs" />
     <Compile Include="Step.cs" />
-    <Compile Include="Worker\TaskFactory.cs" />
+    <Compile Include="Tasks\TaskFactory.cs" />
     <Compile Include="Messaging\MessageSender.cs" />
-    <Compile Include="Worker\Tasks\IPickupPoint.cs" />
-    <Compile Include="Worker\Tasks\ITask.cs" />
-    <Compile Include="Worker\Tasks\PowerControl.cs" />
-    <Compile Include="Worker\Tasks\WindowsScript.cs" />
+    <Compile Include="Tasks\IPickupPoint.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\PowerControl.cs" />
+    <Compile Include="Tasks\WindowsScript.cs" />
     <Compile Include="Filters\Queries\WindowsPerformanceQuery.cs" />
     <Compile Include="Worker\WindowsTaskScheduler.cs" />
+    <Compile Include="Worker\Worker.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

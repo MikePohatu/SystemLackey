@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using SystemLackey.Messaging;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Tasks
 {
     public class Job : MessageSender, IMessageReceiver, ITask, IEnumerable, IPickupPoint
     {

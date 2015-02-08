@@ -1,4 +1,5 @@
-﻿//    JobEnumerator.cs: for IEnumerable support for the Job class
+﻿//    IPickupPoint.cs: Interface for tasks that can be points for a job to restart
+//                      from e.g. reboots
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -13,39 +14,20 @@
 //    You should have received a copy of the GNU General Public License along
 //    with this program; if not, write to the Free Software Foundation, Inc.,
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-
 using System;
-using System.Collections;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Tasks
 {
-    class JobEnumerator : IEnumerator
+    public interface IPickupPoint
     {
-        private Step current;
-        private Job parentJob;
-
-        public JobEnumerator(Job pParent)
-        {
-            parentJob = pParent;
-        }
-
-        public Object Current
-        {
-            get { return this.current; }
-        }
-
-        public bool MoveNext()
-        {
-            if (current == null) { current = parentJob.Root; }
-            else { current = current.Next; }
-
-            if ( current != null ) { return true; }
-            else { return false; }
-        }
-
-        public void Reset()
-        {
-            this.current = null;
-        }
+        //Pick should return a final state of the task
+        //0=Succes
+        //1=Information
+        //2=Warning
+        //3=Error
+        //4=Timeout
+        //5=Exception
+        int PickUp();
+        void PutDown();
     }
 }

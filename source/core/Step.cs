@@ -22,7 +22,7 @@ using System.Text;
 using System.Xml.Linq;
 using SystemLackey.Messaging;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Tasks
 {
     //The step class contains details of each step in a job, including the previous and next steps. 
     //This will allow for easy re-ordering of the job. note that a task may be referenced 

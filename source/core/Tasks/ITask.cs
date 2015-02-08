@@ -18,7 +18,7 @@
 using System;
 using System.Xml.Linq;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Tasks
 {
     public interface ITask
     {
