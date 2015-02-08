@@ -1,4 +1,4 @@
-﻿//    Shell.cs: Entry point for the LackeyShell application
+﻿//    JobSchedule.cs: defines a specific scheduling of a job
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -14,29 +14,25 @@
 //    with this program; if not, write to the Free Software Foundation, Inc.,
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+
 using System;
-using System.Threading;
 using SystemLackey.Tasks;
-using SystemLackey.UI;
-using SystemLackey.Worker;
 
-namespace SystemLackey.UI.Shell
+namespace SystemLackey.Worker
 {
-    public class Shell
+    public class JobSchedule:IComparable<JobSchedule>
     {
-        public static void Main(string[] args)
-        {
-            Console.WriteLine("This is a test message");
-            Console.Read();
-        }
+        public Job Job { get; set; }
+        public DateTime StartTime { get; set; }
 
-        public void RunJob(Job pJob)
+        public int CompareTo(JobSchedule other)
         {
-            var newRunner = new JobRunner();
-            newRunner.Job = pJob;
-            Thread jobThread = new Thread(newRunner.Run);
-            jobThread.IsBackground = false;
-            jobThread.Start();  
+            if (this.StartTime < other.StartTime) { return -1; }
+            else if (this.StartTime < other.StartTime) { return 1; }
+            else
+            {
+                return String.Compare(this.Job.Name, other.Job.Name, true);
+            }
         }
     }
 }

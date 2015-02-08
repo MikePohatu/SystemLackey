@@ -1,4 +1,4 @@
-﻿//    Shell.cs: Entry point for the LackeyShell application
+﻿//    JobScheduler.cs: Contains a list of jobs with scheduled start times
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -14,29 +14,19 @@
 //    with this program; if not, write to the Free Software Foundation, Inc.,
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
+
 using System;
-using System.Threading;
-using SystemLackey.Tasks;
-using SystemLackey.UI;
-using SystemLackey.Worker;
-
-namespace SystemLackey.UI.Shell
+using System.Collections.Generic;
+namespace SystemLackey.Worker
 {
-    public class Shell
+    public class JobScheduler
     {
-        public static void Main(string[] args)
-        {
-            Console.WriteLine("This is a test message");
-            Console.Read();
-        }
+        public List<JobSchedule> jobList = new List<JobSchedule>();
 
-        public void RunJob(Job pJob)
-        {
-            var newRunner = new JobRunner();
-            newRunner.Job = pJob;
-            Thread jobThread = new Thread(newRunner.Run);
-            jobThread.IsBackground = false;
-            jobThread.Start();  
+        public void Add(JobSchedule pJobSchedule)
+        { 
+            this.jobList.Add(pJobSchedule);
+            this.jobList.Sort();
         }
     }
 }
