@@ -21,7 +21,7 @@ using SystemLackey.IO;
 
 namespace SystemLackey.Worker
 {
-    public class Worker: MessageForwarder
+    public class JobRunner: MessageForwarder
     {
         public Job Job { get; set; }
         public void Run()

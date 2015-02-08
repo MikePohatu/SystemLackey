@@ -15,8 +15,10 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
+using System.Threading;
 using SystemLackey.Tasks;
 using SystemLackey.UI;
+using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Shell
 {
@@ -26,6 +28,15 @@ namespace SystemLackey.UI.Shell
         {
             Console.WriteLine("This is a test message");
             Console.Read();
+        }
+
+        public void RunJob(Job pJob)
+        {
+            var newRunner = new JobRunner();
+            newRunner.Job = pJob;
+            Thread jobThread = new Thread(newRunner.Run);
+            jobThread.IsBackground = false;
+            jobThread.Start();  
         }
     }
 }
