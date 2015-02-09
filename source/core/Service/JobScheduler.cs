@@ -17,16 +17,26 @@
 
 using System;
 using System.Collections.Generic;
-namespace SystemLackey.Worker
+using SystemLackey.Messaging;
+
+namespace SystemLackey.Service
 {
-    public class JobScheduler
+    public class JobScheduler: MessageSender
     {
-        public List<JobSchedule> jobList = new List<JobSchedule>();
+        private List<JobSchedule> jobList = new List<JobSchedule>();
 
         public void Add(JobSchedule pJobSchedule)
-        { 
+        {
+            string text = "";
             this.jobList.Add(pJobSchedule);
             this.jobList.Sort();
+
+            foreach (JobSchedule js in this.jobList)
+            {
+                text += js.Job.Name + " : " + js.StartTime + System.Environment.NewLine;
+            }
+            
+            SendMessage(this, new MessageEventArgs("Current schedule:" + System.Environment.NewLine + text, 0));
         }
     }
 }

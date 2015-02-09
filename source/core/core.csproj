@@ -83,8 +83,8 @@
     <Compile Include="Tasks\PowerControl.cs" />
     <Compile Include="Tasks\WindowsScript.cs" />
     <Compile Include="Filters\Queries\WindowsPerformanceQuery.cs" />
-    <Compile Include="Worker\JobSchedule.cs" />
-    <Compile Include="Worker\JobScheduler.cs" />
+    <Compile Include="Service\JobSchedule.cs" />
+    <Compile Include="Service\JobScheduler.cs" />
     <Compile Include="Worker\WindowsTaskScheduler.cs" />
     <Compile Include="Worker\Worker.cs" />
   </ItemGroup>

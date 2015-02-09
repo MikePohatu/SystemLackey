@@ -19,6 +19,7 @@ using System;
 using System.Threading;
 using SystemLackey.UI.Forms;
 using SystemLackey.UI.Shell;
+using SystemLackey.Service;
 
 namespace SystemLackey
 {
@@ -28,6 +29,7 @@ namespace SystemLackey
         {
             if (args.Length == 0)
             {
+                
                 StartJB();
             }
 
@@ -40,6 +42,7 @@ namespace SystemLackey
         static void StartJB()
         {
             //JobBuilder jb = new JobBuilder();
+            
 
             //create a new thread safe for win forms (STA) and start it. 
             Thread jbThread = new Thread(JobBuilder.Main);

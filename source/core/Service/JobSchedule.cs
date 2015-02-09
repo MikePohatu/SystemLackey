@@ -18,20 +18,23 @@
 using System;
 using SystemLackey.Tasks;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Service
 {
     public class JobSchedule:IComparable<JobSchedule>
     {
         public Job Job { get; set; }
         public DateTime StartTime { get; set; }
 
+        //sort in descending order i.e. the next job to run should go at the end.
+        //this is purely for performance reasons. 
         public int CompareTo(JobSchedule other)
         {
-            if (this.StartTime < other.StartTime) { return -1; }
-            else if (this.StartTime < other.StartTime) { return 1; }
+            if (this.StartTime > other.StartTime) { return -1; }
+            else if (this.StartTime > other.StartTime) { return 1; }
+            //if the time is the same, sort by job name. 
             else
             {
-                return String.Compare(this.Job.Name, other.Job.Name, true);
+                return String.Compare(this.Job.Name, other.Job.Name, true) * -1;
             }
         }
     }

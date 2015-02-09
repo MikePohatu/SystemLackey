@@ -24,6 +24,7 @@ namespace SystemLackey.Worker
     public class JobRunner: MessageForwarder
     {
         public Job Job { get; set; }
+
         public void Run()
         {
             if (this.Job != null)

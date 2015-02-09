@@ -29,6 +29,7 @@ using System.Threading;
 using SystemLackey.Tasks;
 using SystemLackey.UI;
 using SystemLackey.Messaging;
+using SystemLackey.Service;
 
 namespace SystemLackey.UI.Forms
 {
@@ -39,6 +40,8 @@ namespace SystemLackey.UI.Forms
         private Form panel2;
         private int childFormNumber = 0;
         private Logger logger = new Logger();
+
+        public JobScheduler JobScheduler { get; set; }
 
         // Properties
         public TreeNode Root
@@ -359,7 +362,17 @@ namespace SystemLackey.UI.Forms
                 {
                     Object rootTag = rootNode.Tag;
                     Job rootJob = (Job)rootTag;
+                    //var scheduler = new JobScheduler();
+                    //var js = new JobSchedule();
+
+                    //scheduler.SendMessageEvent += this.ForwardMessage;
+
+                    //js.Job = rootJob;
+                    //js.StartTime = DateTime.Now;
+                    //scheduler.Add(js);
+
                     rootJob.Run();
+                    //scheduler.SendMessageEvent += this.ForwardMessage;
                 }
             }
         }
