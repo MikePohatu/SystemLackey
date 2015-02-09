@@ -30,6 +30,7 @@ using SystemLackey.Tasks;
 using SystemLackey.UI;
 using SystemLackey.Messaging;
 using SystemLackey.Service;
+using SystemLackey.Worker;
 
 namespace SystemLackey.UI.Forms
 {
@@ -370,8 +371,13 @@ namespace SystemLackey.UI.Forms
                     //js.Job = rootJob;
                     //js.StartTime = DateTime.Now;
                     //scheduler.Add(js);
-
-                    rootJob.Run();
+                    var runner = new JobRunner(rootJob.GetXml());
+                    runner.SendMessageEvent += this.ForwardMessage;
+                    Thread runnerThread = new Thread(runner.Run);
+                    runnerThread.IsBackground = false;
+                    runnerThread.Start(); 
+                    //runner.Run();
+                    //runner.SendMessageEvent -= this.ForwardMessage;
                     //scheduler.SendMessageEvent += this.ForwardMessage;
                 }
             }

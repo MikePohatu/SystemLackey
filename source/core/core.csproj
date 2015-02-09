@@ -86,7 +86,7 @@
     <Compile Include="Service\JobSchedule.cs" />
     <Compile Include="Service\JobScheduler.cs" />
     <Compile Include="Worker\WindowsTaskScheduler.cs" />
-    <Compile Include="Worker\Worker.cs" />
+    <Compile Include="Worker\JobRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

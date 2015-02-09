@@ -32,11 +32,11 @@ namespace SystemLackey.UI.Shell
 
         public void RunJob(Job pJob)
         {
-            var newRunner = new JobRunner();
-            newRunner.Job = pJob;
-            Thread jobThread = new Thread(newRunner.Run);
-            jobThread.IsBackground = false;
-            jobThread.Start();  
+            //var newRunner = new JobRunner();
+            //newRunner.Job = pJob;
+            //Thread jobThread = new Thread(newRunner.Run);
+            //jobThread.IsBackground = false;
+            //jobThread.Start();  
         }
     }
 }

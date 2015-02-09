@@ -135,7 +135,7 @@ namespace SystemLackey.Tasks
             { //reset the putdown time
                 putDownTime = DateTime.MinValue;
                 SendMessage(this, new MessageEventArgs("Bootime: " + WindowsPerformanceQuery.BootTime.ToString(), MessageType.LOG));
-                SendMessage(this, new MessageEventArgs("Clear ONBOOT setup", MessageType.CLEAR_ONBOOT));
+                SendMessage(this, new MessageEventArgs("Clear ONBOOT setup", MessageType.ONBOOT_CLEAR));
                 SendMessage(this, new MessageEventArgs("PowerControl reboot completed. Continue job", MessageType.PICKUP));
                 return 0;
             }
@@ -152,7 +152,7 @@ namespace SystemLackey.Tasks
             putDownTime = DateTime.Now;
             
             SendMessage(this, new MessageEventArgs("PowerControl rebooting machine. Stop job", MessageType.PUTDOWN));
-            SendMessage(this, new MessageEventArgs("PowerControl contine on reboot requested", MessageType.CONTINUE_ONBOOT));                       
+            SendMessage(this, new MessageEventArgs("PowerControl contine on reboot requested", MessageType.ONBOOT_CONTINUE));                       
         }
     }
 }
