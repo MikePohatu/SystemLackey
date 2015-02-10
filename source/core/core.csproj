@@ -68,6 +68,7 @@
     <Compile Include="Messaging\MessageForwarder.cs" />
     <Compile Include="Messaging\MessagingDefinitions.cs" />
     <Compile Include="Messaging\IMessageSender.cs" />
+    <Compile Include="Service\UpdateTimer.cs" />
     <Compile Include="Shell.cs" />
     <Compile Include="Messaging\Logger.cs" />
     <Compile Include="Messaging\MessageEventArgs.cs" />
