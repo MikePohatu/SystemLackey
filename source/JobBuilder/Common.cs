@@ -67,6 +67,30 @@ namespace SystemLackey.UI.Forms
             else
             { return false; }
         }
+
+
+        //*** to be completed. just been copied from savexml
+        public static bool SaveZip(XElement pElement)
+        {
+            SaveFileDialog saveBox = new SaveFileDialog();
+
+            saveBox.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+            saveBox.FilterIndex = 1;
+
+            if (saveBox.ShowDialog() == DialogResult.OK)
+            {
+                System.IO.FileStream stream = (System.IO.FileStream)saveBox.OpenFile();
+                SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
+
+                //JobPackage jp = new JobPackage(pElement, stream);
+                //xmlHandler.Write(stream, pElement);
+                //stream.Close();
+                return true;
+            }
+            else
+            { return false; }
+        }
+
         public static bool ConfirmTaskSave()
         {
             if (MessageBox.Show("Are you sure you want to save this task?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)

@@ -388,7 +388,9 @@ namespace SystemLackey.UI.Forms
         {
             if ( rootNode != null)
             {
-                Job rootJob = (Job)rootNode.Tag;             
+                Job rootJob = (Job)rootNode.Tag;
+                //JobPackage jp = new JobPackage(rootJob, SystemLackey.IO.IOConfiguration.WorkingPath);
+                //jp.Save();
                 XElement data = rootJob.GetXml();
                 Common.SaveXML(data);
             }
