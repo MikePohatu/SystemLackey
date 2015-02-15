@@ -21,7 +21,7 @@ using SystemLackey.Messaging;
 
 namespace SystemLackey.Tasks
 {
-    public class WindowsScript : MessageSender, ITask, IMessageSender
+    public class WindowsScript : MessageSender, ITask, IMessageSender, IContentTask
     {
         public string Name { get; set; }
         public int Timeout { get; set; }
@@ -32,6 +32,7 @@ namespace SystemLackey.Tasks
         public bool Hidden { get; set; }
         public int Type { get; set; }
         public string Comments { get; set; }
+        public JobPackage Files { get; set; }
 
         //Default constructor
         public WindowsScript()
