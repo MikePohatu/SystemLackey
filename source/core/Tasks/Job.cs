@@ -136,7 +136,7 @@ namespace SystemLackey.Tasks
             TaskFactory factory = new TaskFactory();
             factory.SendMessageEvent += this.ReceiveMessage;
 
-            Step currentStep = this.Root;
+            Step currentStep = null;
             Step newStep;
             this.Root = null;
 
@@ -162,10 +162,10 @@ namespace SystemLackey.Tasks
                     SendMessage(this, new MessageEventArgs("PickupPoint: " + newStep.Task.Name + " ID: " + newStep.Task.ID, 1));
                 }
 
-                if (Root == null)
+                if (this.Root == null)
                 {
                     this.Root = newStep;
-                    currentStep = this.Root;
+                    currentStep = newStep;
                 }
                 else
                 {
