@@ -23,47 +23,23 @@ using SystemLackey.Messaging;
 namespace SystemLackey.Tasks
 {
     public class Job : MessageSender, IMessageReceiver, ITask, IEnumerable, IPickupPoint
-    {
-        private string name = "";        //Name of the task
-
-        private string jobid;
-        private string comments = "";
-        private Step root = null;       //root step for the job
+    {    
         private Step pickupPoint;       //step to restart from for restarted job e.g. after reboot
         private bool isPutDown = false;         //has this job been put down
 
         public Job()
         {
-            jobid = Guid.NewGuid().ToString();
+            this.ID = Guid.NewGuid().ToString();
         }
 
         //========================
         // Properties
         //========================
 
-        public string Name
-        {
-            get { return this.name; }
-            set { this.name = value; }
-        }
-
-        public string ID
-        {
-            get { return this.jobid; }
-            set { this.jobid = value; }
-        }
-
-        public string Comments
-        {
-            get { return this.comments; }
-            set { this.comments = value; }
-        }
-
-        public Step Root
-        {
-            get { return this.root; }
-            set { this.root = value; }
-        }
+        public string Name { get; set; }
+        public string ID { get; set; }
+        public string Comments { get; set; }
+        public Step Root { get; set; }  //root step for the job
 
         public Step PickupPoint
         {
@@ -134,12 +110,12 @@ namespace SystemLackey.Tasks
         //get the xml representation of the task
         public XElement GetXml()
         {
-            Step currentStep = root;
+            Step currentStep = this.Root;
 
             XElement details = new XElement("Task",
-                new XElement("name", name),
-                new XElement("id", jobid),
-                new XElement("comments", comments));
+                new XElement("name", this.Name),
+                new XElement("id", this.ID),
+                new XElement("comments", this.Comments));
             details.SetAttributeValue("Type","Job");
             //enumerate through the list and get the xml from each node (step)
             while (true)
@@ -160,13 +136,13 @@ namespace SystemLackey.Tasks
             TaskFactory factory = new TaskFactory();
             factory.SendMessageEvent += this.ReceiveMessage;
 
-            Step currentStep = root;
+            Step currentStep = this.Root;
             Step newStep;
-            root = null;
+            this.Root = null;
 
-            name = pElement.Element("name").Value;
-            comments = pElement.Element("comments").Value;
-            if (pImport == false) { jobid = pElement.Element("id").Value; }
+            this.Name = pElement.Element("name").Value;
+            this.Comments = pElement.Element("comments").Value;
+            if (pImport == false) { this.ID = pElement.Element("id").Value; }
 
             foreach (XElement step in pElement.Elements("Step"))
             {
@@ -186,10 +162,10 @@ namespace SystemLackey.Tasks
                     SendMessage(this, new MessageEventArgs("PickupPoint: " + newStep.Task.Name + " ID: " + newStep.Task.ID, 1));
                 }
 
-                if (root == null)
+                if (Root == null)
                 {
-                    root = newStep;
-                    currentStep = root;
+                    this.Root = newStep;
+                    currentStep = this.Root;
                 }
                 else
                 {
@@ -233,7 +209,7 @@ namespace SystemLackey.Tasks
                 //isPutDown = false;
             }
             else
-            { s = this.root; }
+            { s = this.Root; }
 
             while (true)
             {
