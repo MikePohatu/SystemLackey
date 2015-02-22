@@ -32,7 +32,6 @@ namespace SystemLackey.Tasks
         public bool Hidden { get; set; }
         public int Type { get; set; }
         public string Comments { get; set; }
-        public JobPackage Files { get; set; }
 
         //Default constructor
         public WindowsScript()

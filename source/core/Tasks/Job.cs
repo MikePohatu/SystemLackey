@@ -129,7 +129,49 @@ namespace SystemLackey.Tasks
             }
             return details;
         }
-        
+
+        //public method to get a list of tasks in the job.
+        //this is an accessor method. This calls the private recusive method GetSubTasks 
+        //that walks the tree to get all the details
+        public Dictionary<string, ITask> GetTasks()
+        {
+            Dictionary<string, ITask> taskDictionary = new Dictionary<string, ITask>();
+            taskDictionary.Add(this.ID, this);
+
+            this.GetSubTasks(taskDictionary);
+            return taskDictionary;
+        }
+
+        //get all the tasks in the job and subjobs, and add them to the provided dictionary
+        private void GetSubTasks(Dictionary<string, ITask> pTaskDictionary)
+        {
+            Step currentStep = this.Root;
+
+                       
+
+            //enumerate through the list and get the xml from each node (step)
+            while (true)
+            {
+                if (currentStep == null)
+                { break; }
+
+                //if not in the dictionary, add it
+                if (!(pTaskDictionary.ContainsKey(currentStep.Task.ID)))
+                {
+                    pTaskDictionary.Add(currentStep.Task.ID, currentStep.Task); 
+                }
+                
+                //recursively add to the dictionary
+                if (currentStep.Task is Job)
+                {
+                    ((Job)currentStep.Task).GetSubTasks(pTaskDictionary);
+                }
+                currentStep = currentStep.Next;
+
+            }
+        }
+
+
         // import job details from xml
         private void BuildFromXML(XElement pElement, bool pImport)
         {
@@ -177,6 +219,70 @@ namespace SystemLackey.Tasks
 
             //cleanup
             factory.SendMessageEvent -= this.ReceiveMessage;
+        }
+
+
+        // import job details from xml
+        public void BuildTreeFromXml(XElement pElement, bool pImport)
+        {
+            Step currentStep = null;
+            Step newStep;
+            this.Root = null;
+
+            this.Name = pElement.Element("name").Value;
+            this.Comments = pElement.Element("comments").Value;
+            if (pImport == false) { this.ID = pElement.Element("id").Value; }
+
+            foreach (XElement step in pElement.Elements("Step"))
+            {
+                //create a new empty step with the taskid
+                newStep = new Step(this, step.Element("taskid").Value);
+
+                //Suscribe to the step's logs for forwarding
+                ((IMessageSender)newStep).SendMessageEvent += this.ReceiveMessage;
+
+                //now check if the step is a pickup point
+                XAttribute isPickup = step.Attribute("IsPickupPoint");
+                if ((isPickup != null) && ((bool)isPickup == true))
+                {
+                    newStep.IsPickupPoint = true;
+                    if (this.pickupPoint != null) { SendMessage(this, new MessageEventArgs("Corrupt XML. Multiple pickup points for job", 3)); }
+                    this.pickupPoint = newStep;
+                    this.isPutDown = true;
+                    SendMessage(this, new MessageEventArgs("PickupPoint: " + newStep.Task.Name + " ID: " + newStep.TaskID, 1));
+                }
+
+                if (this.Root == null)
+                {
+                    this.Root = newStep;
+                    currentStep = newStep;
+                }
+                else
+                {
+                    currentStep.Next = newStep;
+                    newStep.Prev = currentStep;
+                    currentStep = newStep;
+                }
+            }
+        }
+
+        //populate an empty job tree with tasks.
+        public void Populate(Dictionary<string, ITask> pTaskDictionary)
+        {
+            this.SendMessage(this, new MessageEventArgs("Populating job: " + this.ID, 1));
+            ITask currentTask;
+            foreach (Step s in this)
+            {
+                if (pTaskDictionary.TryGetValue(s.TaskID, out currentTask))
+                {
+                    if (currentTask is Job) { ((Job)currentTask).Populate(pTaskDictionary); }
+                    else 
+                    {
+                        this.SendMessage(this, new MessageEventArgs("Attaching task: " + currentTask.ID, 1));
+                        s.Task = currentTask; 
+                    }
+                }
+            }
         }
 
         public void OpenXml(XElement pElement)

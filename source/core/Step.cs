@@ -31,35 +31,15 @@ namespace SystemLackey.Tasks
         private Job parent;
 
         //========================
-        // Constructors
-        //========================
-        public Step(Job pParent, ITask pTask)
-        {
-            parent = pParent;
-            Task = pTask;
-            this.IsPickupPoint = false;
-
-            //Suscribe to the tasks messages
-            if (Task is IMessageSender)
-            {
-                //this.SendMessage(this, new MessageEventArgs("Added task to step: " + pTask.Name,1));
-                ((IMessageSender)Task).SendMessageEvent += this.ReceiveMessage;
-            }
-        }
-
-
-
-        //========================
         // Properties
         //========================
-
+        public string TaskID { get; set; }
         public Step Next { get; set; }
         public Step Prev { get; set; }
         public ITask Task { get; set; }
         public bool ContinueOnError { get; set; }
         public bool ContinueOnWarning { get; set; }
         public bool IsPickupPoint { get; set; }
-
         public Job Parent
         {
             get { return this.parent; }
@@ -83,11 +63,40 @@ namespace SystemLackey.Tasks
                 }
             }
         }
-
-
         //========================
         // /Properties
         //========================
+
+
+        //========================
+        // Constructors
+        //========================
+        public Step(Job pParent, ITask pTask)
+        {
+            parent = pParent;
+            Task = pTask;
+            this.IsPickupPoint = false;
+
+            //Suscribe to the tasks messages
+            if (Task is IMessageSender)
+            {
+                //this.SendMessage(this, new MessageEventArgs("Added task to step: " + pTask.Name,1));
+                ((IMessageSender)Task).SendMessageEvent += this.ReceiveMessage;
+            }
+        }
+
+        //create an empty step, but specify the taskid to be applied.
+        //this is used during build from package, where the job tree is built
+        //before it is populated with tasks. 
+        public Step(Job pParent, string pTaskID)
+        {
+            this.TaskID = pTaskID;
+            this.IsPickupPoint = false;
+            this.parent = pParent;
+        }
+
+        
+  
 
 
         //Forward any logging messages from the task up the chain. 
@@ -130,9 +139,9 @@ namespace SystemLackey.Tasks
             if (Task != null)
             {
                 details.Add(new XElement("taskid", Task.ID));
-                details.Add(Task.GetXml());
+                //details.Add(Task.GetXml());
             }
-            details.SetAttributeValue("IsPickupPoint", IsPickupPoint);
+            details.SetAttributeValue("IsPickupPoint", this.IsPickupPoint);
    
             return details;
         }

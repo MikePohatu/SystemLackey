@@ -20,6 +20,6 @@ namespace SystemLackey.Tasks
 {
     public interface IContentTask: ITask
     {
-        JobPackage Files { get; set; }
+        //JobPackage Files { get; set; }
     }
 }

@@ -31,6 +31,7 @@ using SystemLackey.UI;
 using SystemLackey.Messaging;
 using SystemLackey.Service;
 using SystemLackey.Worker;
+using SystemLackey.IO;
 
 namespace SystemLackey.UI.Forms
 {
@@ -389,8 +390,8 @@ namespace SystemLackey.UI.Forms
             if ( rootNode != null)
             {
                 Job rootJob = (Job)rootNode.Tag;
-                //JobPackage jp = new JobPackage(rootJob, SystemLackey.IO.IOConfiguration.WorkingPath);
-                //jp.Save();
+                JobPackage jp = new JobPackage(rootJob, SystemLackey.IO.IOConfiguration.WorkingPath);
+                jp.Save();
                 XElement data = rootJob.GetXml();
                 Common.SaveXML(data);
             }

@@ -23,6 +23,7 @@ using System.Xml.Linq;
 
 using SystemLackey.Messaging;
 using SystemLackey.Tasks;
+using SystemLackey.IO;
 
 namespace SystemLackey.UI.Forms
 {
@@ -59,7 +60,7 @@ namespace SystemLackey.UI.Forms
             if (saveBox.ShowDialog() == DialogResult.OK)
             {
                 System.IO.FileStream stream = (System.IO.FileStream)saveBox.OpenFile();
-                SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
+                XmlHandler xmlHandler = new XmlHandler();
                 xmlHandler.Write(stream, pElement);
                 stream.Close();
                 return true;
@@ -68,9 +69,7 @@ namespace SystemLackey.UI.Forms
             { return false; }
         }
 
-
-        //*** to be completed. just been copied from savexml
-        public static bool SaveZip(XElement pElement)
+        public static bool SaveZip(Job pJob)
         {
             SaveFileDialog saveBox = new SaveFileDialog();
 
@@ -80,11 +79,11 @@ namespace SystemLackey.UI.Forms
             if (saveBox.ShowDialog() == DialogResult.OK)
             {
                 System.IO.FileStream stream = (System.IO.FileStream)saveBox.OpenFile();
-                SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
-
-                //JobPackage jp = new JobPackage(pElement, stream);
+                stream.Close();
+                JobPackage jp = new JobPackage(pJob,stream.Name);
+                jp.Save();
+                //SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
                 //xmlHandler.Write(stream, pElement);
-                //stream.Close();
                 return true;
             }
             else
