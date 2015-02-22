@@ -33,7 +33,13 @@ namespace SystemLackey.IO
         private string parentPath;
         private Dictionary<string,ITask> taskDictionary = new Dictionary<string,ITask>();
         private Dictionary<string, ITask> jobDictionary = new Dictionary<string, ITask>();
-        private System.IO.FileStream stream;
+
+        // Constructors
+        public JobPackage(Job pJob)
+        {
+            this.root = pJob;
+        }
+
 
         public JobPackage(Job pJob, string pParentPath)
         {
@@ -67,7 +73,7 @@ namespace SystemLackey.IO
             return this.Save(zipFilePath);
         }
 
-        //save to a specific path
+        //save to a specific stream
         public bool Save(string pPathToZip)
         {
             bool overwrite = false;

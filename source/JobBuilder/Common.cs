@@ -69,7 +69,21 @@ namespace SystemLackey.UI.Forms
             { return false; }
         }
 
+
+        //Zip file save/export functions
         public static bool SaveZip(Job pJob)
+        {
+            return WriteZip(pJob, false);
+        }
+
+        public static bool ExportZip(Job pJob)
+        {
+            return WriteZip(pJob, true);
+        }
+
+        //main zip file write function
+        //** export vs save functionality to be added
+        private static bool WriteZip(Job pJob, bool pExport)
         {
             SaveFileDialog saveBox = new SaveFileDialog();
 
@@ -78,12 +92,15 @@ namespace SystemLackey.UI.Forms
 
             if (saveBox.ShowDialog() == DialogResult.OK)
             {
-                System.IO.FileStream stream = (System.IO.FileStream)saveBox.OpenFile();
-                stream.Close();
-                JobPackage jp = new JobPackage(pJob,stream.Name);
-                jp.Save();
-                //SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
-                //xmlHandler.Write(stream, pElement);
+                JobPackage jp;
+                string zipPath;
+                using (System.IO.FileStream stream = (System.IO.FileStream)saveBox.OpenFile())
+                {
+                    zipPath = stream.Name;                   
+                }
+                jp = new JobPackage(pJob);
+                jp.Save(zipPath);
+
                 return true;
             }
             else

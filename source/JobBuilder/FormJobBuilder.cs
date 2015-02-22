@@ -390,15 +390,10 @@ namespace SystemLackey.UI.Forms
             if ( rootNode != null)
             {
                 Job rootJob = (Job)rootNode.Tag;
-                JobPackage jp = new JobPackage(rootJob, SystemLackey.IO.IOConfiguration.WorkingPath);
-                jp.Save();
-                XElement data = rootJob.GetXml();
-                Common.SaveXML(data);
+                Common.ExportZip(rootJob);
             }
 
             else { logger.Write("No job to export", 0); }
-            
-            
         }
 
         //Import a job and populate the tree.
