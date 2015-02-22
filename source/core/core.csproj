@@ -66,6 +66,7 @@
     <Compile Include="Filters\Filter.cs" />
     <Compile Include="Filters\Queries\IQuery.cs" />
     <Compile Include="Filters\Queries\RegQuery.cs" />
+    <Compile Include="IO\FolderOperations.cs" />
     <Compile Include="IO\IOConfiguration.cs" />
     <Compile Include="IO\XmlHandler.cs" />
     <Compile Include="Messaging\IMessageReceiver.cs" />

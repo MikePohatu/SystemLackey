@@ -30,7 +30,8 @@ namespace SystemLackey.IO
         private Job root;
         private string workingPath;
         private string tasksPath;
-        private string parentPath;
+        private string defaultPath = IOConfiguration.WorkingPath;
+
         private Dictionary<string,ITask> taskDictionary = new Dictionary<string,ITask>();
         private Dictionary<string, ITask> jobDictionary = new Dictionary<string, ITask>();
 
@@ -41,45 +42,33 @@ namespace SystemLackey.IO
         }
 
 
-        public JobPackage(Job pJob, string pParentPath)
-        {
-            this.root = pJob;
-            this.parentPath = pParentPath;
-            this.workingPath = parentPath + @"\" + root.ID;
-            this.tasksPath = this.workingPath + @"\Tasks";
-        }
-
-        public JobPackage(XElement pJobXml, string pParentPath)
-        {
-            this.root = new Job();
-            this.root.OpenXml(pJobXml);
-
-            this.parentPath = pParentPath;
-            this.workingPath = parentPath + @"\" + root.ID;
-            this.tasksPath = this.workingPath + @"\Tasks";
-        }
-
-        public JobPackage(string pJobPackageFile, string pParentPath)
-        {
-            this.parentPath = pParentPath;
-            this.workingPath = parentPath + @"\" + root.ID;
-            this.tasksPath = this.workingPath + @"\Tasks";
-        }
-
         //save to the default location
         public bool Save()
         {
-            string zipFilePath = this.parentPath + @"\" + root.ID + @".zip";
-            return this.Save(zipFilePath);
+            if (this.defaultPath != null)
+            { 
+                string zipFilePath = this.defaultPath + @"\" + root.Name + @".zip";
+                return this.Save(zipFilePath);
+            }
+            else
+            { return false; }
+            
         }
 
-        //save to a specific stream
+        //save to a specific path
         public bool Save(string pPathToZip)
         {
-            bool overwrite = false;
+            this.SendMessage(this, new MessageEventArgs("Saving pacakge file: " + pPathToZip, 0));
 
-            if (!(Directory.Exists(this.tasksPath))) 
-            { 
+            bool overwrite = false;
+            this.workingPath = Path.GetDirectoryName(pPathToZip) + @"\" + this.root.ID;
+            this.tasksPath = workingPath + @"\Tasks";
+
+            this.SendMessage(this, new MessageEventArgs("Working path: " + this.workingPath, 0));
+            this.SendMessage(this, new MessageEventArgs("Tasks path: " + this.tasksPath, 0));
+
+            if (!(Directory.Exists(tasksPath))) 
+            {
                 Directory.CreateDirectory(tasksPath); 
             }
 
@@ -92,20 +81,23 @@ namespace SystemLackey.IO
 
             //write the root.xml
             XElement rootXml = new XElement("ID", this.root.ID);
-            //rootID = rootXml.Element("ID").Value;
             XmlHandler handler = new XmlHandler();
             handler.Write(this.workingPath + @"\root.xml", rootXml);
 
             foreach (KeyValuePair<string, ITask> pair in root.GetTasks())
             {
                 handler.Write(this.tasksPath + @"\" + pair.Key + ".xml", pair.Value.GetXml());
+                if (pair.Value is IContentTask)
+                {
+                    IContentTask contentTask = (IContentTask)pair.Value;
+                    if (contentTask.ContentPath != null) { FolderOperations.Copy(contentTask.ContentPath, this.tasksPath + @"\" + contentTask.ID); }              
+                }
             }
-            //foreach (string id in this.root.GetTasks.Keys)
-            //{
-            //    handler.Write(this.tasksPath + @"\" + s.TaskID + ".xml", s.Task.GetXml());
-            //}
 
             ZipFile.CreateFromDirectory(this.workingPath, pPathToZip);
+            FolderOperations.Copy(this.workingPath, @"c:\test");
+            Directory.Delete(this.workingPath,true);
+
             return overwrite;
         }
 
@@ -114,7 +106,7 @@ namespace SystemLackey.IO
         public Job Open(string pZipPath)
         {
             string tempGuid = new Guid().ToString();
-            string tempFolder = this.parentPath + @"\" + tempGuid;
+            string tempFolder = this.defaultPath + @"\" + tempGuid;
             string rootID;
 
             if (!(File.Exists(pZipPath))) { throw new FileNotFoundException("File not found: " + pZipPath); }
@@ -161,8 +153,8 @@ namespace SystemLackey.IO
             root.Populate(taskDictionary);
 
             //rename the folder to the guid of the root job
-            Directory.Move(tempFolder, parentPath + @"\" + root.ID);
-            this.workingPath = parentPath + @"\" + root.ID;
+            Directory.Move(tempFolder, defaultPath + @"\" + root.ID);
+            this.workingPath = defaultPath + @"\" + root.ID;
 
             return root;
         }

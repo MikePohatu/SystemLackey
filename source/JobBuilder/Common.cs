@@ -93,14 +93,18 @@ namespace SystemLackey.UI.Forms
             if (saveBox.ShowDialog() == DialogResult.OK)
             {
                 JobPackage jp;
+
                 string zipPath;
                 using (System.IO.FileStream stream = (System.IO.FileStream)saveBox.OpenFile())
                 {
                     zipPath = stream.Name;                   
                 }
-                jp = new JobPackage(pJob);
-                jp.Save(zipPath);
 
+                jp = new JobPackage(pJob);
+
+                jp.SendMessageEvent += pJob.ReceiveMessage;
+                jp.Save(zipPath);
+                jp.SendMessageEvent -= pJob.ReceiveMessage;
                 return true;
             }
             else

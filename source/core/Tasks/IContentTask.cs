@@ -21,5 +21,6 @@ namespace SystemLackey.Tasks
     public interface IContentTask: ITask
     {
         //JobPackage Files { get; set; }
+        string ContentPath { get; set; }
     }
 }
