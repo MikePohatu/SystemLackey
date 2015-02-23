@@ -111,7 +111,7 @@ namespace SystemLackey.UI.Forms
 
         public void Save()
         {
-            if (Common.ConfirmTaskSave())
+            if (CommonTasks.ConfirmTaskSave())
             {
                 string codeString = "";
                 string[] lines = textCode.Lines;
@@ -146,7 +146,7 @@ namespace SystemLackey.UI.Forms
                     task.Type = 2;
                 }
 
-                Common.UpdateNode(node, task.Name);
+                CommonTasks.UpdateNode(node, task.Name);
             }
         }
 
@@ -185,7 +185,7 @@ namespace SystemLackey.UI.Forms
             textName.Text = task.Name;
             richtextComments.Text = task.Comments;
 
-            Common.UpdateNode(node, task.Name);
+            CommonTasks.UpdateNode(node, task.Name);
 
             switch (task.Type)
             {

@@ -60,7 +60,7 @@ namespace SystemLackey.UI.Forms
 
         public void Save()
         {
-            if (Common.ConfirmJobSave())
+            if (CommonTasks.ConfirmJobSave())
             {
                 job.Comments = textComments.Text;
                 job.Name = textName.Text;

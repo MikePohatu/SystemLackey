@@ -68,12 +68,12 @@ namespace SystemLackey.UI.Forms
                 radioLogoff.Checked = true;
             }
 
-            Common.UpdateNode(node, task.Name);
+            CommonTasks.UpdateNode(node, task.Name);
         }
 
         public void Save()
         {
-            if (Common.ConfirmTaskSave())
+            if (CommonTasks.ConfirmTaskSave())
             {
                 task.Comments = textComments.Text;
                 task.Name = textName.Text;
@@ -95,7 +95,7 @@ namespace SystemLackey.UI.Forms
                     task.PowerOption = 'l';
                 }
 
-                Common.UpdateNode(node,task.Name);
+                CommonTasks.UpdateNode(node,task.Name);
             }
         }
     }

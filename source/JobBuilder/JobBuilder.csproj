@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="JBConsole\JBConsoleOptions.cs" />
-    <Compile Include="Common.cs" />
+    <Compile Include="CommonTasks.cs" />
     <Compile Include="JBConsole\FormJBConsoleOptions.cs">
       <SubType>Form</SubType>
     </Compile>

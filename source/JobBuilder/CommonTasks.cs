@@ -1,4 +1,4 @@
-﻿//    Common.cs:    this class is used to provide common prompts for forms
+﻿//    CommonTasks.cs:    this class is used to provide common prompts for forms
 //                  e.g. confirmation prompts, rather than having to redo it 
 //                  for every form
 //    Copyright (C) 2015 Mike Pohatu
@@ -27,7 +27,7 @@ using SystemLackey.IO;
 
 namespace SystemLackey.UI.Forms
 {
-    class Common : MessageForwarder
+    class CommonTasks : MessageForwarder
     {
         public static XElement OpenXML()
         {

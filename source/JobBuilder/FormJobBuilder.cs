@@ -160,7 +160,7 @@ namespace SystemLackey.UI.Forms
         {
             if (this.rootNode != null)
             {
-                if (Common.ConfirmNewJob())
+                if (CommonTasks.ConfirmNewJob())
                 {
                     StartNewJob();
                 }
@@ -362,7 +362,7 @@ namespace SystemLackey.UI.Forms
         //run the job as listed. 
         private void runJobToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Common.ConfirmJobRun())
+            if (CommonTasks.ConfirmJobRun())
             {
                 if ((rootNode != null) && (rootNode.Tag != null))
                 {
@@ -394,7 +394,7 @@ namespace SystemLackey.UI.Forms
             if ( rootNode != null)
             {
                 Job rootJob = (Job)rootNode.Tag;
-                Common.ExportZip(rootJob);
+                CommonTasks.ExportZip(rootJob);
             }
 
             else { logger.Write("No job to export", 0); }
@@ -480,12 +480,12 @@ namespace SystemLackey.UI.Forms
             bool check = true;
             if (rootNode != null)
             {
-                check = Common.ConfirmNewJob();
+                check = CommonTasks.ConfirmNewJob();
             }
 
             if (check)
             {
-                Common common = new Common();
+                CommonTasks common = new CommonTasks();
                 common.SendMessageEvent += this.ForwardMessage;
 
                 if (this.jp != null) { this.jp.Cleanup(); }
@@ -849,14 +849,14 @@ namespace SystemLackey.UI.Forms
 
                 if (s.Task is Job)
                 {
-                    if (Common.ConfirmJobDelete(s))
+                    if (CommonTasks.ConfirmJobDelete(s))
                     {
                         confirm = true;
                     }
                 }
                 else
                 {
-                    if (Common.ConfirmStepDelete(s))
+                    if (CommonTasks.ConfirmStepDelete(s))
                     {
                         confirm = true; 
                     }
