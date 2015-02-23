@@ -275,12 +275,11 @@ namespace SystemLackey.Tasks
             {
                 if (pTaskDictionary.TryGetValue(s.TaskID, out currentTask))
                 {
-                    if (currentTask is Job) { ((Job)currentTask).Populate(pTaskDictionary); }
-                    else 
-                    {
-                        this.SendMessage(this, new MessageEventArgs("Attaching task: " + currentTask.ID, 1));
-                        s.Task = currentTask; 
-                    }
+                    this.SendMessage(this, new MessageEventArgs("Attaching task: " + currentTask.ID, 1));
+                    s.Task = currentTask; 
+
+                    if (currentTask is Job) 
+                    { ((Job)currentTask).Populate(pTaskDictionary); }
                 }
             }
         }

@@ -27,7 +27,7 @@ using SystemLackey.IO;
 
 namespace SystemLackey.UI.Forms
 {
-    class Common
+    class Common : MessageForwarder
     {
         public static XElement OpenXML()
         {
@@ -111,17 +111,17 @@ namespace SystemLackey.UI.Forms
             { return false; }
         }
 
-        public static Job OpenZip()
+        public JobPackage OpenZip()
         {
             return ReadZip(false);
         }
 
-        public static Job ImportZip()
+        public JobPackage ImportZip()
         {
             return ReadZip(true);
         }
 
-        private static Job ReadZip(bool pImport)
+        private JobPackage ReadZip(bool pImport)
         {
             OpenFileDialog openBox = new OpenFileDialog();
 
@@ -141,9 +141,11 @@ namespace SystemLackey.UI.Forms
 
                 jp = new JobPackage(zipPath);
 
-                //jp.SendMessageEvent += pJob.ReceiveMessage;
-                return jp.Open();
-                //jp.SendMessageEvent -= pJob.ReceiveMessage;
+                jp.SendMessageEvent += this.ForwardMessage;
+                Job newJob = jp.Open();
+                jp.SendMessageEvent -= this.ForwardMessage;
+
+                return jp;
 
             }
             else

@@ -33,18 +33,26 @@ namespace SystemLackey.IO
         private string tasksPath;
         private string defaultPath = IOConfiguration.WorkingPath;
         private string pathToZip;
+        private string guid;
 
         private Dictionary<string,ITask> taskDictionary = new Dictionary<string,ITask>();
         private Dictionary<string, ITask> jobDictionary = new Dictionary<string, ITask>();
 
+        public Job Root 
+        {
+            get { return this.root; }
+        }
+
         // Constructors
         public JobPackage(Job pJob)
         {
+            this.guid = Guid.NewGuid().ToString();
             this.root = pJob;
         }
 
         public JobPackage(string pPathToZip)
         {
+            this.guid = Guid.NewGuid().ToString();
             this.pathToZip = pPathToZip;
         }
 
@@ -123,7 +131,7 @@ namespace SystemLackey.IO
         {
             this.SendMessage(this, new MessageEventArgs("Opening pacakge file: " + pZipPath, 0));
 
-            this.workingPath = Path.GetDirectoryName(pZipPath) + @"\" + Path.GetFileNameWithoutExtension(pZipPath);
+            this.workingPath = Path.GetDirectoryName(pZipPath) + @"\" + this.guid;
             this.tasksPath = workingPath + @"\Tasks";
 
             this.SendMessage(this, new MessageEventArgs("Working path: " + this.workingPath, 0));
@@ -139,7 +147,7 @@ namespace SystemLackey.IO
             if (!(File.Exists(this.workingPath + @"\root.xml"))) { throw new FileNotFoundException("Root.xml not found in archive"); }
             if (!(Directory.Exists(this.tasksPath))) { throw new DirectoryNotFoundException("Tasks folder not found in archive"); }
 
-            Job root = new Job();
+            //Job rootJob = new Job();
             XmlHandler handler = new XmlHandler();
             TaskFactory factory = new TaskFactory();
             
@@ -173,20 +181,13 @@ namespace SystemLackey.IO
             factory.SendMessageEvent -= this.ForwardMessage;
 
             ITask t;
-
-            foreach (string key in this.taskDictionary.Keys)
-            {
-                Debug.WriteLine(key);
-                if (this.jobDictionary.TryGetValue(key,out t))
-                { Debug.WriteLine(t.ID); }
-                
-            }
-
             
             if (taskDictionary.TryGetValue(rootID,out t))
             { this.root = (Job)t; }
             else
             { throw new FileNotFoundException("Task not found in dictionary: " + rootID); }
+
+            this.SendMessage(this, new MessageEventArgs("Set root job: " + this.root.Name, 0));
 
             this.root.Populate(taskDictionary);
 
@@ -194,9 +195,19 @@ namespace SystemLackey.IO
             //Directory.Move(tempFolder, defaultPath + @"\" + root.ID);
             //this.workingPath = defaultPath + @"\" + root.ID;
 
-            return root;
+            return this.root;
         }
 
-
+        public void Cleanup()
+        {
+            if (this.workingPath != null)
+            {
+                if (Directory.Exists(this.workingPath))
+                {
+                    try { Directory.Delete(this.workingPath, true); }
+                    catch { this.SendMessage(this,new MessageEventArgs("Failed to cleanup folder: " + this.workingPath,0)); }
+                }
+            }
+        }
     }
 }

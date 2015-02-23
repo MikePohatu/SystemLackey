@@ -42,6 +42,7 @@ namespace SystemLackey.UI.Forms
         private Form panel2;
         private int childFormNumber = 0;
         private Logger logger = new Logger();
+        private JobPackage jp;
 
         public JobScheduler JobScheduler { get; set; }
 
@@ -412,68 +413,68 @@ namespace SystemLackey.UI.Forms
         }
 
         //Open the xml file. If import is true, do an import, i.e. don't bring in the job id. 
-        private void BuildFromXml(bool pImport)
-        {
-            bool check = true;
-            if (rootNode != null)
-            {
-                check = Common.ConfirmNewJob();
-            }
+        //private void BuildFromXml(bool pImport)
+        //{
+        //    bool check = true;
+        //    if (rootNode != null)
+        //    {
+        //        check = Common.ConfirmNewJob();
+        //    }
 
-            if (check)
-            {
+        //    if (check)
+        //    {
 
-                XElement rootJobXml = Common.OpenXML();
+        //        XElement rootJobXml = Common.OpenXML();
 
-                if (rootJobXml != null)
-                {
-                    this.UseWaitCursor = true;
-                    treeJobList.BeginUpdate();
+        //        if (rootJobXml != null)
+        //        {
+        //            this.UseWaitCursor = true;
+        //            treeJobList.BeginUpdate();
 
-                    //cleanup old event listeners
-                    if (rootNode != null)
-                    {
-                        Job oldJob = (Job)rootNode.Tag;
-                        oldJob.SendMessageEvent -= this.ForwardMessage;
-                    }
+        //            //cleanup old event listeners
+        //            if (rootNode != null)
+        //            {
+        //                Job oldJob = (Job)rootNode.Tag;
+        //                oldJob.SendMessageEvent -= this.ForwardMessage;
+        //            }
 
-                    Job rootJob = new Job();
-                    rootJob.SendMessageEvent += this.ForwardMessage;
+        //            Job rootJob = new Job();
+        //            rootJob.SendMessageEvent += this.ForwardMessage;
 
-                    if (pImport)
-                    { rootJob.ImportXml(rootJobXml); }
-                    else
-                    { rootJob.OpenXml(rootJobXml); }
+        //            if (pImport)
+        //            { rootJob.ImportXml(rootJobXml); }
+        //            else
+        //            { rootJob.OpenXml(rootJobXml); }
                     
 
-                    //create the new node and set it up. 
-                    rootNode = new TreeNode();
-                    rootNode.Tag = rootJob;
-                    rootNode.Name = rootJob.ID;
-                    rootNode.Text = rootJob.Name;
+        //            //create the new node and set it up. 
+        //            rootNode = new TreeNode();
+        //            rootNode.Tag = rootJob;
+        //            rootNode.Name = rootJob.ID;
+        //            rootNode.Text = rootJob.Name;
 
-                    treeJobList.Nodes.Clear();
+        //            treeJobList.Nodes.Clear();
 
-                    treeJobList.Nodes.Add(rootNode);
+        //            treeJobList.Nodes.Add(rootNode);
 
-                    //Close panel2 and Spin up the new form
-                    if (panel2 != null)
-                    { panel2.Close(); }
+        //            //Close panel2 and Spin up the new form
+        //            if (panel2 != null)
+        //            { panel2.Close(); }
 
-                    panel2 = factory.Create(rootNode);
-                    ResetPanel2();
+        //            panel2 = factory.Create(rootNode);
+        //            ResetPanel2();
 
-                    treeJobList.SelectedNode = rootNode;
+        //            treeJobList.SelectedNode = rootNode;
 
-                    this.PopulateTree(rootNode);
-                    treeJobList.ExpandAll();
-                    treeJobList.EndUpdate();
-                    this.UseWaitCursor = false;
-                }
-            }
-        }
+        //            this.PopulateTree(rootNode);
+        //            treeJobList.ExpandAll();
+        //            treeJobList.EndUpdate();
+        //            this.UseWaitCursor = false;
+        //        }
+        //    }
+        //}
 
-        //Open the xml file. If import is true, do an import, i.e. don't bring in the job id. 
+        //Open the zip file. If import is true, do an import, i.e. don't bring in the job id. 
         private void BuildFromPackage(bool pImport)
         {
             bool check = true;
@@ -484,8 +485,13 @@ namespace SystemLackey.UI.Forms
 
             if (check)
             {
+                Common common = new Common();
+                common.SendMessageEvent += this.ForwardMessage;
 
-                Job rootJob = Common.OpenZip();
+                if (this.jp != null) { this.jp.Cleanup(); }
+
+                this.jp = common.OpenZip();
+                Job rootJob = jp.Root;
 
                 if (rootJob != null)
                 {
@@ -526,6 +532,8 @@ namespace SystemLackey.UI.Forms
                     treeJobList.EndUpdate();
                     this.UseWaitCursor = false;
                 }
+
+                common.SendMessageEvent -= this.ForwardMessage;
             }
         }
 
@@ -556,6 +564,7 @@ namespace SystemLackey.UI.Forms
 
             foreach (Step s in rootJob)
             {
+                if (s.Task == null) { throw new NullReferenceException("Empty task: " + s.TaskID); }
                 TreeNode t = new TreeNode();
                 t.Tag = s;
                 t.Name = s.Task.ID;
@@ -861,6 +870,11 @@ namespace SystemLackey.UI.Forms
                     treeJobList.SelectedNode = null;
                 }
             }
+        }
+
+        private void FormJobBuilder_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (this.jp != null) { this.jp.Cleanup(); }
         }
     }
 }
