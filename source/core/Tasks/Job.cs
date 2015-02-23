@@ -173,53 +173,53 @@ namespace SystemLackey.Tasks
 
 
         // import job details from xml
-        private void BuildFromXML(XElement pElement, bool pImport)
-        {
-            TaskFactory factory = new TaskFactory();
-            factory.SendMessageEvent += this.ReceiveMessage;
+        //private void BuildFromXML(XElement pElement, bool pImport)
+        //{
+        //    TaskFactory factory = new TaskFactory();
+        //    factory.SendMessageEvent += this.ReceiveMessage;
 
-            Step currentStep = null;
-            Step newStep;
-            this.Root = null;
+        //    Step currentStep = null;
+        //    Step newStep;
+        //    this.Root = null;
 
-            this.Name = pElement.Element("name").Value;
-            this.Comments = pElement.Element("comments").Value;
-            if (pImport == false) { this.ID = pElement.Element("id").Value; }
+        //    this.Name = pElement.Element("name").Value;
+        //    this.Comments = pElement.Element("comments").Value;
+        //    if (pImport == false) { this.ID = pElement.Element("id").Value; }
 
-            foreach (XElement step in pElement.Elements("Step"))
-            {
-                newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
+        //    foreach (XElement step in pElement.Elements("Step"))
+        //    {
+        //        newStep = new Step(this, factory.Create(step.Element("Task"),pImport));
 
-                //Suscribe to the step's logs for forwarding
-                ((IMessageSender)newStep).SendMessageEvent += this.ReceiveMessage;
+        //        //Suscribe to the step's logs for forwarding
+        //        ((IMessageSender)newStep).SendMessageEvent += this.ReceiveMessage;
 
-                //now check if the step is a pickup point
-                XAttribute isPickup = step.Attribute("IsPickupPoint");
-                if ((isPickup != null) && ((bool)isPickup == true))
-                {
-                    newStep.IsPickupPoint = true;
-                    if (this.pickupPoint != null) { SendMessage(this, new MessageEventArgs("Corrupt XML. Multiple pickup points for job", 3)); }
-                    this.pickupPoint = newStep;
-                    this.isPutDown = true;
-                    SendMessage(this, new MessageEventArgs("PickupPoint: " + newStep.Task.Name + " ID: " + newStep.Task.ID, 1));
-                }
+        //        //now check if the step is a pickup point
+        //        XAttribute isPickup = step.Attribute("IsPickupPoint");
+        //        if ((isPickup != null) && ((bool)isPickup == true))
+        //        {
+        //            newStep.IsPickupPoint = true;
+        //            if (this.pickupPoint != null) { SendMessage(this, new MessageEventArgs("Corrupt XML. Multiple pickup points for job", 3)); }
+        //            this.pickupPoint = newStep;
+        //            this.isPutDown = true;
+        //            SendMessage(this, new MessageEventArgs("PickupPoint: " + newStep.Task.Name + " ID: " + newStep.Task.ID, 1));
+        //        }
 
-                if (this.Root == null)
-                {
-                    this.Root = newStep;
-                    currentStep = newStep;
-                }
-                else
-                {
-                    currentStep.Next = newStep;
-                    newStep.Prev = currentStep;
-                    currentStep = newStep;
-                }
-            }
+        //        if (this.Root == null)
+        //        {
+        //            this.Root = newStep;
+        //            currentStep = newStep;
+        //        }
+        //        else
+        //        {
+        //            currentStep.Next = newStep;
+        //            newStep.Prev = currentStep;
+        //            currentStep = newStep;
+        //        }
+        //    }
 
-            //cleanup
-            factory.SendMessageEvent -= this.ReceiveMessage;
-        }
+        //    //cleanup
+        //    factory.SendMessageEvent -= this.ReceiveMessage;
+        //}
 
 
         // import job details from xml
@@ -287,12 +287,12 @@ namespace SystemLackey.Tasks
 
         public void OpenXml(XElement pElement)
         {
-            BuildFromXML(pElement, false);
+            BuildTreeFromXml(pElement, false);
         }
 
         public void ImportXml(XElement pElement)
         {
-            BuildFromXML(pElement, true);
+            BuildTreeFromXml(pElement, true);
         }
 
         public IEnumerator GetEnumerator()

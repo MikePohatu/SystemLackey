@@ -16,6 +16,7 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace SystemLackey.IO
         private string workingPath;
         private string tasksPath;
         private string defaultPath = IOConfiguration.WorkingPath;
+        private string pathToZip;
 
         private Dictionary<string,ITask> taskDictionary = new Dictionary<string,ITask>();
         private Dictionary<string, ITask> jobDictionary = new Dictionary<string, ITask>();
@@ -41,6 +43,10 @@ namespace SystemLackey.IO
             this.root = pJob;
         }
 
+        public JobPackage(string pPathToZip)
+        {
+            this.pathToZip = pPathToZip;
+        }
 
         //save to the default location
         public bool Save()
@@ -80,7 +86,7 @@ namespace SystemLackey.IO
             }
 
             //write the root.xml
-            XElement rootXml = new XElement("ID", this.root.ID);
+            XElement rootXml = new XElement("Root",new XElement("ID", this.root.ID));
             XmlHandler handler = new XmlHandler();
             handler.Write(this.workingPath + @"\root.xml", rootXml);
 
@@ -95,47 +101,69 @@ namespace SystemLackey.IO
             }
 
             ZipFile.CreateFromDirectory(this.workingPath, pPathToZip);
-            FolderOperations.Copy(this.workingPath, @"c:\test");
             Directory.Delete(this.workingPath,true);
 
             return overwrite;
         }
 
 
+        public Job Open()
+        {
+            if (this.pathToZip != null)
+            { return this.Open(this.pathToZip); }
+            else
+            { throw new FileNotFoundException("JobPackage has no pathToZip set"); }
+            
+        }
+
+
+
         //open a zip file and spit out the job
         public Job Open(string pZipPath)
         {
-            string tempGuid = new Guid().ToString();
-            string tempFolder = this.defaultPath + @"\" + tempGuid;
-            string rootID;
+            this.SendMessage(this, new MessageEventArgs("Opening pacakge file: " + pZipPath, 0));
+
+            this.workingPath = Path.GetDirectoryName(pZipPath) + @"\" + Path.GetFileNameWithoutExtension(pZipPath);
+            this.tasksPath = workingPath + @"\Tasks";
+
+            this.SendMessage(this, new MessageEventArgs("Working path: " + this.workingPath, 0));
+            this.SendMessage(this, new MessageEventArgs("Tasks path: " + this.tasksPath, 0));
 
             if (!(File.Exists(pZipPath))) { throw new FileNotFoundException("File not found: " + pZipPath); }
             //if (!(Directory.Exists(this.parentPath))) { throw new DirectoryNotFoundException("Directory not found: " + parentPath); }
 
-            Directory.CreateDirectory(tempFolder);
-            ZipFile.ExtractToDirectory(pZipPath, tempFolder);  //extract the zip
+            Directory.CreateDirectory(this.workingPath);
+            ZipFile.ExtractToDirectory(pZipPath, this.workingPath);  //extract the zip
 
-            if (!(File.Exists(tempFolder + @"\root.xml"))) { throw new FileNotFoundException("Root.xml not found in archive"); }
-            if (!(Directory.Exists(tempFolder + @"\Tasks"))) { throw new DirectoryNotFoundException("Tasks folder not found in archive"); }
+            //package format checking
+            if (!(File.Exists(this.workingPath + @"\root.xml"))) { throw new FileNotFoundException("Root.xml not found in archive"); }
+            if (!(Directory.Exists(this.tasksPath))) { throw new DirectoryNotFoundException("Tasks folder not found in archive"); }
 
             Job root = new Job();
             XmlHandler handler = new XmlHandler();
             TaskFactory factory = new TaskFactory();
-
             
-            XElement rootXml = handler.Read(tempFolder + @"\root.xml");
-            rootID = rootXml.Element("ID").Value; 
+            XElement rootXml = handler.Read(this.workingPath + @"\root.xml");
+            string rootID = rootXml.Element("ID").Value; 
 
             //root.BuildTreeFromXml(handler.Read(tempFolder + @"\root.xml"),false);
 
             factory.SendMessageEvent += this.ForwardMessage;
 
             //now enumerate all the xml files in the folder and import them
-            foreach (string filePath in Directory.EnumerateFiles(tempFolder + @"\Tasks","*.xml"))
+            foreach (string filePath in Directory.GetFiles(this.tasksPath,"*.xml"))
             {
-                string fileName = filePath.Substring(tempFolder.Length + 1);
-                ITask newTask = factory.Create(handler.Read(filePath), false);
-                taskDictionary.Add(newTask.ID, newTask);
+                if (File.Exists(filePath))
+                {
+                    Debug.WriteLine("Loading filePath: " + filePath);
+                    this.SendMessage(this, new MessageEventArgs("Loading file: " + filePath, 1));
+                    ITask newTask = factory.Create(handler.Read(filePath), false);
+                    taskDictionary.Add(newTask.ID, newTask);
+                }
+
+                else
+                { throw new FileNotFoundException("File not found: " + filePath); }
+                
 
                 //If is a job, add it to the job dictionary as well
                 //the jobs will be populated after all tasks are imported
@@ -145,16 +173,26 @@ namespace SystemLackey.IO
             factory.SendMessageEvent -= this.ForwardMessage;
 
             ITask t;
-            if (jobDictionary.TryGetValue(rootID,out t))
+
+            foreach (string key in this.taskDictionary.Keys)
+            {
+                Debug.WriteLine(key);
+                if (this.jobDictionary.TryGetValue(key,out t))
+                { Debug.WriteLine(t.ID); }
+                
+            }
+
+            
+            if (taskDictionary.TryGetValue(rootID,out t))
             { this.root = (Job)t; }
             else
             { throw new FileNotFoundException("Task not found in dictionary: " + rootID); }
 
-            root.Populate(taskDictionary);
+            this.root.Populate(taskDictionary);
 
             //rename the folder to the guid of the root job
-            Directory.Move(tempFolder, defaultPath + @"\" + root.ID);
-            this.workingPath = defaultPath + @"\" + root.ID;
+            //Directory.Move(tempFolder, defaultPath + @"\" + root.ID);
+            //this.workingPath = defaultPath + @"\" + root.ID;
 
             return root;
         }

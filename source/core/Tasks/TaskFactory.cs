@@ -18,6 +18,7 @@
 using System;
 using System.Xml.Linq;
 using SystemLackey.Messaging;
+using System.Diagnostics;
 
 namespace SystemLackey.Tasks
 {
@@ -53,6 +54,9 @@ namespace SystemLackey.Tasks
 
         public ITask Create(XElement pElement, bool pImport)
         {
+            if (pElement == null) { throw new NullReferenceException("Empty XElement parsed"); }
+            Debug.WriteLine(pElement);
+
             //create the task
             string type = pElement.Attribute("Type").Value;
             ITask t = this.Create(type);

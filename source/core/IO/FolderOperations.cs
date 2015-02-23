@@ -36,7 +36,7 @@ namespace SystemLackey.IO
             foreach (string filePath in Directory.GetFiles(pSourcePath))
             {
                 FileInfo fi = new FileInfo(filePath);
-                File.Copy(filePath, pDestPath + @"\" + fi.Name);
+                File.Copy(filePath, pDestPath + @"\" + fi.Name,true);
             }
 
             foreach (string folderPath in Directory.GetDirectories(pSourcePath))

@@ -111,6 +111,45 @@ namespace SystemLackey.UI.Forms
             { return false; }
         }
 
+        public static Job OpenZip()
+        {
+            return ReadZip(false);
+        }
+
+        public static Job ImportZip()
+        {
+            return ReadZip(true);
+        }
+
+        private static Job ReadZip(bool pImport)
+        {
+            OpenFileDialog openBox = new OpenFileDialog();
+
+            openBox.Filter = "Zip files (*.zip)|*.zip|All files (*.*)|*.*";
+            openBox.FilterIndex = 1;
+            //openBox.DereferenceLinks = false;
+
+            if (openBox.ShowDialog() == DialogResult.OK)
+            {
+                JobPackage jp;
+
+                string zipPath;
+                using (System.IO.FileStream stream = (System.IO.FileStream)openBox.OpenFile())
+                {
+                    zipPath = stream.Name;
+                }
+
+                jp = new JobPackage(zipPath);
+
+                //jp.SendMessageEvent += pJob.ReceiveMessage;
+                return jp.Open();
+                //jp.SendMessageEvent -= pJob.ReceiveMessage;
+
+            }
+            else
+            { return null; }
+        }
+
         public static bool ConfirmTaskSave()
         {
             if (MessageBox.Show("Are you sure you want to save this task?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)

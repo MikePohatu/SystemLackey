@@ -246,61 +246,64 @@ namespace SystemLackey.UI.Forms
         //Insert a new node into the tree, and create the appropriate step in the job. 
         private void InsertNewTask(ITask pTask,TreeNode pPrevNode)
         {
-            treeJobList.BeginUpdate();
-            Step s;
-            TreeNode parentNode;
-            int index;
-
-            if (pPrevNode != rootNode)
+            if (this.rootNode != null)
             {
-                Step prevStep = (Step)pPrevNode.Tag;
+                treeJobList.BeginUpdate();
+                Step s;
+                TreeNode parentNode;
+                int index;
 
-                //if selected node is a job, make the index 0 i.e. top of the sub tree
-                if (prevStep.Task is Job)
+                if (pPrevNode != rootNode)
                 {
-                    index = 0;
-                    parentNode = pPrevNode;
-                    s = JobEditor.Insert(pTask, (Job)prevStep.Task);
+                    Step prevStep = (Step)pPrevNode.Tag;
+
+                    //if selected node is a job, make the index 0 i.e. top of the sub tree
+                    if (prevStep.Task is Job)
+                    {
+                        index = 0;
+                        parentNode = pPrevNode;
+                        s = JobEditor.Insert(pTask, (Job)prevStep.Task);
+                    }
+                    //otherwise make the new node below the previous one
+                    else
+                    {
+                        index = pPrevNode.Index + 1;
+                        parentNode = pPrevNode.Parent;
+                        s = JobEditor.Insert(pTask, prevStep);
+                    }                         
                 }
-                //otherwise make the new node below the previous one
+
+                //the rootnode is selected. 
                 else
                 {
-                    index = pPrevNode.Index + 1;
-                    parentNode = pPrevNode.Parent;
-                    s = JobEditor.Insert(pTask, prevStep);
-                }                         
-            }
-
-            //the rootnode is selected. 
-            else
-            {
-                parentNode = rootNode;
-                index = 0;
-                s = JobEditor.Insert(pTask, (Job)pPrevNode.Tag); 
-            }
-
-
-            //create the new node and set it up. 
-            TreeNode node = new TreeNode();
-
-            parentNode.Nodes.Insert(index, node);
-
-            node.Tag = s;
-            node.Name = s.Task.ID;
-            node.Text = s.Task.Name;
-
-            logger.Write("TreeNode created: " + node.Text + " - " + node.Index.ToString(),0);
+                    parentNode = rootNode;
+                    index = 0;
+                    s = JobEditor.Insert(pTask, (Job)pPrevNode.Tag); 
+                }
             
-            //Close panel2 and Spin up the new form
-            if (panel2 != null)
-            { panel2.Close(); }
 
-            panel2 = factory.Create(node);
-            ResetPanel2();
-            treeJobList.SelectedNode = node;
+                //create the new node and set it up. 
+                TreeNode node = new TreeNode();
+
+                parentNode.Nodes.Insert(index, node);
+
+                node.Tag = s;
+                node.Name = s.Task.ID;
+                node.Text = s.Task.Name;
+
+                logger.Write("TreeNode created: " + node.Text + " - " + node.Index.ToString(),0);
             
-            //Finished
-            treeJobList.EndUpdate();
+                //Close panel2 and Spin up the new form
+                if (panel2 != null)
+                { panel2.Close(); }
+
+                panel2 = factory.Create(node);
+                ResetPanel2();
+                treeJobList.SelectedNode = node;
+            
+                //Finished
+                treeJobList.EndUpdate();
+            }
         }
 
 
@@ -399,13 +402,13 @@ namespace SystemLackey.UI.Forms
         //Import a job and populate the tree.
         private void buttonImport_Click(object sender, EventArgs e)
         {
-            BuildFromXml(true);
+            BuildFromPackage(true);
         }
 
         //Import a job and populate the tree.
         private void buttonOpen_Click(object sender, EventArgs e)
         {
-            BuildFromXml(false);
+            BuildFromPackage(false);
         }
 
         //Open the xml file. If import is true, do an import, i.e. don't bring in the job id. 
@@ -469,6 +472,64 @@ namespace SystemLackey.UI.Forms
                 }
             }
         }
+
+        //Open the xml file. If import is true, do an import, i.e. don't bring in the job id. 
+        private void BuildFromPackage(bool pImport)
+        {
+            bool check = true;
+            if (rootNode != null)
+            {
+                check = Common.ConfirmNewJob();
+            }
+
+            if (check)
+            {
+
+                Job rootJob = Common.OpenZip();
+
+                if (rootJob != null)
+                {
+                    this.UseWaitCursor = true;
+                    treeJobList.BeginUpdate();
+
+                    //cleanup old event listeners
+                    if (rootNode != null)
+                    {
+                        Job oldJob = (Job)rootNode.Tag;
+                        oldJob.SendMessageEvent -= this.ForwardMessage;
+                    }
+
+                    rootJob.SendMessageEvent += this.ForwardMessage;
+
+
+                    //create the new node and set it up. 
+                    rootNode = new TreeNode();
+                    rootNode.Tag = rootJob;
+                    rootNode.Name = rootJob.ID;
+                    rootNode.Text = rootJob.Name;
+
+                    treeJobList.Nodes.Clear();
+
+                    treeJobList.Nodes.Add(rootNode);
+
+                    //Close panel2 and Spin up the new form
+                    if (panel2 != null)
+                    { panel2.Close(); }
+
+                    panel2 = factory.Create(rootNode);
+                    ResetPanel2();
+
+                    treeJobList.SelectedNode = rootNode;
+
+                    this.PopulateTree(rootNode);
+                    treeJobList.ExpandAll();
+                    treeJobList.EndUpdate();
+                    this.UseWaitCursor = false;
+                }
+            }
+        }
+
+
         //Populate the tree with the steps for a job. 
         //Recursive method for sub jobs. 
         private void PopulateTree(TreeNode pRootNode)
