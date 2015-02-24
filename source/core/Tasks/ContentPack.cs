@@ -16,10 +16,11 @@
 
 using System;
 using System.IO;
+using SystemLackey.Messaging;
 
 namespace SystemLackey.Tasks
 {
-    public class ContentPack
+    public class ContentPack: MessageSender
     {
         public string WorkingPath { get; set; }
         private string tempPath;
@@ -39,43 +40,59 @@ namespace SystemLackey.Tasks
             if (this.inEdit == true) { throw new InvalidOperationException("ContentPack already being edited"); }
             if (Directory.Exists(this.tempPath)) { throw new InvalidOperationException("Temp directory already exists"); }
 
-            try
-            { SystemLackey.IO.FolderOperations.Copy(this.WorkingPath, this.tempPath); }
-
-            catch
-            { 
-                if (Directory.Exists(this.tempPath)) { throw new InvalidOperationException("Failed to copy content to temp directory"); }
-            }
+            SystemLackey.IO.FolderOperations.Copy(this.WorkingPath, this.tempPath);
 
             this.inEdit = true;
             return tempPath;
         }
 
-        public void FinishedEdit()
+        //Finish. apply temp directory as the new working directory
+        public bool FinishedEdit()
         {
+            bool success = true;
+
             if (Directory.Exists(tempPath))
             {
                 //replace the working dir with the temp one
-                if (Directory.Exists(WorkingPath)) { Directory.Delete(this.WorkingPath, true); }
-                Directory.Move(this.tempPath, this.WorkingPath);
+                try
+                {
+                    this.SendMessage(this, new MessageEventArgs("Applying changes for ContentPack: " + this.ID, 0));
+                    if (Directory.Exists(WorkingPath)) { Directory.Delete(this.WorkingPath, true); }
+                    Directory.Move(this.tempPath, this.WorkingPath);
+                }
+                catch 
+                {
+                    success = false;
+                    this.SendMessage(this, new MessageEventArgs("Failed to apply content changes to ContentPack: " + this.ID, 3)); 
+                }
+                
             }
 
-            this.inEdit = false;
+            if (success == true) { this.inEdit = false; }
+
+            return success;
         }
 
-        public void CancelEdit()
+
+        //cancel and throw out the temp directory
+        public bool CancelEdit()
         {
+            bool success = true;
             //cleanup temp dir
             if (Directory.Exists(tempPath))
             {
                 try
                 { Directory.Delete(tempPath, true); }
                 catch
-                { }
-                
+                {
+                    success = false;
+                    this.SendMessage(this, new MessageEventArgs("Failed to delete temp directory: " + tempPath, 3)); 
+                }           
             }
 
-            this.inEdit = false;
+            if (success == true) { this.inEdit = false; }
+            
+            return success;
         }
     }
 }
