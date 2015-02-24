@@ -76,7 +76,7 @@ namespace SystemLackey.IO
 
             bool overwrite = false;
             this.workingPath = Path.GetDirectoryName(pPathToZip) + @"\" + this.root.ID;
-            this.tasksPath = workingPath + @"\Tasks";
+            this.tasksPath = this.workingPath + @"\Tasks";
 
             this.SendMessage(this, new MessageEventArgs("Working path: " + this.workingPath, 0));
             this.SendMessage(this, new MessageEventArgs("Tasks path: " + this.tasksPath, 0));
