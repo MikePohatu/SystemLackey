@@ -33,6 +33,7 @@ namespace SystemLackey.Core.Tasks
         public bool Hidden { get; set; }
         public int Type { get; set; }
         public string Comments { get; set; }
+        public bool HasContent { get; set; }
         public ContentPack ContentPack { get; set; }
 
         //Default constructor
@@ -73,14 +74,16 @@ namespace SystemLackey.Core.Tasks
 
         private bool BuildFromXml(XElement pElement,bool pImport)
         {
-            Name = pElement.Element("name").Value;          
-            ASync = XmlConvert.ToBoolean(pElement.Element("async").Value);
-            Timeout = XmlConvert.ToInt32(pElement.Element("timeout").Value);
-            Code = pElement.Element("code").Value;
-            Type = XmlConvert.ToInt32(pElement.Element("type").Value);
-            Wow64 = XmlConvert.ToBoolean(pElement.Element("wow64").Value);
-            Hidden = XmlConvert.ToBoolean(pElement.Element("hidden").Value);
-            Comments = pElement.Element("comments").Value;
+            this.Name = pElement.Element("name").Value;
+            this.ASync = XmlConvert.ToBoolean(pElement.Element("async").Value);
+            this.Timeout = XmlConvert.ToInt32(pElement.Element("timeout").Value);
+            this.Code = pElement.Element("code").Value;
+            this.Type = XmlConvert.ToInt32(pElement.Element("type").Value);
+            this.Wow64 = XmlConvert.ToBoolean(pElement.Element("wow64").Value);
+            this.Hidden = XmlConvert.ToBoolean(pElement.Element("hidden").Value);
+            this.Comments = pElement.Element("comments").Value;
+            this.HasContent = XmlConvert.ToBoolean(pElement.Attribute("Content").Value);
+
             if (pImport == false) { ID = pElement.Element("taskid").Value; }
 
             bool bContent = XmlConvert.ToBoolean(pElement.Attribute("Content").Value);

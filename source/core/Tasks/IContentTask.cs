@@ -22,5 +22,6 @@ namespace SystemLackey.Core.Tasks
     {
         //JobPackage Files { get; set; }
         ContentPack ContentPack { get; set; }
+        bool HasContent { get; set; }
     }
 }

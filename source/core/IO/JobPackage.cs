@@ -167,10 +167,20 @@ namespace SystemLackey.Core.IO
                     this.SendMessage(this, new MessageEventArgs("Loading file: " + filePath, 1));
                     ITask newTask = factory.Create(handler.Read(filePath), false);
                     taskDictionary.Add(newTask.ID, newTask);
+
+                    if (newTask is IContentTask)
+                    {
+                        if (((IContentTask)newTask).HasContent == true)
+                        {
+                            ((IContentTask)newTask).ContentPack = new ContentPack(Path.GetDirectoryName(filePath) + @"\" + newTask.ID);
+                        }
+                    }
                 }
 
                 else
                 { throw new FileNotFoundException("File not found: " + filePath); }
+
+
                 
 
                 //If is a job, add it to the job dictionary as well
