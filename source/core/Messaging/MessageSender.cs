@@ -16,10 +16,9 @@
 
 
 using System;
-using SystemLackey.Messaging;
-using SystemLackey.Tasks;
+using SystemLackey.Core;
 
-namespace SystemLackey.Messaging
+namespace SystemLackey.Core.Messaging
 {
     public abstract class MessageSender : IMessageSender
     {

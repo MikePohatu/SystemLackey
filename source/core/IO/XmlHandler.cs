@@ -18,7 +18,7 @@ using System;
 using System.IO;
 using System.Xml.Linq;
 
-namespace SystemLackey.IO
+namespace SystemLackey.Core.IO
 {
     public class XmlHandler
     {

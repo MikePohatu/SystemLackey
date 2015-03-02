@@ -16,11 +16,11 @@
 
 using System;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Core.Tasks
 {
     public interface IContentTask: ITask
     {
         //JobPackage Files { get; set; }
-        string ContentPath { get; set; }
+        ContentPack ContentPack { get; set; }
     }
 }

@@ -15,10 +15,11 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
-using SystemLackey.Tasks;
-using SystemLackey.Messaging;
+using SystemLackey.Core;
+using SystemLackey.Core.Tasks;
+using SystemLackey.Core.Messaging;
 
-namespace SystemLackey.UI
+namespace SystemLackey.Core.UI
 {
     public static class JobEditor
     {

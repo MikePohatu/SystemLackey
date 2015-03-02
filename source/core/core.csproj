@@ -7,7 +7,7 @@
     <ProjectGuid>{45E728E4-5549-4CD8-AC90-D5A7BB396BEB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SystemLackey</RootNamespace>
+    <RootNamespace>SystemLackey.Core</RootNamespace>
     <AssemblyName>core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

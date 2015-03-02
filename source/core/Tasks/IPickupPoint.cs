@@ -16,7 +16,7 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 using System;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Core.Tasks
 {
     public interface IPickupPoint
     {

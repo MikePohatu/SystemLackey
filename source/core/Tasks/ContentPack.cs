@@ -16,9 +16,10 @@
 
 using System;
 using System.IO;
-using SystemLackey.Messaging;
+using SystemLackey.Core.IO;
+using SystemLackey.Core.Messaging;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Core.Tasks
 {
     public class ContentPack: MessageSender
     {
@@ -28,19 +29,31 @@ namespace SystemLackey.Tasks
 
         public string ID { get; set; }
 
+        //Create a content pack with an existing path
         public ContentPack(string pWorkingPath)
         {
             this.WorkingPath = pWorkingPath;
             this.ID = Guid.NewGuid().ToString();
-            this.tempPath = Path.GetDirectoryName(this.WorkingPath) + @"\" + this.ID;           
+            this.tempPath = Path.GetDirectoryName(this.WorkingPath) + @"\" + this.ID;
+            //Directory.CreateDirectory(this.WorkingPath);
         }
+
+        //Create a new content pack for a task. Create a new path
+        public ContentPack(IContentTask pTask)
+        {
+            this.WorkingPath = IOConfiguration.WorkingPath + @"\" + pTask.ID;
+            this.ID = Guid.NewGuid().ToString();
+            this.tempPath = Path.GetDirectoryName(this.WorkingPath) + @"\" + this.ID;
+            Directory.CreateDirectory(this.WorkingPath);
+        }
+
 
         public string StartEdit()
         {
             if (this.inEdit == true) { throw new InvalidOperationException("ContentPack already being edited"); }
             if (Directory.Exists(this.tempPath)) { throw new InvalidOperationException("Temp directory already exists"); }
 
-            SystemLackey.IO.FolderOperations.Copy(this.WorkingPath, this.tempPath);
+            FolderOperations.Copy(this.WorkingPath, this.tempPath);
 
             this.inEdit = true;
             return tempPath;

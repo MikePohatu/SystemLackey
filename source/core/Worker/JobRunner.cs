@@ -16,11 +16,12 @@
 
 using System;
 using System.Xml.Linq;
-using SystemLackey.Tasks;
-using SystemLackey.Messaging;
-using SystemLackey.IO;
+using SystemLackey.Core.Messaging;
+using SystemLackey.Core.Tasks;
+using SystemLackey.Core.Service;
+using SystemLackey.Core.IO;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Core.Worker
 {
     public class JobRunner: IMessageSender, IMessageReceiver
     {
@@ -37,12 +38,9 @@ namespace SystemLackey.Worker
             }
         }
 
-        //  constructors
-        public JobRunner(XElement pXml)
+        public JobRunner(Job pRootJob)
         {
-            this.job = new Job();
-            this.job.SendMessageEvent += this.ReceiveMessage;
-            this.job.OpenXml(pXml);
+            this.Job = pRootJob;
         }
 
 
@@ -50,7 +48,8 @@ namespace SystemLackey.Worker
         public void Run()
         {
             if (this.job != null)
-            { 
+            {
+                this.SendMessage(this, new MessageEventArgs("Running job: " + this.job.Name, 1));
                 job.Run();
 
                 //clear message subscriptions

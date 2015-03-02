@@ -20,9 +20,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
-using SystemLackey.Messaging;
+using SystemLackey.Core.Messaging;
+using SystemLackey.Core.Tasks;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Core
 {
     //The step class contains details of each step in a job, including the previous and next steps. 
     //This will allow for easy re-ordering of the job. note that a task may be referenced 

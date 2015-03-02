@@ -17,7 +17,7 @@
 using System;
 
 
-namespace SystemLackey.IO
+namespace SystemLackey.Core.IO
 {
     public class IOConfiguration
     {

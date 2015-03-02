@@ -17,9 +17,9 @@
 
 using System;
 using System.Collections.Generic;
-using SystemLackey.Messaging;
+using SystemLackey.Core.Messaging;
 
-namespace SystemLackey.Service
+namespace SystemLackey.Core.Service
 {
     public class JobScheduler: MessageSender
     {

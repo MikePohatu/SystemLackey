@@ -15,11 +15,12 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
+using System.IO;
 using System.Xml;
 using System.Xml.Linq;
-using SystemLackey.Messaging;
+using SystemLackey.Core.Messaging;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Core.Tasks
 {
     public class WindowsScript : MessageSender, ITask, IMessageSender, IContentTask
     {
@@ -32,7 +33,7 @@ namespace SystemLackey.Tasks
         public bool Hidden { get; set; }
         public int Type { get; set; }
         public string Comments { get; set; }
-        public string ContentPath { get; set; }
+        public ContentPack ContentPack { get; set; }
 
         //Default constructor
         public WindowsScript()
@@ -63,10 +64,14 @@ namespace SystemLackey.Tasks
                 new XElement("hidden", Hidden),
                 new XElement("comments", Comments));
 
+            if (this.ContentPack == null) { details.SetAttributeValue("Content", false); }
+            else { details.SetAttributeValue("Content", true); }
+
             details.SetAttributeValue("Type", "WinScript");
             return details;
         }
-        private void BuildFromXml(XElement pElement,bool pImport)
+
+        private bool BuildFromXml(XElement pElement,bool pImport)
         {
             Name = pElement.Element("name").Value;          
             ASync = XmlConvert.ToBoolean(pElement.Element("async").Value);
@@ -77,6 +82,10 @@ namespace SystemLackey.Tasks
             Hidden = XmlConvert.ToBoolean(pElement.Element("hidden").Value);
             Comments = pElement.Element("comments").Value;
             if (pImport == false) { ID = pElement.Element("taskid").Value; }
+
+            bool bContent = XmlConvert.ToBoolean(pElement.Attribute("Content").Value);
+
+            return bContent;
         }
 
         public void ImportXml(XElement pElement)
@@ -97,7 +106,9 @@ namespace SystemLackey.Tasks
             string strArguments;
             string strExtn;
             string strStartFile;
-            string strWorkingPath = SystemLackey.IO.IOConfiguration.WorkingPath;
+            string strWorkingPath;
+            if (this.ContentPack == null) { strWorkingPath = SystemLackey.Core.IO.IOConfiguration.WorkingPath; }
+            else { strWorkingPath = this.ContentPack.WorkingPath; }
 
             //make sure the working directory is there
             System.IO.Directory.CreateDirectory(strWorkingPath);
@@ -175,6 +186,7 @@ namespace SystemLackey.Tasks
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             }
 
+            startInfo.WorkingDirectory = strWorkingPath;
             startInfo.FileName = strStartFile;
             startInfo.Arguments = strArguments;
 
@@ -208,7 +220,7 @@ namespace SystemLackey.Tasks
             bool bolSuccess = true;
             try
             {
-                System.IO.File.WriteAllText(pPath, pCode);
+                File.WriteAllText(pPath, pCode);
             }
             catch
             {

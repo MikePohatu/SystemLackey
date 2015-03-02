@@ -19,7 +19,7 @@ using System;
 using System.Threading;
 using SystemLackey.UI.Forms;
 using SystemLackey.UI.Shell;
-using SystemLackey.Service;
+using SystemLackey.Core;
 
 namespace SystemLackey
 {

@@ -17,7 +17,7 @@
 using System;
 using System.Collections;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Core.Tasks
 {
     class JobEnumerator : IEnumerator
     {

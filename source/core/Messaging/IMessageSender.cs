@@ -16,7 +16,7 @@
 
 using System;
 
-namespace SystemLackey.Messaging
+namespace SystemLackey.Core.Messaging
 {
     public interface IMessageSender
     {

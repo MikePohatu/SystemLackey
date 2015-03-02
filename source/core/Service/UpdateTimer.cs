@@ -17,7 +17,7 @@
 using System;
 using System.Threading;
 
-namespace SystemLackey.Service
+namespace SystemLackey.Core
 {
     internal class UpdateTimer
     {

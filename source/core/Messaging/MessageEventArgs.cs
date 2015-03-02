@@ -17,7 +17,7 @@
 using System;
 using System.Text;
 
-namespace SystemLackey.Messaging
+namespace SystemLackey.Core.Messaging
 {
     public class MessageEventArgs : EventArgs
     {

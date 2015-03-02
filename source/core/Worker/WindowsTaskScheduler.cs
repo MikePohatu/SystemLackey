@@ -15,9 +15,9 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
-using SystemLackey.Messaging;
+using SystemLackey.Core.Messaging;
 
-namespace SystemLackey.Worker
+namespace SystemLackey.Core.Worker
 {
     public class WindowsTaskScheduler: MessageSender
     {

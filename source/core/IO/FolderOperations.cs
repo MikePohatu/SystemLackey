@@ -17,7 +17,7 @@
 using System;
 using System.IO;
 
-namespace SystemLackey.IO
+namespace SystemLackey.Core.IO
 {
     public static class FolderOperations
     {

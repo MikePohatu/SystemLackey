@@ -17,7 +17,7 @@
 
 using System;
 using System.Windows.Forms;
-using SystemLackey.Messaging;
+using SystemLackey.Core.Messaging;
 
 namespace SystemLackey.UI.Forms
 {

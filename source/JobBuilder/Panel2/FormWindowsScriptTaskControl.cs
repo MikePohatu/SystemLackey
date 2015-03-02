@@ -25,9 +25,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
-using SystemLackey.IO;
-using SystemLackey.Tasks;
+using SystemLackey.Core.Tasks;
+using SystemLackey.Core.IO;
 
 namespace SystemLackey.UI.Forms
 {
@@ -69,7 +70,7 @@ namespace SystemLackey.UI.Forms
             if (saveBox.ShowDialog() == DialogResult.OK)
             {
                 System.IO.FileStream stream = (System.IO.FileStream)saveBox.OpenFile();
-                SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
+                XmlHandler xmlHandler = new XmlHandler();
                 xmlHandler.Write(stream, task.GetXml());
                 stream.Close();
 
@@ -89,7 +90,7 @@ namespace SystemLackey.UI.Forms
             if (openBox.ShowDialog() == DialogResult.OK)
             {
                 System.IO.FileStream stream = (System.IO.FileStream)openBox.OpenFile();
-                SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
+                XmlHandler xmlHandler = new XmlHandler();
                 
                 task.ImportXml(xmlHandler.Read(stream));
                 stream.Close();
@@ -185,6 +186,9 @@ namespace SystemLackey.UI.Forms
             textName.Text = task.Name;
             richtextComments.Text = task.Comments;
 
+            if (this.task.ContentPack != null) { linkLabelContentPack.Text = "Edit"; }
+            else { linkLabelContentPack.Text = "Empty"; }
+
             CommonTasks.UpdateNode(node, task.Name);
 
             switch (task.Type)
@@ -227,6 +231,24 @@ namespace SystemLackey.UI.Forms
                 buttonTestRun.Enabled = false;
                 //buttonRun.Visible = false;
             }
+        }
+
+        private void linkLabelContentPack_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ContentPack cp;
+            if (this.task.ContentPack == null) { cp = new ContentPack(this.task); }
+            else { cp = this.task.ContentPack; }
+
+            Process.Start(cp.StartEdit());
+            if (MessageBox.Show("Edit files and folders as required and click OK when done.", "", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            { 
+                cp.FinishedEdit();
+                this.task.ContentPack = cp;
+            }
+            else
+            { cp.CancelEdit(); }
+
+            UpdateForm();
         }
     }
 }

@@ -21,9 +21,10 @@ using System;
 using System.Windows.Forms;
 using System.Xml.Linq;
 
-using SystemLackey.Messaging;
-using SystemLackey.Tasks;
-using SystemLackey.IO;
+using SystemLackey.Core;
+using SystemLackey.Core.Messaging;
+using SystemLackey.Core.Tasks;
+using SystemLackey.Core.IO;
 
 namespace SystemLackey.UI.Forms
 {
@@ -40,7 +41,7 @@ namespace SystemLackey.UI.Forms
             if (openBox.ShowDialog() == DialogResult.OK)
             {
                 System.IO.FileStream stream = (System.IO.FileStream)openBox.OpenFile();
-                SystemLackey.IO.XmlHandler xmlHandler = new SystemLackey.IO.XmlHandler();
+                XmlHandler xmlHandler = new XmlHandler();
 
                 XElement Xml = xmlHandler.Read(stream);
                 stream.Close();

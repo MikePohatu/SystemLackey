@@ -19,7 +19,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace SystemLackey.Messaging
+namespace SystemLackey.Core.Messaging
 {
     public class Logger
     {

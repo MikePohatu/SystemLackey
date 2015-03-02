@@ -16,7 +16,7 @@
 
 using System;
 
-namespace SystemLackey.Filters
+namespace SystemLackey.Core.Filters
 {
     interface IQuery
     {

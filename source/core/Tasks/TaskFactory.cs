@@ -17,10 +17,10 @@
 
 using System;
 using System.Xml.Linq;
-using SystemLackey.Messaging;
+using SystemLackey.Core.Messaging;
 using System.Diagnostics;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Core.Tasks
 {
     class TaskFactory: MessageForwarder
     {

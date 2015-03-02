@@ -18,9 +18,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using SystemLackey.Messaging;
+using SystemLackey.Core.Messaging;
+using SystemLackey.Core;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Core.Tasks
 {
     public class Job : MessageSender, IMessageReceiver, ITask, IEnumerable, IPickupPoint
     {    

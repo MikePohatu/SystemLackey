@@ -18,10 +18,10 @@ using System;
 using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
-using SystemLackey.Messaging;
-using SystemLackey.Filters;
+using SystemLackey.Core.Messaging;
+using SystemLackey.Core.Filters;
 
-namespace SystemLackey.Tasks
+namespace SystemLackey.Core.Tasks
 {
     public class PowerControl : MessageSender, ITask, IPickupPoint
     {

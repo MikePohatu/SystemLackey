@@ -16,9 +16,9 @@
 
 using System;
 using System.Threading;
-using SystemLackey.Tasks;
-using SystemLackey.UI;
-using SystemLackey.Worker;
+using SystemLackey.Core.Tasks;
+using SystemLackey.Core.UI;
+using SystemLackey.Core.Worker;
 
 namespace SystemLackey.UI.Shell
 {

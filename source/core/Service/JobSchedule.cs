@@ -16,9 +16,9 @@
 
 
 using System;
-using SystemLackey.Tasks;
+using SystemLackey.Core.Tasks;
 
-namespace SystemLackey.Service
+namespace SystemLackey.Core.Service
 {
     public class JobSchedule:IComparable<JobSchedule>
     {

@@ -26,12 +26,13 @@ using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Threading;
 
-using SystemLackey.Tasks;
-using SystemLackey.UI;
-using SystemLackey.Messaging;
-using SystemLackey.Service;
-using SystemLackey.Worker;
-using SystemLackey.IO;
+using SystemLackey.Core.IO;
+using SystemLackey.Core.UI;
+using SystemLackey.Core.Tasks;
+using SystemLackey.Core.Worker;
+using SystemLackey.Core.Messaging;
+using SystemLackey.Core.Service;
+using SystemLackey.Core;
 
 namespace SystemLackey.UI.Forms
 {
@@ -376,7 +377,7 @@ namespace SystemLackey.UI.Forms
                     //js.Job = rootJob;
                     //js.StartTime = DateTime.Now;
                     //scheduler.Add(js);
-                    var runner = new JobRunner(rootJob.GetXml());
+                    var runner = new JobRunner(rootJob);
                     runner.SendMessageEvent += this.ForwardMessage;
                     Thread runnerThread = new Thread(runner.Run);
                     runnerThread.IsBackground = false;

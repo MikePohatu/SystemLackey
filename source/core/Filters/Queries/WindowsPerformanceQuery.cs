@@ -17,7 +17,7 @@
 using System;
 using System.Diagnostics;
 
-namespace SystemLackey.Filters
+namespace SystemLackey.Core.Filters
 {
     public static class WindowsPerformanceQuery
     {

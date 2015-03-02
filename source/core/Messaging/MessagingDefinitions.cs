@@ -16,7 +16,7 @@
 
 using System;
 
-namespace SystemLackey.Messaging
+namespace SystemLackey.Core.Messaging
 {
     public enum MessageType { LOG, PICKUP, PUTDOWN, ONBOOT_CONTINUE, ONBOOT_CLEAR };
     public delegate void MessagingEventHandler(Object sender, MessageEventArgs e);

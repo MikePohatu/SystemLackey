@@ -17,8 +17,9 @@
 
 using System;
 using System.Windows.Forms;
-using SystemLackey.Tasks;
-using SystemLackey.Messaging;
+using SystemLackey.Core.Tasks;
+using SystemLackey.Core;
+using SystemLackey.Core.Messaging;
 
 namespace SystemLackey.UI.Forms
 {

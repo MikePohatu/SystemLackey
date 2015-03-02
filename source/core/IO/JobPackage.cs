@@ -21,10 +21,10 @@ using System.IO;
 using System.IO.Compression;
 using System.Collections.Generic;
 using System.Xml.Linq;
-using SystemLackey.Tasks;
-using SystemLackey.Messaging;
+using SystemLackey.Core.Tasks;
+using SystemLackey.Core.Messaging;
 
-namespace SystemLackey.IO
+namespace SystemLackey.Core.IO
 {
     public class JobPackage: MessageForwarder
     {
@@ -104,7 +104,7 @@ namespace SystemLackey.IO
                 if (pair.Value is IContentTask)
                 {
                     IContentTask contentTask = (IContentTask)pair.Value;
-                    if (contentTask.ContentPath != null) { FolderOperations.Copy(contentTask.ContentPath, this.tasksPath + @"\" + contentTask.ID); }              
+                    if (contentTask.ContentPack != null) { FolderOperations.Copy(contentTask.ContentPack.WorkingPath, this.tasksPath + @"\" + contentTask.ID); }              
                 }
             }
 

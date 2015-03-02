@@ -22,7 +22,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SystemLackey.Tasks;
+using SystemLackey.Core.Tasks;
 
 namespace SystemLackey.UI.Forms
 {
