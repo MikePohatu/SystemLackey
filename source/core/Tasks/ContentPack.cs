@@ -107,5 +107,28 @@ namespace SystemLackey.Core.Tasks
             
             return success;
         }
+
+        public void Cleanup()
+        {
+            if (Directory.Exists(this.WorkingPath))
+            {
+                try
+                { Directory.Delete(WorkingPath, true); }
+                catch
+                {
+                    this.SendMessage(this, new MessageEventArgs("Failed to delete working directory: " + this.WorkingPath, 3));
+                } 
+            }
+
+            if (Directory.Exists(this.tempPath))
+            {
+                try
+                { Directory.Delete(tempPath, true); }
+                catch
+                {
+                    this.SendMessage(this, new MessageEventArgs("Failed to delete temp directory: " + this.tempPath, 3));
+                }
+            }
+        }
     }
 }

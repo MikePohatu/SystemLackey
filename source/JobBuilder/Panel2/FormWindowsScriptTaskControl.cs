@@ -246,7 +246,10 @@ namespace SystemLackey.UI.Forms
                 this.task.ContentPack = cp;
             }
             else
-            { cp.CancelEdit(); }
+            { 
+                cp.CancelEdit();
+                if (this.task.ContentPack == null) { cp.Cleanup(); }
+            }
 
             UpdateForm();
         }
