@@ -18,7 +18,6 @@
 using System;
 using System.Threading;
 using SystemLackey.UI.Forms;
-using SystemLackey.UI.Shell;
 using SystemLackey.Core;
 
 namespace SystemLackey
@@ -27,15 +26,21 @@ namespace SystemLackey
     {
         public static void Main(string[] args)
         {
+            Shell newShell = new Shell();
+
             if (args.Length == 0)
             {
-                
-                StartJB();
+                Console.Write("Please enter path to package: ");
+                string path = Console.ReadLine();
+                string[] newArgs = new string[2] {"-file", path};
+                newShell.Main(newArgs);
+                //StartJB();
             }
 
             else
             {
-                Shell.Main(args);
+                
+                newShell.Main(args);
             }
         }
 

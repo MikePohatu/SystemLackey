@@ -15,28 +15,96 @@
 //    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Threading;
+
+using SystemLackey.Core.Messaging;
 using SystemLackey.Core.Tasks;
-using SystemLackey.Core.UI;
+using SystemLackey.Core.IO;
 using SystemLackey.Core.Worker;
 
-namespace SystemLackey.UI.Shell
+
+
+namespace SystemLackey.Core
 {
     public class Shell
     {
-        public static void Main(string[] args)
+        JobPackage jp;
+        Logger logger = new Logger();
+        Job rootJob = null;
+        //bool foreground = false;
+
+        public void Main(string[] args)
         {
-            Console.WriteLine("This is a test message");
-            Console.Read();
+            
+
+            //deal with arguments
+            if (args.Length == 0)
+            {
+                ShowHelp();
+            }
+
+            else
+            {
+                for (int i = 0; i < args.Length; i++)
+                {
+                    switch (args[i].ToLower())
+                    {
+                        case "-file":
+                        case "/file":
+                            if (args.Length < (i+2)) 
+                            {
+                                Console.WriteLine("-file missing parameter");
+                                System.Environment.Exit(1); 
+                            }
+                            else
+                            {                              
+                                jp = new JobPackage(args[i + 1]);
+                                try
+                                { rootJob = jp.Open(); }
+                                catch (FileNotFoundException e)
+                                {
+                                    Console.WriteLine(e.Message);
+                                    System.Environment.Exit(1);
+                                }
+                            }
+                            break;
+                        //case "-foreground":
+                        //case "/foreground":
+                        //    foreground = true;
+                        //    break;
+                        default:
+                            break;
+                    }
+
+                    if (rootJob != null)
+                    {
+                        var runner = new JobRunner(rootJob);
+                        runner.SendMessageEvent += this.ReceiveMessage;
+                        Thread runnerThread = new Thread(runner.Run);
+                        //if (foreground) {  }
+                        runnerThread.IsBackground = false;
+                        runnerThread.Start(); 
+                    }
+                    else
+                    {
+                        Console.WriteLine("No job specified");
+                        System.Environment.Exit(1);
+                    }
+                }
+            }
         }
 
-        public void RunJob(Job pJob)
+        private static void ShowHelp()
+        { 
+            string helpText = "";
+            Console.WriteLine(helpText);
+        }
+
+        public void ReceiveMessage(object o, MessageEventArgs e)
         {
-            //var newRunner = new JobRunner();
-            //newRunner.Job = pJob;
-            //Thread jobThread = new Thread(newRunner.Run);
-            //jobThread.IsBackground = false;
-            //jobThread.Start();  
+            logger.Write(o, e);
         }
     }
 }

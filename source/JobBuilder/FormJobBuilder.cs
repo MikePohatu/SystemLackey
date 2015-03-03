@@ -378,7 +378,7 @@ namespace SystemLackey.UI.Forms
                     //js.StartTime = DateTime.Now;
                     //scheduler.Add(js);
                     var runner = new JobRunner(rootJob);
-                    runner.SendMessageEvent += this.ForwardMessage;
+                    //runner.SendMessageEvent += this.ForwardMessage;
                     Thread runnerThread = new Thread(runner.Run);
                     runnerThread.IsBackground = false;
                     runnerThread.Start(); 

@@ -29,28 +29,6 @@ namespace SystemLackey.Core.Messaging
         //2=Warning
         //3=Error
         //4=Danger Will Robinson!
-
-        private bool toConsole = true;
-        private bool toEventLog = false;
-
-        //========================
-        // Properties
-        //========================
-
-        public bool ToConsole
-        {
-            get { return this.toConsole; }
-            set { this.toConsole = value; }
-        }
-
-        public bool ToEventLog
-        {
-            get { return this.toEventLog; }
-            set { this.toEventLog = value; }
-        }
-        //=======================
-
-
         public event MessagingEventHandler EventDebug;
         public event MessagingEventHandler EventInfo;
         public event MessagingEventHandler EventWarning;
