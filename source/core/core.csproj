@@ -79,6 +79,7 @@
     <Compile Include="Messaging\MessageEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IO\JobPackage.cs" />
+    <Compile Include="ShellLogWriter.cs" />
     <Compile Include="Tasks\ContentPack.cs" />
     <Compile Include="Tasks\IContentTask.cs" />
     <Compile Include="UI\JobEditor.cs" />

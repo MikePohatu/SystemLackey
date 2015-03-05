@@ -1,5 +1,5 @@
 ﻿//    Program.cs: Main SystemLackey executable entry point. Starts either JobBuilder or 
-//                or shell depending on argurments (or lack thereof)
+//                or shell depending on argurments
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -17,6 +17,7 @@
 
 using System;
 using System.Threading;
+using System.IO;
 using SystemLackey.UI.Forms;
 using SystemLackey.Core;
 
@@ -32,14 +33,12 @@ namespace SystemLackey
             {
                 Console.Write("Please enter path to package: ");
                 string path = Console.ReadLine();
-                string[] newArgs = new string[2] {"-file", path};
+                string[] newArgs = new string[2] { "-file", path };
                 newShell.Main(newArgs);
-                //StartJB();
             }
 
             else
-            {
-                
+            {             
                 newShell.Main(args);
             }
         }

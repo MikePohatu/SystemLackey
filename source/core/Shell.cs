@@ -1,4 +1,4 @@
-﻿//    Shell.cs: Entry point for the LackeyShell application
+﻿//    Shell.cs: Main shell for SystemLackey
 //    Copyright (C) 2015 Mike Pohatu
 
 //    This program is free software; you can redistribute it and/or modify
@@ -31,14 +31,19 @@ namespace SystemLackey.Core
     public class Shell
     {
         JobPackage jp;
-        Logger logger = new Logger();
+        Logger logger;
         Job rootJob = null;
+        ShellLogWriter logWriter;
         //bool foreground = false;
+
+        public Shell()
+        {
+            logger = new Logger();
+            logWriter = new ShellLogWriter(this.logger, 0);
+        }
 
         public void Main(string[] args)
         {
-            
-
             //deal with arguments
             if (args.Length == 0)
             {
@@ -47,6 +52,8 @@ namespace SystemLackey.Core
 
             else
             {
+                //handle parameters
+                #region
                 for (int i = 0; i < args.Length; i++)
                 {
                     switch (args[i].ToLower())
@@ -66,45 +73,45 @@ namespace SystemLackey.Core
                                 catch (FileNotFoundException e)
                                 {
                                     Console.WriteLine(e.Message);
+                                    Console.ReadLine();
                                     System.Environment.Exit(1);
                                 }
                             }
                             break;
-                        //case "-foreground":
-                        //case "/foreground":
-                        //    foreground = true;
-                        //    break;
+                        case @"/?":
+                        case "-help":
+                            this.ShowHelp();
+                            System.Environment.Exit(0);
+                            break;
                         default:
                             break;
                     }
+                }
+                #endregion
 
-                    if (rootJob != null)
-                    {
-                        var runner = new JobRunner(rootJob);
-                        runner.SendMessageEvent += this.ReceiveMessage;
-                        Thread runnerThread = new Thread(runner.Run);
-                        //if (foreground) {  }
-                        runnerThread.IsBackground = false;
-                        runnerThread.Start(); 
-                    }
-                    else
-                    {
-                        Console.WriteLine("No job specified");
-                        System.Environment.Exit(1);
-                    }
+                //now process the job
+                if (rootJob != null)
+                {
+                    JobRunner runner = new JobRunner(rootJob);
+                    runner.SendMessageEvent += logger.Write;
+
+                    Thread runnerThread = new Thread(runner.Run);
+                    //if (foreground) {  }
+                    runnerThread.IsBackground = false;
+                    runnerThread.Start();
+                }
+                else
+                {
+                    Console.WriteLine("No job specified");
+                    System.Environment.Exit(1);
                 }
             }
         }
 
-        private static void ShowHelp()
+        private void ShowHelp()
         { 
             string helpText = "";
             Console.WriteLine(helpText);
-        }
-
-        public void ReceiveMessage(object o, MessageEventArgs e)
-        {
-            logger.Write(o, e);
         }
     }
 }

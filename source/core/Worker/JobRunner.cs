@@ -62,6 +62,7 @@ namespace SystemLackey.Core.Worker
 
 
         //Messaging
+        #region
         public event MessagingEventHandler SendMessageEvent;
 
         //Log a new event. Check for empty event handler first
@@ -94,7 +95,7 @@ namespace SystemLackey.Core.Worker
                     wts.SendMessageEvent -= this.ReceiveMessage;
                 }
                 //forward message on
-                SendMessage(o, e);
+                this.SendMessage(o, e);
             }
 
             if (e.Type == MessageType.ONBOOT_CLEAR)
@@ -112,16 +113,15 @@ namespace SystemLackey.Core.Worker
                     wts.SendMessageEvent -= this.ReceiveMessage;
                 }
                 //forward message on
-                SendMessage(o, e);
+                this.SendMessage(o, e);
             }
 
             //Forward message on
             else
             {
-                //var me = new MessageEventArgs("Message forwarded from: " + this.GetType().ToString(), 0);
-                //SendMessage(this, me);
-                SendMessage(o, e);
+                this.SendMessage(o, e);
             }
         }
+        #endregion
     }
 }

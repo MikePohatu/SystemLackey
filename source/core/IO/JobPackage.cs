@@ -131,13 +131,15 @@ namespace SystemLackey.Core.IO
         {
             this.SendMessage(this, new MessageEventArgs("Opening pacakge file: " + pZipPath, 0));
 
+            if (!(File.Exists(pZipPath))) { throw new FileNotFoundException("File not found: " + pZipPath); }
+
             this.workingPath = Path.GetDirectoryName(pZipPath) + @"\" + this.guid;
             this.tasksPath = workingPath + @"\Tasks";
 
             this.SendMessage(this, new MessageEventArgs("Working path: " + this.workingPath, 0));
             this.SendMessage(this, new MessageEventArgs("Tasks path: " + this.tasksPath, 0));
 
-            if (!(File.Exists(pZipPath))) { throw new FileNotFoundException("File not found: " + pZipPath); }
+            
             //if (!(Directory.Exists(this.parentPath))) { throw new DirectoryNotFoundException("Directory not found: " + parentPath); }
 
             Directory.CreateDirectory(this.workingPath);
